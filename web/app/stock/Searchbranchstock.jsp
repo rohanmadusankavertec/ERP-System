@@ -14,6 +14,7 @@
 <script src="app/js/po.js"></script>
 <script src="app/js/notAlert.js"></script>
 <script type="text/javascript">
+    //send data to serverside
     function SentData() {
         var sup = document.getElementById('supplier').value;
         var type = document.getElementById('reportType').value;

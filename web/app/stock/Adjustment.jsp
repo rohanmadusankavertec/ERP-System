@@ -55,14 +55,12 @@
             }
         });
     }
-
+    //Update quantity of stock
     function ChangeStock() {
-        
         var bpmid=document.getElementById('bpmId').value;
         var qty=document.getElementById('qty').value;
         var product=document.getElementById('product').value;
         var productmaster=document.getElementById('productmaster').value;
-        
         if (product==="") {
             sm_warning("Please Select a Product..");
         }else if (productmaster==="") {
