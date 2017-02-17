@@ -57,7 +57,7 @@ public class ExpenseController extends HttpServlet {
             
             switch(action){
                 
-                case "loadExpensePage":{
+                case "loadExpensePage":{ // load add expense page
                     
                     List<Account> acList = expensedao.viewAllOfAccount(company);
                     request.setAttribute("acc", acList);
@@ -67,8 +67,10 @@ public class ExpenseController extends HttpServlet {
                     break;
                     
                 }
-                
-                case "loadOfAccounyByPayType":{
+                /**
+                 * load account on select element
+                 */
+                case "loadOfAccounyByPayType":{ 
                     
                     String sid = request.getParameter("sbName").trim();
                     System.out.println("lll  "+sid);
@@ -91,7 +93,9 @@ public class ExpenseController extends HttpServlet {
                             
                     
                 }
-                
+                /**
+                 * add new expense
+                 */
                 case "saveExpense":{
                     
                     String dAcc = request.getParameter("account").trim();
