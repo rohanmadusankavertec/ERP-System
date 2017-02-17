@@ -36,7 +36,6 @@
             hours = hours - 1;
             var minutes = workingMinutes - (hours * 60);
         }
-
         document.getElementById(day + "tothour").value = hours + "Hr " + minutes + "Min";
     }
 

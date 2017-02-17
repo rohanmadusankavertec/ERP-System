@@ -30,6 +30,7 @@
             size: BootstrapDialog.SIZE_SMALL
         });
     }
+    //Delete allowance by id
     function DeleteAllowance(id) {
         BootstrapDialog.show({
             message: 'Do you want to Delete ?',
