@@ -46,12 +46,14 @@ public class UserController extends HttpServlet {
         boolean isValidated = true;
 
         switch (action) {
+            // check username if it is exsist or not
             case "CheckUsername": {
                 String username = request.getParameter("username").trim();
                 String status = userDAO.checkUsername(username);
                 response.getWriter().write(status);
                 break;
             }
+            // Save user
             case "Save": {
                 String name = request.getParameter("name");
                 String usercompany = request.getParameter("company");
@@ -100,6 +102,7 @@ public class UserController extends HttpServlet {
                 break;
 
             }
+            //get all users according to comapany
             case "ViewUsers": {
                 List<SysUser> userList = userDAO.getListofUsers(company);
                 request.setAttribute("userList", userList);
@@ -107,6 +110,7 @@ public class UserController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            // Delete user according to user id
             case "RemoveUser": {
                 String userId = request.getParameter("userId").trim();
                 int usId = Integer.parseInt(userId);
@@ -114,6 +118,7 @@ public class UserController extends HttpServlet {
                 response.getWriter().write(status);
                 break;
             }
+            // Load user update
             case "UpdateUser": {
                 String userId = request.getParameter("userId").trim();
                 int usId = Integer.parseInt(userId);
@@ -127,6 +132,7 @@ public class UserController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            // update user group
             case "CreateUG": {
                 String userGroup = request.getParameter("userGroup").trim();
                 List<PrivilegeItem> pList = userDAO.allDefPriv();
@@ -141,6 +147,7 @@ public class UserController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            // Load user registration
             case "UserRegistration": {
                 List<Company> co = userDAO.getCompanies(company.getCompanyGroupId());
                 request.setAttribute("company", co);
@@ -148,6 +155,7 @@ public class UserController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            // Update user registration
             case "UpSel": {
                 String userId = request.getParameter("userId").trim();
                 String name = request.getParameter("name").trim();
@@ -203,6 +211,7 @@ public class UserController extends HttpServlet {
                 }
                 break;
             }
+            // Update current user's details
             case "UpOwn": {
                 String userId = request.getParameter("userId").trim();
                 String name = request.getParameter("name").trim();
@@ -245,7 +254,7 @@ public class UserController extends HttpServlet {
 
                 break;
             }
-
+            // check password
             case "CheckPW": {
                 String dataArr = request.getParameter("dataArr");
                 String values[] = dataArr.split(",");
@@ -269,6 +278,7 @@ public class UserController extends HttpServlet {
                 break;
 
             }
+            // update password
             case "UpPw": {
                 String password = request.getParameter("password");
                 int userId = user1.getSysuserId();
