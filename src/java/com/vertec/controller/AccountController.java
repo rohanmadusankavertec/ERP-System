@@ -93,7 +93,7 @@ public class AccountController extends HttpServlet {
                     break;
                 }
                 
-                case "saveAccount":{
+                case "saveAccount":{// add new account
                     String result = "";
                     
                     String aName = request.getParameter("accountName").trim();
