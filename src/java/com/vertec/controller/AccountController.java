@@ -130,7 +130,7 @@ public class AccountController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                case "ViewToUpdate":{
+                case "ViewToUpdate":{ // load the account details by id 
                     String aId = request.getParameter("accountId").trim();
                     System.out.println(aId);
                     Account acc = (Account)accountdao.viewToUpdate(Integer.parseInt(aId));
