@@ -55,6 +55,9 @@ public class PurchaseController extends HttpServlet {
             Company company = (Company) httpSession.getAttribute("company");
             RequestDispatcher requestDispatcher;
             switch (action) {
+                /**
+                 * Open purchase page
+                 */
                 case "ViewPurchase": {
                     List<Account> acList = purchaseDAOImpl.loadAccountsToPurchase(company);
                     request.setAttribute("account", acList);
@@ -66,16 +69,17 @@ public class PurchaseController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * get accounts according to sub type
+                 */
                 case "getAccountBysubtype": {
                     System.out.println("Calling");
                     String stype = request.getParameter("subType").trim();
                     if (stype.equals("Loan")) {
                         stype = "Creditors";
                     }
-
                     System.out.println(stype);
                     List<Account> prList = purchaseDAOImpl.loadAccountsBySubtype(company, stype);
-
                     JSONObject jOB = new JSONObject();
                     JSONArray jar1 = new JSONArray();
                     JSONObject job1 = null;
@@ -92,6 +96,9 @@ public class PurchaseController extends HttpServlet {
 
                     break;
                 }
+                /**
+                 * Save purchase details
+                 */
                 case "SavePurchase": {
 
                     String acc = request.getParameter("acc").trim();
