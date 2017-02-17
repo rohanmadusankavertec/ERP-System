@@ -48,7 +48,7 @@ public class CustomerController extends HttpServlet {
 
         switch (action) {
             
-            case "Register": {
+            case "Register": {// add new customer
                 String customerName = request.getParameter("customerName").trim();
                 String address = request.getParameter("address").trim();
                 String hotline = request.getParameter("hotline").trim();
@@ -97,7 +97,7 @@ public class CustomerController extends HttpServlet {
             /**
              * URL to customerDetails.jsp
              */
-            case "ViewCustomer": {
+            case "ViewCustomer": { // load all customer according to the company
                 List<Customer> cuList = customerDAOImpl.getListofUsers(company);
                 request.setAttribute("cuList", cuList);
                 requestDispatcher = request.getRequestDispatcher("app/customer/customerDetails.jsp");
@@ -108,7 +108,7 @@ public class CustomerController extends HttpServlet {
              *
              * This action is used to disable customer status
              */
-            case "RemoveCustomer": {
+            case "RemoveCustomer": { // remove the customer
                 String userId = request.getParameter("customerId").trim();
                 int customerId = Integer.parseInt(userId);
                 String status = customerDAOImpl.removeCustomer(customerId);
@@ -119,11 +119,11 @@ public class CustomerController extends HttpServlet {
              *
              * This is used to load customer details to update
              */
-            case "UpdateCustomer": {
+            case "UpdateCustomer": { // load customer details to update
                 String userId = request.getParameter("customerId").trim();
                 int customerId = Integer.parseInt(userId);
                 Customer customer = customerDAOImpl.viewCustomer(customerId);
-                System.out.println("Customer Name : "+customer.getCustomerName());
+//                System.out.println("Customer Name : "+customer.getCustomerName());
                 request.setAttribute("cu", customer);
                 requestDispatcher = request.getRequestDispatcher("app/customer/viewCustomer.jsp");
                 requestDispatcher.forward(request, response);
@@ -133,7 +133,7 @@ public class CustomerController extends HttpServlet {
              * This used to update selected customer
              *
              */
-            case "UpSel": {
+            case "UpSel": { // update customer details
                 String customerId = request.getParameter("customerId").trim();
                 String customerName = request.getParameter("customerName").trim();
                 String address = request.getParameter("address").trim();
@@ -178,7 +178,7 @@ public class CustomerController extends HttpServlet {
                 break;
             }
             
-            case "CheckEmail": {
+            case "CheckEmail": { // check the e mail
                 String email = request.getParameter("email");
                 String status = customerDAOImpl.checkEmail(email);
                 response.getWriter().write(status);
@@ -188,7 +188,7 @@ public class CustomerController extends HttpServlet {
              *
              * This used to save customer quickly from create invoice page
              */
-            case "SaveQuickCustomer": {
+            case "SaveQuickCustomer": { // add new customer quickly
                 String cusName = request.getParameter("cusName");
 
                 if (cusName != null) {
@@ -222,7 +222,7 @@ public class CustomerController extends HttpServlet {
             
 //-----------------------------------------------------------------------------------------------------------------------------            
             
-            case "LoadCustomerGroup": {
+            case "LoadCustomerGroup": { 
                 requestDispatcher = request.getRequestDispatcher("app/customer/addCustomerGroup.jsp");
                 requestDispatcher.forward(request, response);
                 break;
