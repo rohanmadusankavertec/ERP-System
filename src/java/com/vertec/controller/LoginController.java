@@ -37,7 +37,9 @@ public class LoginController extends HttpServlet {
         
         RequestDispatcher requestDispatcher;
         boolean isValidated = true;
-
+        /**
+         * Set session attributes
+         */
         if (username.length() == 0 && password.length() == 0) {
             isValidated = false;
             request.setAttribute("Error_Message", "Please Enter Username and password");
