@@ -57,6 +57,9 @@ public class LiabilitiesController extends HttpServlet {
             Company company = (Company) httpSession.getAttribute("company");
             RequestDispatcher requestDispatcher;
             switch (action) {
+                /**
+                 * load liabilities page
+                 */
                 case "ViewLiability": {
                     List<Account> acList = liabilityDAOImpl.loadAccountsToCreditor(company);
                     request.setAttribute("account", acList);
@@ -64,6 +67,9 @@ public class LiabilitiesController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * load account on the select element
+                 */
                 case "getAccountBysubtype": {
                     System.out.println("Calling");
                     String stype = request.getParameter("subType").trim();
@@ -87,6 +93,9 @@ public class LiabilitiesController extends HttpServlet {
 
                     break;
                 }
+                /**
+                 * add new liabilities
+                 */
                 case "SaveLiability": {
 
                     String acc = request.getParameter("acc").trim();

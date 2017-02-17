@@ -55,7 +55,9 @@ public class InvestmentController extends HttpServlet {
             RequestDispatcher requestDispatcher;
             
             switch(action){
-                
+                /**
+                 * load add investment page
+                 */
                 case "loadAccount":{
                     List<Account> acList = investmentdao.viewAllOfAccount(company);
                     request.setAttribute("acc", acList);
@@ -65,6 +67,9 @@ public class InvestmentController extends HttpServlet {
                 break;
                     
                 }
+                /**
+                 * load account on the select element
+                 */
                 case "loadAccountByPayName":{
                     String sName = request.getParameter("account").trim();
                     System.out.println("ssssssss   "+sName);
@@ -85,7 +90,9 @@ public class InvestmentController extends HttpServlet {
                             
                     
                 }
-                
+                /**
+                 * add new investment
+                 */
                 case "saveInvestment":{
                     String cAcc = request.getParameter("account").trim();
                     String amount = request.getParameter("amount").trim();
