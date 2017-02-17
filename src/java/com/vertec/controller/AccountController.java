@@ -56,7 +56,7 @@ public class AccountController extends HttpServlet {
             
             switch (action){
                 
-                case "loadOfType":{
+                case "loadOfType":{// load add account page
                     System.out.println("Calling to account Module");
                     List<Type> tList = (List<Type>)accountdao.loadofType();
                     request.setAttribute("type", tList);
