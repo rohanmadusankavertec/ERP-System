@@ -61,14 +61,19 @@ public class EmployeeController extends HttpServlet {
             SysUser user1 = (SysUser) httpSession.getAttribute("user");
 
             switch (action) {
-
-                case "Department": {
+                /**
+                 * load employee page
+                 */
+                case "Department": { 
                     List<Department> dep = EmployeeDAOImpl.getDepartments();
                     request.setAttribute("departments", dep);
                     requestDispatcher = request.getRequestDispatcher("app/employee/addDepartment.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * load image uploading page
+                 */
                 case "EmployeeImage": {
                     List<Employee> cuList = EmployeeDAOImpl.getEmployees();
                     request.setAttribute("employee", cuList);
@@ -76,7 +81,9 @@ public class EmployeeController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                
+                /**
+                 * add new department
+                 */
                 case "addDepartment": {
                     String dep = request.getParameter("departmentname").trim();
 
@@ -98,12 +105,18 @@ public class EmployeeController extends HttpServlet {
                     }
                     break;
                 }
+                /**
+                 * remove department
+                 */
                 case "deleteDepartment": {
                     String id = request.getParameter("id");
                     String result = EmployeeDAOImpl.deleteDepartment(Integer.parseInt(id));
                     response.getWriter().write(result);
                     break;
                 }
+                /**
+                 * load the designation details on select element
+                 */
                 case "getDesignation": {
                     String id = request.getParameter("id");
                     List<Designation> des = EmployeeDAOImpl.getDesignation(Integer.parseInt(id));
@@ -121,6 +134,9 @@ public class EmployeeController extends HttpServlet {
                     response.getWriter().write(jOB.toString());
                     break;
                 }
+                /**
+                 * load add designation page
+                 */
                 case "Designation": {
                     List<Designation> desig = EmployeeDAOImpl.getDesignations();
                     List<Department> dep = EmployeeDAOImpl.getDepartments();
@@ -130,6 +146,9 @@ public class EmployeeController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * add new designation
+                 */
                 case "addDesignation": {
                     String depar = request.getParameter("departmentname").trim();
                     String desig = request.getParameter("designationname").trim();
@@ -155,12 +174,19 @@ public class EmployeeController extends HttpServlet {
                     }
                     break;
                 }
+                /**
+                 * remove the designation
+                 */
                 case "deleteDesignation": {
                     String id = request.getParameter("id");
                     String result = EmployeeDAOImpl.deleteDesignation(Integer.parseInt(id));
                     response.getWriter().write(result);
                     break;
                 }
+                /**
+                 * load add employee page
+                 */
+                
                 case "EmployeeReg": {
                     List<Designation> desig = EmployeeDAOImpl.getDesignations();
                     List<Department> dep = EmployeeDAOImpl.getDepartments();
@@ -173,6 +199,9 @@ public class EmployeeController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * load all employee
+                 */
                 case "ViewEmployee": {
                     List<Employee> cuList = EmployeeDAOImpl.getEmployees();
                     request.setAttribute("employee", cuList);
@@ -180,6 +209,9 @@ public class EmployeeController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * add new employee
+                 */
                 case "addEmployee": {
                     String first = request.getParameter("firstname").trim();
                     String last = request.getParameter("lastname").trim();
@@ -256,6 +288,9 @@ public class EmployeeController extends HttpServlet {
                     }
                     break;
                 }
+                /**
+                 * auto load DoB and gender according to nic
+                 */
                 case "AutoFill": {
                     String nic = request.getParameter("nic");
                     ReadNic r = new ReadNic();
@@ -265,6 +300,9 @@ public class EmployeeController extends HttpServlet {
                     response.getWriter().write(result);
                     break;
                 }
+                /**
+                 * load employee details to update
+                 */
                 case "UpdateEmployee": {
                     String emp = request.getParameter("employeeId");
                     int eid = 0;
@@ -281,6 +319,9 @@ public class EmployeeController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * update the employee
+                 */
                 case "ChangeEmployee": {
                     String eid = request.getParameter("eid").trim();
                     String first = request.getParameter("firstname").trim();
@@ -362,6 +403,9 @@ public class EmployeeController extends HttpServlet {
                     }
                     break;
                 }
+                /**
+                 * remove the employee
+                 */
                 case "deleteEmployee": {
                     String id = request.getParameter("eid");
                     String result = EmployeeDAOImpl.deleteEmployee(id);
