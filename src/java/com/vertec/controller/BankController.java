@@ -37,7 +37,7 @@ public class BankController extends HttpServlet {
         RequestDispatcher requestDispatcher;
         boolean isValidated = true;
         switch (action) {
-            case "SaveBank": {
+            case "SaveBank": { // add new bank details
                 String bankName = request.getParameter("bankName").trim();
                 String branchName = request.getParameter("branchName").trim();
                 String address = request.getParameter("address").trim();
@@ -47,25 +47,20 @@ public class BankController extends HttpServlet {
                 bank.setBranch(branchName);
                 bank.setAddress(address);
                 bank.setOfficeNo(contactNo);
-                
-                
-                
-                
                 String result = bankDAOImpl.saveBank(bank);
-
                 requestDispatcher = request.getRequestDispatcher("Bank?action=LoadBank");
                 requestDispatcher.forward(request, response);
                 break;
             }
-            case "LoadBank": {
+            case "LoadBank": { // load all bank account with bank details
                 
-                System.out.println("Called Load Bank");
+//                System.out.println("Called Load Bank");
                 
                 
                 List<Bank> bList = bankDAOImpl.loadAllBank();
-                System.out.println("bank list ok");
+//                System.out.println("bank list ok");
                 List<BankAccounts> baList = bankDAOImpl.loadAllBankAccount();
-                System.out.println("bank account list ok");
+//                System.out.println("bank account list ok");
                 request.setAttribute("bList", bList);
                 request.setAttribute("baList", baList);
                 requestDispatcher = request.getRequestDispatcher("app/bank/bankRegister.jsp");
@@ -73,7 +68,7 @@ public class BankController extends HttpServlet {
                 break;
 
             }
-            case "SaveAccount": {
+            case "SaveAccount": { // add new bank account
                 String accNo = request.getParameter("accNo").trim();
                 String accType = request.getParameter("accType").trim();
                 String bnkId = request.getParameter("bankId").trim();
@@ -83,23 +78,8 @@ public class BankController extends HttpServlet {
                 if (bnkId != null) {
                     bankId = Integer.parseInt(bnkId);
                 }
-
                 Bank bank = new Bank(bankId);
                 Date date = new Date();
-
-//                BankAccount bankAccount =new BankAccount();
-//                bankAccount.setAccountNo(accNo);
-//                bankAccount.setAccountType(accType);
-//                
-                
-                
-                
-                
-                
-                
-                
-//                BankAccounts bankAccount = new BankAccounts(accNo, accType, depAmount, date, date, Boolean.TRUE, user1, user1, bank);
-                
                 BankAccounts bankAccount = new BankAccounts();
                 bankAccount.setAccountNo(accNo);
                 bankAccount.setAccountType(accType);
@@ -109,18 +89,6 @@ public class BankController extends HttpServlet {
                 bankAccount.setLastUpdatedBy(user1);
                 bankAccount.setBankId(bank);
                 bankAccount.setAddedBy(user1);
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
                 String result = bankDAOImpl.saveBankAccount(bankAccount);
                 if (result.equals(VertecConstants.SUCCESS)) {
                     request.getSession().removeAttribute("Success_Message");
@@ -134,7 +102,7 @@ public class BankController extends HttpServlet {
                 break;
 
             }
-            case "UpdateAccount": {
+            case "UpdateAccount": { // load account details to update
                 String bankAccId = request.getParameter("bankAccountId").trim();
                 int bankAccountId = 0;
                 if (bankAccId != null) {
@@ -142,17 +110,14 @@ public class BankController extends HttpServlet {
                 }
                 BankAccounts bankAccount = bankDAOImpl.ViewBankAccount(bankAccountId);
                 request.setAttribute("bankAccount", bankAccount);
-                
-                
                 List<Bank> bList = bankDAOImpl.loadAllBank();
                 request.setAttribute("bList", bList);
-                
                 requestDispatcher = request.getRequestDispatcher("app/bank/viewBank.jsp");
                 requestDispatcher.forward(request, response);
                 break;
-
             }
-            case "UpdateSelected": {
+            
+            case "UpdateSelected": {// update account
                 String accId = request.getParameter("accId").trim();
                 String accNo = request.getParameter("accNo").trim();
                 String bankId2 = request.getParameter("bankId").trim();
