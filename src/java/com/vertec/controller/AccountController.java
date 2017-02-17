@@ -123,7 +123,7 @@ public class AccountController extends HttpServlet {
                     
                     break;
                 }
-                case "viewAccount":{
+                case "viewAccount":{ // balapan wada 
                     List<Account> accList = (List<Account>)accountdao.viewAllOfAccount();
                     request.setAttribute("aList", accList);
                     requestDispatcher = request.getRequestDispatcher("/app/account/AddAccount.jsp");
