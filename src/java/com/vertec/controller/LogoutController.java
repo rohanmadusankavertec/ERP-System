@@ -34,7 +34,9 @@ public class LogoutController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         SysUser user1 = (SysUser) session.getAttribute(VertecConstants.USER);
-
+        /**
+         * Remove session attributes
+         */
         if (user1 != null) {
             SysUser user = (SysUser) session.getAttribute(VertecConstants.USER);
             request.getSession().removeAttribute("Success_Message");
