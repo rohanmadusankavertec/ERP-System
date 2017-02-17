@@ -56,7 +56,9 @@ public class DrawingController extends HttpServlet {
             
             
             switch(action){
-                
+                /**
+                 * load the add drawing page
+                 */
                 case "loadAccount":{
                     
                     List<Account> acList =(List<Account>) drawingdao.loadAllOfAccount(company);
@@ -67,6 +69,9 @@ public class DrawingController extends HttpServlet {
                     break;
                     
                 }
+                /**
+                 * load account on select element
+                 */
                 
                 case "loadAccountByPayName":{
                     String sName = request.getParameter("account").trim();
@@ -89,7 +94,9 @@ public class DrawingController extends HttpServlet {
                     
                     break;
                 }
-                
+                /**
+                 * add new drawing
+                 */
                 case "saveDrawing":{
                     
                     String dAcc = request.getParameter("account").trim();
