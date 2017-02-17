@@ -19,7 +19,7 @@
 
 
 <script type="text/javascript">
-
+    // load product master to
     function LoadProductMaster() {
         var product = document.getElementById("product").value;
         var arr = product.split("_");
@@ -40,7 +40,7 @@
             }
         });
     }
-
+//rohan hodai
     function LoadCurrentQty() {
         var pmid = document.getElementById("productmaster").value;
         $.ajax({
