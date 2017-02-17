@@ -70,7 +70,7 @@ public class AccountController extends HttpServlet {
                     break;
                 }
                 
-                case "loadofSubType":{
+                case "loadofSubType":{// this is text
                     
                     String tId = request.getParameter("typeId").trim();
                     
