@@ -56,6 +56,9 @@ public class IncomeController extends HttpServlet {
             RequestDispatcher requestDispatcher;
             
             switch (action){
+                /**
+                 * load add income page
+                 */
                 case "loadIncomePage":{
                     
                     List<Account> acList = incomedao.viewAllOfAccount();
@@ -65,7 +68,9 @@ public class IncomeController extends HttpServlet {
                     
                     break;
                 }
-                
+                /**
+                 * load account on select element
+                 */
                 case "loadOfAccounyByPayType":{
                     
                     String payType = request.getParameter("PayType").trim();
@@ -92,7 +97,9 @@ public class IncomeController extends HttpServlet {
                     
                     break;
                 }
-                
+                /**
+                 * add new income
+                 */
                 case "saveIncome":{
                     System.out.println("kkkkkk");
                     String cAcc = request.getParameter("account").trim();
