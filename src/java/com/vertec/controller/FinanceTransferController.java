@@ -57,13 +57,19 @@ public class FinanceTransferController extends HttpServlet {
             RequestDispatcher requestDispatcher;
             
             switch(action){
-                case "loadFinance":{
+                /**
+                 * load finance transfer page
+                 */
+                case "loadFinance":{ 
                     
                     requestDispatcher = request.getRequestDispatcher("/app/transaction/FinanceTransfer.jsp");
                     requestDispatcher.forward(request, response);
                     
                     break;
                 }
+                /**
+                 * load account on select element
+                 */
                 case "loadAccountByPayName":{
                     String sName = request.getParameter("accountType").trim();
                     System.out.println(sName);
@@ -85,7 +91,9 @@ public class FinanceTransferController extends HttpServlet {
                     response.getWriter().write(JOB.toString());
                     break;
                 }
-                
+                /**
+                 * add new finance transfer
+                 */
                 case "saveFinance":{
                     String dAcc = request.getParameter("credit").trim();//to account
                     String amount = request.getParameter("amount").trim();

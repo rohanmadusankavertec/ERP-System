@@ -50,15 +50,18 @@ public class DispatchController extends HttpServlet {
             SysUser user1 = (SysUser) httpSession.getAttribute("user");
             switch (action) {
                 
-                case "CreateDispatch": {
+                case "CreateDispatch": { // load the create dispatch page
                     List<Invoice> i =  InvoiceDAOImpl.getPendingInvoice();
                     request.setAttribute("invoice", i);
                     requestDispatcher = request.getRequestDispatcher("app/dispatch/CreateDispatch.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                case "toDispatch": {
-                    System.out.println("Calling to dispatch");
+                /**
+                 * load invoice details to dispatch note
+                 */
+                case "toDispatch": { 
+//                    System.out.println("Calling to dispatch");
                     String id = request.getParameter("id");
                     Invoice i =  InvoiceDAOImpl.getInvoice(Integer.parseInt(id));
                     request.setAttribute("invoice", i);
@@ -68,6 +71,9 @@ public class DispatchController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * set approve for invoice
+                 */
                 case "ApproveInvoice": {
                     String id = request.getParameter("id");
                     String result=InvoiceDAOImpl.updateInvoicePendingToSuccess(Integer.parseInt(id));

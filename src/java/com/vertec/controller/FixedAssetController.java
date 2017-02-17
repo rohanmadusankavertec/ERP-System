@@ -56,6 +56,9 @@ public class FixedAssetController extends HttpServlet {
             Company company = (Company) httpSession.getAttribute("company");
             RequestDispatcher requestDispatcher;
             switch (action) {
+                /**
+                 * load fixed asset page
+                 */
                 case "ViewPurchase": {
                     List<Account> acList = fixedassetDAOImpl.loadAccountsToPurchase(company);
                     request.setAttribute("account", acList);
@@ -69,6 +72,9 @@ public class FixedAssetController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * load account on the select element
+                 */
                 case "getAccountBysubtype": {
                     System.out.println("Calling");
                     String stype = request.getParameter("subType").trim();
@@ -95,6 +101,9 @@ public class FixedAssetController extends HttpServlet {
 
                     break;
                 }
+                /**
+                 * add new purchase
+                 */
                 case "SavePurchase": {
 
                     String acc = request.getParameter("acc").trim();
