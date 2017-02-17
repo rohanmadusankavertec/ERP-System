@@ -56,13 +56,20 @@ public class GINController extends HttpServlet {
             HttpSession httpSession = request.getSession();
             SysUser user1 = (SysUser) httpSession.getAttribute("user");
             Company com = (Company) httpSession.getAttribute("company");
-
+            
             if (action.equals("createGIN")) {
+                /**
+                 * load Create gin Page
+                 */
                 System.out.println("CALLED TO GIN");
                 requestDispatcher = request.getRequestDispatcher("app/gin/addGIN.jsp");
                 requestDispatcher.forward(request, response);
 
             } else if (action.equals("toGIN")) {
+                /**
+                 * Load goods issue note Page
+                 */
+                
                 String type = request.getParameter("type");
                 String mrn = request.getParameter("mrn");
 
@@ -72,10 +79,16 @@ public class GINController extends HttpServlet {
                 requestDispatcher = request.getRequestDispatcher("app/gin/gin.jsp");
                 requestDispatcher.forward(request, response);
             } else if (action.equals("LoadMRN")) {
+                /**
+                 * Load MRN into GIN
+                 */
                 System.out.println("READY TO LOAD MRN");
                 JSONObject job = GINDAOImpl.LoadMRN(request.getParameter("poid"));
                 response.getWriter().write(job.toString());
             } else if (action.equals("SubmitGIN")) {
+                /**
+                 * Save goods issue note
+                 */
                 try {
                     System.out.println("Saving GIN");
                     String data = request.getParameter("data");
@@ -113,8 +126,6 @@ public class GINController extends HttpServlet {
                         String sprice = jo.get("sprice").toString();
                         System.out.println("PRODUCT ID IS : " + productId);
                         System.out.println("Selling Price : " + sprice);
-//                        Product p = PoDAOImpl.getProduct(Integer.parseInt(productId));
-
                         Gin gin = new Gin();
                         BranchProductmaster bpm = GINDAOImpl.GetBranchProductMaster(sprice, com);
                         gin.setBpmId(bpm);
@@ -143,7 +154,9 @@ public class GINController extends HttpServlet {
                 }
 
             } else if (action.equals("viewGIN")) {
-
+                /**
+                 * Load view gin Page
+                 */
                 System.out.println("In View GIN");
                 String type = request.getParameter("type").trim();
 
@@ -164,7 +177,9 @@ public class GINController extends HttpServlet {
                 requestDispatcher.forward(request, response);
 
             } else if (action.equals("GetItems")) {
-
+                /**
+                 * get GIN items according to gin
+                 */
                 String id = request.getParameter("id");
                 String html = GINDAOImpl.getItems(id);
                 out.print(html);
