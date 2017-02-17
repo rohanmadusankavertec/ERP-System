@@ -56,14 +56,14 @@ public class AssetLoanController extends HttpServlet {
             Company company = (Company) httpSession.getAttribute("company");
             RequestDispatcher requestDispatcher;
             switch (action) {
-                case "ViewLoan": {
+                case "ViewLoan": { // load asset loan page
                     List<Account> acList = assetloanDAOImpl.loadAccountsToCreditor(company);
                     request.setAttribute("account", acList);
                     requestDispatcher = request.getRequestDispatcher("app/transaction/AssetLoan.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                case "getAccountBysubtype": {
+                case "getAccountBysubtype": { // load accounts according to the sub type
                     System.out.println("Calling");
                     String stype = request.getParameter("subType").trim();
                     
@@ -86,7 +86,7 @@ public class AssetLoanController extends HttpServlet {
 
                     break;
                 }
-                case "SaveLoan": {
+                case "SaveLoan": { // add new asset loan
 
                     String acc = request.getParameter("acc").trim();
                     String pacc = request.getParameter("pacc").trim();
