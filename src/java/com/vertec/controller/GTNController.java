@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.hibernate.Session;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -305,19 +304,13 @@ public class GTNController extends HttpServlet {
                     
                 }
                 /**
-                 * 
+                 * update action to branch
                  */
                 case "actionByToBranch1":{
                    
-//                    String act = request.getParameter("action1").trim();
                     String gid = request.getParameter("hidden").trim();
-//                    System.out.println("/////"+gid);
-                    
-                    
-                    
                     boolean b = true;
                    
-                    
                     String result = gtndao.updateAction(Integer.parseInt(gid), b);
                   if (result.equals(VertecConstants.SUCCESS)) {
                     request.getSession().removeAttribute("Success_Message");
@@ -327,13 +320,16 @@ public class GTNController extends HttpServlet {
                      } else {
                     request.getSession().removeAttribute("Error_Message");
 
-                    request.getSession().setAttribute("Error_Message", "Not ACtion,Please Tri again");
+                    request.getSession().setAttribute("Error_Message", "Not Action,Please Tri again");
                     response.sendRedirect("GTN?action=viewGTNInfoByToBranch");
                     
                     }
                   break;
                     
                 }
+                /**
+                 * Update action from Branch
+                 */
                 case "actionByToBranch2":{
                    
 //                    String act = request.getParameter("action1").trim();
