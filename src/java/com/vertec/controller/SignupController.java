@@ -50,7 +50,7 @@ public class SignupController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
+            //this controller helps to sign up a company
             String company = request.getParameter("company");
             String address = request.getParameter("address");
             String contact = request.getParameter("contact");

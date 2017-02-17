@@ -55,6 +55,7 @@ public class SellController extends HttpServlet {
             Company company = (Company) httpSession.getAttribute("company");
             RequestDispatcher requestDispatcher;
             switch (action) {
+                //Load sell transaction page
                 case "ViewSell": {
                     List<Account> acList = sellDAOImpl.loadAccountsToPurchase(company);
                     request.setAttribute("account", acList);
@@ -66,6 +67,7 @@ public class SellController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                // get accounts according to sub type
                 case "getAccountBysubtype": {
                     System.out.println("Calling");
                     String stype = request.getParameter("subType").trim();
@@ -92,6 +94,7 @@ public class SellController extends HttpServlet {
 
                     break;
                 }
+                //Save sell Transaction
                 case "SaveSell": {
 
                     String acc = request.getParameter("acc").trim();
@@ -124,15 +127,6 @@ public class SellController extends HttpServlet {
 
                     String Result1 = VertecConstants.SUCCESS;
                     String Result2 = VertecConstants.SUCCESS;
-//                    if (Double.parseDouble(balance) < 0) {
-//                        System.out.println("Balanace -");
-//                        Result1 =purchaseDAOImpl.updateAccountBalance(Double.parseDouble(balance), Integer.parseInt(acc));
-//                        Result2 =purchaseDAOImpl.updateAccountBalance(((-1)*Double.parseDouble(balance)), Integer.parseInt(pacc));
-//                    } else if (Double.parseDouble(balance) > 0) {
-//                        System.out.println("Balanace +");
-//                        Result1 =purchaseDAOImpl.updateAccountBalance(((-1)*Double.parseDouble(balance)), Integer.parseInt(acc));
-//                        Result2 =purchaseDAOImpl.updateAccountBalance(Double.parseDouble(balance), Integer.parseInt(pacc));
-//                    }
                     double cd = 0;
                     try {
                         cd = Double.parseDouble(balance);

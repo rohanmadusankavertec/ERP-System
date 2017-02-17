@@ -52,6 +52,7 @@ public class TransactionController extends HttpServlet {
             RequestDispatcher requestDispatcher;
             
              switch (action) {
+                 // loadall accounts according to company
                     case "loadListOfAccounts": {
                     System.out.println("Calling to view.......");
                    
