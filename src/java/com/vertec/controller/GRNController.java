@@ -217,7 +217,6 @@ public class GRNController extends HttpServlet {
                 String cid = request.getParameter("cid");
                 String html = GRNDAOImpl.ProductFromCategoryForPO(cid);
                 out.print(html);
-
             }
 
         }
