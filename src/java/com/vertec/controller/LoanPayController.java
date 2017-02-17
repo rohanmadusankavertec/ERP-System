@@ -55,14 +55,18 @@ public class LoanPayController extends HttpServlet {
             RequestDispatcher requestDispatcher;
             
             switch(action){
+                /**
+                 * Open loan pay page
+                 */
                 case "loadLoanPayPage":{
-                    
                     requestDispatcher = request.getRequestDispatcher("/app/transaction/LoanPay.jsp");
                     requestDispatcher.forward(request, response);
                     
                     break;
                 }
-                
+                /**
+                 * Load liability Accounts
+                 */
                 case "loadLoanAccount":{
                     String sub = request.getParameter("LoanType").trim();
                     List<Account> aList = loanpaydao.getLoanAccount(company, sub);
@@ -85,6 +89,9 @@ public class LoanPayController extends HttpServlet {
                             
                     break;
                 }
+                /**
+                 * get Loan accounts
+                 */
                 case "loadPayType":{
                     String payType = request.getParameter("payType").trim();
                     List<Account> aList = loanpaydao.getLoanAccount(company, payType);
@@ -95,19 +102,18 @@ public class LoanPayController extends HttpServlet {
                     
                     for(Account a: aList){
                         job= new JSONObject();
-                        
                         job.put("id", a.getId());
                         job.put("name", a.getName());
-                        
                         jar.add(job);
                     }
                     JOB.put("account", jar);
-                    
                     response.getWriter().write(JOB.toString());
-                            
                     break;
                     
                 }
+                /**
+                 * Get Loan details
+                 */
                 case "loadLoan":{
                     
                     String payType = request.getParameter("Loan").trim();
@@ -137,7 +143,7 @@ public class LoanPayController extends HttpServlet {
                     break;
                     
                 }
-                
+                // Save loan Payment details
                 case "saveLoanPayment":{
                     String ty = request.getParameter("loanType").trim();
                     System.out.println("/////////////////////");
@@ -148,27 +154,17 @@ public class LoanPayController extends HttpServlet {
                     String Acc2 = request.getParameter("acc").trim();
                     String lId = request.getParameter("loanId").trim();
                     
-//                    System.out.println(Acc1);
-//                    System.out.println(amount);
-//                    System.out.println(descrip);
-//                    System.out.println(Acc2);
                     String result="";
                     String result1="";
                     double aa = loanpaydao.getPaidAmount(Integer.parseInt(lId));
                     
-                    
                     double paidA = loanpaydao.getPaidAmount(Integer.parseInt(lId))+Double.parseDouble(amount);
-                    
-                    
-                    
-                    
                     
                     if(ty.equals("Creditors")){
                         
                         String cAcc = Acc2;
                         Transaction t = new Transaction();
                         t.setCredit(new Account(Integer.parseInt(cAcc)));
-//                    t.setAmount(Double.parseDouble(amount));
                         t.setPaidAmount(Double.parseDouble(amount));
                         t.setPrice(Double.parseDouble(amount));
                         t.setDiscount(0.0);
@@ -186,7 +182,6 @@ public class LoanPayController extends HttpServlet {
                         String dAcc = Acc2;
                         Transaction t1 = new Transaction();
                         t1.setCredit(new Account(Integer.parseInt(Acc1)));
-    //                    t.setAmount(Double.parseDouble(amount));
                         t1.setPaidAmount(Double.parseDouble(amount));
                         t1.setPrice(Double.parseDouble(amount));
                         t1.setDiscount(0.0);
@@ -209,7 +204,9 @@ public class LoanPayController extends HttpServlet {
                     break;
                     
                 }
-                
+                /**
+                 * Get loan details by id
+                 */
                 case"loadLoanById":{
                     String lId = request.getParameter("loanId").trim();
                     System.out.println("........."+lId);
