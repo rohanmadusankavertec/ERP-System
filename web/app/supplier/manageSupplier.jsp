@@ -38,25 +38,20 @@
     }
     
     var pkgf = [];
+    //add supplier details to table
     function addSupplierDetails() {
         var featureid = document.getElementById("supplierId").value;
         if(featureid!=="Select Supplier...."){
-        
         var fea = featureid.split("~");
-
-
         var tbl = document.getElementById("employeeItemBody");
-
         var data = tbl.innerHTML;
         var bool = true;
-
         for (var i = 0; pkgf.length > i; i++) {
             if (pkgf[i] === fea[0]) {
                 bool = false;
                 sm_warning("This Feature is already exist.");
             }
         }
-
         if (bool) {
             pkgf.push(fea[0]);
             var data = data + "<tr id='" + fea[0] + "'><td>" + fea[1] + "</td><td>" + fea[2] + "</td><td>" + fea[3] + "</td><td>" + fea[4] + "</td><td><a href='#' id='deleteUser' onclick='DeleteSupplier(" + fea[0] + ")' class='glyphicon glyphicon-remove'></a></td></tr>";
@@ -66,12 +61,9 @@
             sm_warning("Select an Employee...");
         }
     }
-    
+    // Add supplier to a group
     function sendData(){
-        
     var gid = document.getElementById('groupId').value;
-    
-//    alert(gid);
         if(pkgf.length>0){
             $.ajax({
                     type: "POST",
@@ -90,10 +82,9 @@
         }else{
             sm_warning("Please Add Supplier...");
         }
-
     }
+    //Delete Supplier from array and table using id
     function DeleteSupplier(id) {
-
         var elem = document.getElementById(id);
         elem.parentElement.removeChild(elem);
         for (var i = 0; pkgf.length > i; i++) {
@@ -102,7 +93,6 @@
                 pkgf.splice(i, 1);
             }
         }
-        
     }
         
         
