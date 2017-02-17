@@ -101,7 +101,7 @@ public class IncomeController extends HttpServlet {
                  * add new income
                  */
                 case "saveIncome":{
-                    System.out.println("kkkkkk");
+//                    System.out.println("kkkkkk");
                     String cAcc = request.getParameter("account").trim();
                     String amount = request.getParameter("amount").trim();
                     String descrip = request.getParameter("descrip").trim();
