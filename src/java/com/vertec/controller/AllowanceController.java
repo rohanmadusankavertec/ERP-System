@@ -52,21 +52,21 @@ public class AllowanceController extends HttpServlet {
             SysUser user1 = (SysUser) httpSession.getAttribute("user");
             RequestDispatcher requestDispatcher;
             switch (action) {
-                case "ViewaddAllowance": {
+                case "ViewaddAllowance": { // load add allowance page
                     List<Employee> cuList = EmployeeDAOImpl.getEmployees();
                     request.setAttribute("employee", cuList);
                     requestDispatcher = request.getRequestDispatcher("app/salary/addAllowance.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                case "ViewAllowance": {
+                case "ViewAllowance": { // load all allowances
                     List<AllowanceDeduction> cuList = SalaryDAOImpl.getAllowanceDeduction();
                     request.setAttribute("allowance", cuList);
                     requestDispatcher = request.getRequestDispatcher("app/salary/ViewAllowance.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                case "addallowance": {
+                case "addallowance": { // add new allowance
                     String emp = request.getParameter("employee").trim();
                     String type = request.getParameter("type").trim();
                     String name = request.getParameter("name").trim();
@@ -104,7 +104,7 @@ public class AllowanceController extends HttpServlet {
                     }
                     break;
                 }
-                case "toupdateAllowance": {
+                case "toupdateAllowance": { // load the allowance details to update
                     String aid = request.getParameter("aid").trim();
                     AllowanceDeduction al = SalaryDAOImpl.getAllowanceDeductionbyId(Integer.parseInt(aid));
                     request.setAttribute("allowance", al);
@@ -112,13 +112,13 @@ public class AllowanceController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                case "deleteAllowance": {
+                case "deleteAllowance": { // remove the allowance
                     String id = request.getParameter("id");
                     String result = SalaryDAOImpl.deleteAllowance(Integer.parseInt(id));
                     response.getWriter().write(result);
                     break;
                 }
-                case "updateallowance": {
+                case "updateallowance": { // update allowance
                     System.out.println("Calling");
                     String aid = request.getParameter("aid").trim();
                     String name = request.getParameter("name").trim();
