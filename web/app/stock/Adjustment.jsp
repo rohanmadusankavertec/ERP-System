@@ -40,7 +40,7 @@
             }
         });
     }
-//rohan hodai
+    //Load current quantity according to product master
     function LoadCurrentQty() {
         var pmid = document.getElementById("productmaster").value;
         $.ajax({
