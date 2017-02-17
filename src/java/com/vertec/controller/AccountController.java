@@ -143,7 +143,7 @@ public class AccountController extends HttpServlet {
                     
                 }
                 
-                case "loadToUpdate":{
+                case "loadToUpdate":{//get details of account according to account id
                     String Id = request.getParameter("accountId").trim();
                     Account ac = accountdao.viewToUpdate(Integer.parseInt(Id));
                     JSONObject jOB = new JSONObject();
