@@ -70,6 +70,9 @@ public class GTNController extends HttpServlet {
 //            RequestDispatcher requestDispatcher;
             
             switch(action){
+                /**
+                 * load add gtn page 
+                 */
                 case "loadBranch":{
                     
                     List<Branch> bList = gtndao.loadBranch(company);
@@ -80,6 +83,9 @@ public class GTNController extends HttpServlet {
                     
                     break;
                 }
+                /**
+                 * load gtn page
+                 */
                 case "loadGtnPage":{
                     
                     String fb = request.getParameter("fBranch");
@@ -96,7 +102,10 @@ public class GTNController extends HttpServlet {
                     
                     break;
                 }
-                case "loadProcut":{
+                /**
+                 * load product on select element
+                 */
+                case "loadProcut":{ 
                     
                     String fb = request.getParameter("category");
                     
@@ -121,6 +130,9 @@ public class GTNController extends HttpServlet {
                    response.getWriter().write(JOB.toString());
                     break;
                 }
+                /**
+                 * get the sale price
+                 */
                 case "loadSalePrice":{
                     String pid = request.getParameter("product");
                     
@@ -143,6 +155,9 @@ public class GTNController extends HttpServlet {
                     break;
                     
                 }
+                /**
+                 * load avialable quantity
+                 */
                 case "loadAvialableQty":{
                     String pmid = request.getParameter("sprice");
                     
@@ -155,6 +170,9 @@ public class GTNController extends HttpServlet {
                     break;
                     
                 }
+                /**
+                 * add new gtn
+                 */
                 case "SubmitGTN":{
                     double tot=0;
                     String gtnData = request.getParameter("data");
@@ -179,12 +197,7 @@ public class GTNController extends HttpServlet {
                     
                     
                    
-//                Collection<InvoiceItem> invoiceItemList = new ArrayList<>();
-//                Collection<VehicleStock> vsList = new ArrayList<>();
-                /**
-                 * This is used to add data invoiceitemlist
-                 *
-                 */
+//               
                 String result="";
                     Collection<Gtn> gtnList = new ArrayList<>();
                 
@@ -248,6 +261,9 @@ public class GTNController extends HttpServlet {
                     break;
                     
                 }
+                /**
+                 * load details of gtn
+                 */
                 case "viewGTNInfo":{
                    
                     List<GtnInfo> gList = gtndao.viewGTNInfo(user1.getBranchBranchId());
@@ -257,6 +273,9 @@ public class GTNController extends HttpServlet {
                     break;
                     
                 }
+                /**
+                 * load gtn details according to the branch
+                 */
                 case "viewGTNInfoByToBranch":{
                    
                     int bid = user1.getBranchBranchId().getBranchId();
@@ -268,10 +287,13 @@ public class GTNController extends HttpServlet {
                     break;
                     
                 }
+                /**
+                 * get the gtn details 
+                 */
                 case "viewGTN":{
                    
                     String gid = request.getParameter("employeeId").trim();
-                    System.out.println("----"+gid);
+//                    System.out.println("----"+gid);
 //                    Gtn g = gtndao.viewGTN(Integer.parseInt(gid));
                     List<Gtn> gList = gtndao.viewGTN(Integer.parseInt(gid));
                     GtnInfo info = gtndao.viewGTNinfo(Integer.parseInt(gid));
@@ -282,11 +304,14 @@ public class GTNController extends HttpServlet {
                     break;
                     
                 }
+                /**
+                 * 
+                 */
                 case "actionByToBranch1":{
                    
 //                    String act = request.getParameter("action1").trim();
                     String gid = request.getParameter("hidden").trim();
-                    System.out.println("/////"+gid);
+//                    System.out.println("/////"+gid);
                     
                     
                     
