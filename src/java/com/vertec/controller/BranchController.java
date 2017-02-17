@@ -42,7 +42,7 @@ public class BranchController extends HttpServlet {
             /**
              * form action="Branch?action=SaveBranch" from addBranch.jsp
              */
-            case "SaveBranch": {
+            case "SaveBranch": { // add new branch 
                 String branchName = request.getParameter("branchName").trim();
                 String contactNo = request.getParameter("contactNo").trim();
                 String address = request.getParameter("address").trim();
@@ -53,7 +53,6 @@ public class BranchController extends HttpServlet {
                 branch.setContactNo(contactNo);
                 branch.setAddress(address);
                 branch.setCompanyId(company);
-                
                 String result = branchDAOImpl.saveBranch(branch);
 
                 if (result.equals(VertecConstants.SUCCESS)) {
@@ -69,7 +68,7 @@ public class BranchController extends HttpServlet {
                 }
                 break;
             }
-            
+
             /**
              * form action="Branch?action=SaveWarehouse" from addWarehouse.jsp
              */
@@ -97,21 +96,21 @@ public class BranchController extends HttpServlet {
             /**
              * URL to addBranch.jsp
              */
-            case "ViewBranches": {
-                System.out.println("Calling View Branched");
+            case "ViewBranches": { // load all branches
+//                System.out.println("Calling View Branched");
                 List<Branch> bList = branchDAOImpl.loadAllBranches(user1.getBranchBranchId());
                 request.setAttribute("bList", bList);
                 requestDispatcher = request.getRequestDispatcher("app/branch/addBranch.jsp");
                 requestDispatcher.forward(request, response);
                 break;
             }
-            case "DeleteExpense": {
+            case "DeleteExpense": { // remove expense
                 String id = request.getParameter("id");
                 String result = branchDAOImpl.deleteExpenses(id);
                 response.getWriter().write(result);
                 break;
             }
-            case "ViewBranchExpenses": {
+            case "ViewBranchExpenses": { // load add expense page with branche details
                 List<Branch> bList = branchDAOImpl.loadAllBranches(user1.getBranchBranchId());
                 request.setAttribute("bList", bList);
                 requestDispatcher = request.getRequestDispatcher("app/branch/addExpenses.jsp");
@@ -131,7 +130,7 @@ public class BranchController extends HttpServlet {
             /**
              * url to viewBranch.jsp
              */
-            case "ViewBranch": {
+            case "ViewBranch": { // load branche details
                 String bId = request.getParameter("bId").trim();
                 int branchId = 0;
                 if (bId != null) {
@@ -161,7 +160,7 @@ public class BranchController extends HttpServlet {
             /**
              * function updateSelectedBranch() To save Update Selected Branch
              */
-            case "SaveUpdatedBranch": {
+            case "SaveUpdatedBranch": { //update branche details
                 String dataArr = request.getParameter("dataArr");
                 String arr[] = dataArr.split("_,");
                 String bId = arr[0];
@@ -185,31 +184,9 @@ public class BranchController extends HttpServlet {
                 break;
 
             }
-            /**
-             * function updateSelectedWarehouse() To save Updated Warehouse
-             */
-//            case "SaveUpdatedWarehouse": {
-//                String dataArr = request.getParameter("dataArr");
-//                String arr[] = dataArr.split("_,");
-//                String bId = arr[0];
-//                String branchName = arr[1];
-//                String contactNo = arr[2];
-//                String address = arr[3];
-//                int branchId = 0;
-//                if (bId != null) {
-//                    branchId = Integer.parseInt(bId);
-//                }
-//                Warehouse warehouse = new Warehouse(branchId, branchName, contactNo, address);
-//                String result = branchDAOImpl.updateWarehouse(warehouse);
-//
-//                response.getWriter().write(result);
-//                break;
-//            }
-            /**
-             * URL for view Stock Reports
-             *
-             */
-            case "ToStockReport": {
+            
+           
+            case "ToStockReport": { // load stock report page
                 List<Branch> bList = branchDAOImpl.loadAllBranches(user1.getBranchBranchId());
                 request.setAttribute("bList", bList);
                 requestDispatcher = request.getRequestDispatcher("app/report/stockReport.jsp");
@@ -217,7 +194,7 @@ public class BranchController extends HttpServlet {
                 break;
 
             }
-            case "WarehouseStock": {
+            case "WarehouseStock": { // load ware house stock page
                 String type = request.getParameter("stockType");
                 request.setAttribute("type", type);
                 requestDispatcher = request.getRequestDispatcher("app/warehouse/WarehouseStock.jsp");

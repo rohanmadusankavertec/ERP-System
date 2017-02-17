@@ -50,7 +50,7 @@ public class CompanyController extends HttpServlet {
             RequestDispatcher requestDispatcher;
 //            boolean isValidated = true;
             switch (action) {
-                case "loadCompanyGroup":{
+                case "loadCompanyGroup":{ // load company group datails to update
                     int id =user1.getCompanyId().getCompanyGroupId().getId();
                     CompanyGroup cg = companydao.viewCompanyGroup(id);
                     request.setAttribute("cg", cg);
@@ -60,7 +60,7 @@ public class CompanyController extends HttpServlet {
                     break;
                     
                 }
-                case "updateCompany":{
+                case "updateCompany":{ // update company
                     String name = request.getParameter("Name").trim();
                     String id = request.getParameter("cuId").trim();
                     
@@ -80,7 +80,7 @@ public class CompanyController extends HttpServlet {
                     
                     
                 }
-                case "loadCompanypage":{
+                case "loadCompanypage":{ // load company page
                     
                     requestDispatcher = request.getRequestDispatcher("app/company/registerCompany.jsp");
                     requestDispatcher.forward(request, response);
@@ -88,7 +88,7 @@ public class CompanyController extends HttpServlet {
                     break;
                     
                 }
-                case "saveCompany":{
+                case "saveCompany":{ //add new company
                     String name = request.getParameter("name").trim();
                     String add = request.getParameter("address").trim();
                     String contact = request.getParameter("contact").trim();
@@ -112,7 +112,7 @@ public class CompanyController extends HttpServlet {
                     break;
                     
                 }
-                case "updateCompany1":{
+                case "updateCompany1":{ // not in use
                     List<Company> cList = companydao.viewAllCompany();
                     request.setAttribute("cList", cList);
                     
@@ -121,10 +121,10 @@ public class CompanyController extends HttpServlet {
                     
                     break;
                 }
-                case "updateCompany2":{
-                    System.out.println("aaaaaaaaa");
+                case "updateCompany2":{ // load company details to update
+//                    System.out.println("aaaaaaaaa");
                     String com = request.getParameter("cId").trim();
-                    System.out.println("aaaaaaaaa"+com);
+//                    System.out.println("aaaaaaaaa"+com);
                     Company c = companydao.viewCompanyByid(Integer.parseInt(com));
                     request.setAttribute("c", c);
                     
@@ -133,7 +133,7 @@ public class CompanyController extends HttpServlet {
                     
                     break;
                 }
-                case "updateCompanyDetails":{
+                case "updateCompanyDetails":{ // update company details
                     String name = request.getParameter("Name").trim();
                     String address = request.getParameter("address").trim();
                     String contact = request.getParameter("hotline").trim();
