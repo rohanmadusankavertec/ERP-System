@@ -72,17 +72,25 @@ public class ReportController extends HttpServlet {
             String path = getServletContext().getRealPath(path1) + "\\";
 
             switch (action) {
-               
+               /**
+                * Load Asset Page
+                */
                 case "ViewAssets": {
                     requestDispatcher = request.getRequestDispatcher("/app/reports/toAssets.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Load journal Entries Page
+                 */
                 case "loadJournalEntries": {
                     requestDispatcher = request.getRequestDispatcher("/app/reports/JournalEntries.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Load journal Entry Report
+                 */
                 case "loadJournalEntriesPage": {
                     String frdate = request.getParameter("fromDay").trim();
                     String todate = request.getParameter("toDate").trim();
@@ -101,6 +109,9 @@ public class ReportController extends HttpServlet {
                     }
                     break;
                 }
+                /**
+                 * Print Asset report
+                 */
                 case "PrintAssetReport": {
                     String acc = request.getParameter("acc");
                     String from = request.getParameter("from");
@@ -133,11 +144,17 @@ public class ReportController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * load Profit and loss page
+                 */
                 case "loadProfitLossPage": {
                     requestDispatcher = request.getRequestDispatcher("/app/reports/ProfitLoss.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * print Profit and loss page
+                 */
                 case "listOfAcctByCash": {
                     String fdate = request.getParameter("fromDay").trim();
                     String todate = request.getParameter("toDay").trim();
@@ -160,16 +177,25 @@ public class ReportController extends HttpServlet {
                         Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                /**
+                 * Load create trial balance page
+                 */
                 case "ViewCreateTrialBalance": {
                     requestDispatcher = request.getRequestDispatcher("/app/reports/toTrialBalance.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Load create balance sheet page
+                 */
                 case "ViewCreateBalanceSheet": {
                     requestDispatcher = request.getRequestDispatcher("/app/reports/toBalanceSheet.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Print balance sheet
+                 */
                 case "PrintBalanceSheetReport": {
                     String from = request.getParameter("from");
                     String to = request.getParameter("to");
@@ -213,8 +239,10 @@ public class ReportController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Print trial balance report
+                 */
                 case "PrintTrialBalanceReport": {
-
                     String from = request.getParameter("from");
                     String to = request.getParameter("to");
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -236,6 +264,9 @@ public class ReportController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Load ledger account report
+                 */
                 case "toLedgerAccounts": {
                     List<Account> acc = reportdao.getAccountsByCompany(company);
                     request.setAttribute("account", acc);
@@ -243,6 +274,9 @@ public class ReportController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Print Ledger account 
+                 */
                 case "PrintLedgerAccounts": {
                     String acc = request.getParameter("acc");
                     String from = request.getParameter("from");
@@ -265,8 +299,10 @@ public class ReportController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Get details for dashboard
+                 */
                 case "dashboard": {
-
                     JSONObject jOB = new JSONObject();
                     JSONArray jar1 = new JSONArray();
                     JSONObject job1 = new JSONObject();
@@ -284,6 +320,9 @@ public class ReportController extends HttpServlet {
                     response.getWriter().write(jOB.toString());
                     break;
                 }
+                /**
+                 * Load bin card page
+                 */
                 case "ToCreateBIN": {
                     List<Object[]> pList = stockDAOImpl.loadProductFromBranchStock(user1.getBranchBranchId().getBranchId());
                     request.setAttribute("pList", pList);
@@ -292,6 +331,9 @@ public class ReportController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Print bin card
+                 */
                 case "ToViewBIN": {
                     System.out.println("Creating...");
                     

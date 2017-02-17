@@ -42,6 +42,9 @@ public class ProductController extends HttpServlet {
         boolean isValidated = true;
 
         switch (action) {
+            /**
+             * Save product category
+             */
             case "SaveProductCategory": {
                 String categoryName = request.getParameter("categoryName").trim();
                 String description = request.getParameter("description").trim();
@@ -62,6 +65,9 @@ public class ProductController extends HttpServlet {
 
                 break;
             }
+            /**
+             * Load product category registration page
+             */
             case "ViewProductCategories": {
                 List<ProductCategory> pcList = productDAOImpl.loadAllProductCategories(company);
                 request.setAttribute("pcList", pcList);
@@ -70,6 +76,9 @@ public class ProductController extends HttpServlet {
                 break;
 
             }
+            /**
+             * Load view product category page
+             */
             case "ViewProductCategory": {
                 String pcId = request.getParameter("pcId").trim();
                 int productCateId = 0;
@@ -81,8 +90,10 @@ public class ProductController extends HttpServlet {
                 requestDispatcher = request.getRequestDispatcher("app/product/viewProductCategory.jsp");
                 requestDispatcher.forward(request, response);
                 break;
-
             }
+            /**
+             * Update product category Page
+             */
             case "SaveUpdatedPC": {
                 String dataArr = request.getParameter("dataArr");
                 String arr[] = dataArr.split("_,");
@@ -93,7 +104,6 @@ public class ProductController extends HttpServlet {
                 if (bId != null) {
                     branchId = Integer.parseInt(bId);
                 }
-
                 ProductCategory productCategory = new ProductCategory(branchId, branchName, description);
                 String result = productDAOImpl.saveUpdatedPC(productCategory);
 
@@ -101,6 +111,9 @@ public class ProductController extends HttpServlet {
                 break;
 
             }
+            /**
+             * Save product
+             */
             case "SaveProduct": {
                 System.out.println("IN SAVE METHOD of PRODUCT CONTROLLER");
                 String productCode = request.getParameter("productCode").trim();
@@ -119,9 +132,7 @@ public class ProductController extends HttpServlet {
                 }
                 ProductCategory pc = new ProductCategory(pcId);
                 Product product = new Product(productCode, productName, description, reO, isValidated, pc,company);
-
                 String result = productDAOImpl.saveProduct(product);
-
                 if (result.equals(VertecConstants.SUCCESS)) {
                     request.getSession().removeAttribute("Success_Message");
                     request.getSession().setAttribute("Success_Message", "Successfully Added Product");
@@ -131,9 +142,11 @@ public class ProductController extends HttpServlet {
                     request.getSession().setAttribute("Error_Message", "Not Added,Please Try again");
                     response.sendRedirect("Product?action=ViewProducts");
                 }
-
                 break;
             }
+            /**
+             * View products according to product category
+             */
             case "ViewProducts": {
                 List<ProductCategory> pcList = productDAOImpl.loadAllProductCategories(company);
                 List<Product> pList = productDAOImpl.loadAllProducts(company);
@@ -142,8 +155,10 @@ public class ProductController extends HttpServlet {
                 requestDispatcher = request.getRequestDispatcher("app/product/addProduct.jsp");
                 requestDispatcher.forward(request, response);
                 break;
-
             }
+            /**
+             * get product according to id
+             */
             case "ViewProduct": {
                 String pcId = request.getParameter("pcId").trim();
                 int productId = 0;
@@ -157,6 +172,9 @@ public class ProductController extends HttpServlet {
                 break;
 
             }
+            /**
+             * Update product
+             */
             case "SaveUpdatedProduct": {
                 String dataArr = request.getParameter("dataArr");
                 String arr[] = dataArr.split("_,");
@@ -182,6 +200,9 @@ public class ProductController extends HttpServlet {
                 break;
 
             }
+            /**
+             * Delete product
+             */
             case "DeleteProduct": {
                 String dataArr = request.getParameter("dataArr");
                 String arr[] = dataArr.split("_,");
@@ -195,6 +216,9 @@ public class ProductController extends HttpServlet {
                 response.getWriter().write(result);
                 break;
             }
+            /**
+             * Load manage product master
+             */
             case "ToProductMaster": {
                 List<Product> pList = productDAOImpl.loadAllProducts(company);
                 request.setAttribute("productList", pList);
@@ -202,7 +226,9 @@ public class ProductController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
-
+            /**
+             * Save product master
+             */
             case "SaveProductMaster": {
                 String dataArr = request.getParameter("dataArr");
                 String arr[] = dataArr.split("_,");
@@ -224,7 +250,6 @@ public class ProductController extends HttpServlet {
                     sellingPrice = Double.parseDouble(sp);
                 }
                 Product p = new Product(productId);
-//                ProductMaster productMaster = new ProductMaster(purchasedPrice, sellingPrice, isValidated, p);
                 ProductMaster productMaster = new ProductMaster();
                 productMaster.setPurchasedPrice(purchasedPrice);
                 productMaster.setSellingPrice(sellingPrice);
@@ -235,6 +260,9 @@ public class ProductController extends HttpServlet {
                 response.getWriter().write(result);
                 break;
             }
+            /**
+             * get purchase price and selling price according to product id
+             */
             case "LoadProductMasters": {
                 String pId = request.getParameter("productId");
                 int productId = 0;
@@ -261,6 +289,9 @@ public class ProductController extends HttpServlet {
                 response.getWriter().write(itemObject.toString());
                 break;
             }
+            /**
+             * Update Product master
+             */
             case "SaveUpdatedPM": {
                 String dataArr = request.getParameter("dataArr");
                 String arr[] = dataArr.split("_,");
@@ -282,7 +313,6 @@ public class ProductController extends HttpServlet {
                 if (sp != null) {
                     sellingPrice = Double.parseDouble(sp);
                 }
-//                ProductMaster productMaster = new ProductMaster(pmId, purchasedPrice, sellingPrice);
                 ProductMaster productMaster = new ProductMaster();
                 productMaster.setProductMasterId(pmId);
                 productMaster.setPurchasedPrice(purchasedPrice);
@@ -293,6 +323,9 @@ public class ProductController extends HttpServlet {
                 response.getWriter().write(result);
                 break;
             }
+            /**
+             * Delete product master
+             */
             case "DeletePM": {
                 String dataArr = request.getParameter("dataArr");
                 int pmId = 0;

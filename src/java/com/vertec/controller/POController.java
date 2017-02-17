@@ -57,7 +57,9 @@ public class POController extends HttpServlet {
             SysUser user1 = (SysUser) httpSession.getAttribute("user");
             Company company = (Company) httpSession.getAttribute("company");
             switch (action) {
-
+                /**
+                 * Load purchasing order Page
+                 */
                 case "toPO": {
                     String sid = request.getParameter("supId").trim();
                     Supplier s = (Supplier) PoDAOImpl.getSupplier(Integer.parseInt(sid));
@@ -66,7 +68,9 @@ public class POController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                
+                /**
+                 * Save Purchasing order
+                 */
                 case "SubmitPO": {
                     try {
                         String data = request.getParameter("data");
@@ -125,6 +129,10 @@ public class POController extends HttpServlet {
 
                     break;
                 }
+                /**
+                 * View PO
+                 */
+                
                 case "viewPO": {
                     String type = request.getParameter("type").trim();
                     System.out.println("........."+type);
@@ -149,12 +157,18 @@ public class POController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Get po items according to po id
+                 */
                 case "GetItems": {
                     String id = request.getParameter("id");
                     String html = PoDAOImpl.getItems1(id);
                     out.print(html);
                     break;
                 }
+                /**
+                 * ]Change po status
+                 */
                 case "ChangeStatus": {
                     String id = request.getParameter("poId");
                     request.setAttribute("type", "1");
@@ -163,11 +177,17 @@ public class POController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * load create po Page
+                 */
                 case "createPO": {
                     requestDispatcher = request.getRequestDispatcher("app/po/CreatePO.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Load Products according to category
+                 */
                 case "ProductFromCategory": {
                     String cid = request.getParameter("cid");
                     String html = PoDAOImpl.ProductFromCategory(cid,company);

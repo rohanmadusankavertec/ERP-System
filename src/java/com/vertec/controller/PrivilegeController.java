@@ -46,6 +46,9 @@ public class PrivilegeController extends HttpServlet {
         boolean isValidated = true;
 
         switch (action) {
+            /**
+             * Load add privilage page
+             */
             case "ViewPrivilege": {
                 List<Priviledge> prList = privilegeDAOImpl.loadAllPrivileges(company);
                 request.setAttribute("prList", prList);
@@ -53,6 +56,9 @@ public class PrivilegeController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * Save Privilege
+             */
             case "SavePrivilege": {
                 String privilege = request.getParameter("privilege").trim();
                 Priviledge priviledge = new Priviledge(privilege,company);
@@ -60,6 +66,9 @@ public class PrivilegeController extends HttpServlet {
                 response.getWriter().write(status);
                 break;
             }
+            /**
+             * Update privilage
+             */
             case "UpdatePrivilege": {
                 String dataArr = request.getParameter("dataArr").trim();
                 String newArr[] = dataArr.split(",");
@@ -69,6 +78,9 @@ public class PrivilegeController extends HttpServlet {
                 response.getWriter().write(status);
                 break;
             }
+            /**
+             * Load user group according to company
+             */
             case "LoadUserGroups": {
                 List<UserGroup> ugList = privilegeDAOImpl.loadAllUserGroup(company);
                 request.setAttribute("ugList", ugList);
@@ -76,6 +88,9 @@ public class PrivilegeController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * Load user group for privilege item
+             */
             case "LoadUserGroupsForPI": {
                 List<UserGroup> ugList = privilegeDAOImpl.loadAllUserGroup(company);
                 request.setAttribute("ugList", ugList);
@@ -84,6 +99,9 @@ public class PrivilegeController extends HttpServlet {
 
                 break;
             }
+            /**
+             * get all user group Privilege
+             */
             case "SetPrivilege": {
                 String groupId = request.getParameter("groupId").trim();
                 int group = Integer.parseInt(groupId);
@@ -113,6 +131,9 @@ public class PrivilegeController extends HttpServlet {
                 response.getWriter().write(jOB.toString());
                 break;
             }
+            /**
+             * Get user group privilege item
+             */
             case "SetPrivilegeItem": {
                 String groupId = request.getParameter("groupId").trim();
                 int group = Integer.parseInt(groupId);
@@ -142,17 +163,14 @@ public class PrivilegeController extends HttpServlet {
                     job1.put("status", "YES");
                     jar1.add(job1);
                 }
-//                for (UserGroupPrivilegeItem ugp : ugpList) {
-//                    job2 = new JSONObject();
-//                    job2.put("pid", ugp.getPrivilegeItemId().getPrivilegeItemId());
-//                    job2.put("pname", ugp.getPrivilegeItemId().getPrivilegeItemName());
-//                    jar2.add(job2);
-//                }
                 jOB.put("jArr1", jar1);
 
                 response.getWriter().write(jOB.toString());
                 break;
             }
+            /**
+             * Update privilege
+             */
             case "UpdatePriviledge": {
                 String dataArr = request.getParameter("dataArr").trim();
                 String arr[] = dataArr.split(",");
@@ -161,16 +179,12 @@ public class PrivilegeController extends HttpServlet {
                 if (arr[0] != null) {
                     ugId = Integer.parseInt(arr[0]);
                 }
-
                 String result = privilegeDAOImpl.removeUGPrivilege(ugId);
-//                List<Integer> newAr = new ArrayList<Integer>();
                 for (int i = 1; i < length; i = i + 1) {
-
                     int perId = 0;
                     if (arr[i] != null) {
                         perId = Integer.parseInt(arr[i]);
                     }
-
                     UserGroup ug = new UserGroup(ugId);
                     Priviledge p = new Priviledge(perId);
                     UserGroupPriviledge ugp2 = new UserGroupPriviledge(p, ug);
@@ -180,6 +194,9 @@ public class PrivilegeController extends HttpServlet {
                 response.getWriter().write(result);
                 break;
             }
+            /**
+             * Update privilege item
+             */
             case "UpdatePriviledgeItem": {
                 String dataArr = request.getParameter("dataArr").trim();
                 String arr[] = dataArr.split(",");
@@ -215,7 +232,9 @@ public class PrivilegeController extends HttpServlet {
                 response.getWriter().write(result);
                 break;
             }
-            
+            /**
+             * Load add privilege item page
+             */
             case "ForPrivilegeItem": {
                 List<Priviledge> prevList = privilegeDAOImpl.loadAllPrivileges(company);
                 List<PrivilegeItem> prevItemList = privilegeDAOImpl.loadAllPrivilegeItems(company);
@@ -226,6 +245,9 @@ public class PrivilegeController extends HttpServlet {
 
                 break;
             }
+            /**
+             * Save privilege Item
+             */
             case "SavePI": {
                 String privilegeName = request.getParameter("privilegeName");
                 String privilegeCode = request.getParameter("privilegeCode");
@@ -251,6 +273,9 @@ public class PrivilegeController extends HttpServlet {
 
                 break;
             }
+            /**
+             * View privilege item
+             */
             case "ViewPI": {
                 String pId = request.getParameter("pId");
 
@@ -270,6 +295,9 @@ public class PrivilegeController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * Update privilege item
+             */
             case "SaveUpdatedPI": {
 
                 String dataArr = request.getParameter("dataArr");

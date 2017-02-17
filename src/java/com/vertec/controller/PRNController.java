@@ -7,12 +7,9 @@ package com.vertec.controller;
 
 import com.vertec.daoimpl.PoDAOImpl;
 import com.vertec.hibe.model.Company;
-import com.vertec.hibe.model.PoInfo;
 import com.vertec.hibe.model.PrnInfo;
 import com.vertec.hibe.model.PrnItem;
 import com.vertec.hibe.model.Product;
-import com.vertec.hibe.model.PurchasingOrder;
-import com.vertec.hibe.model.Supplier;
 import com.vertec.hibe.model.SysUser;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,14 +58,18 @@ public class PRNController extends HttpServlet {
             SysUser user1 = (SysUser) httpSession.getAttribute("user");
             Company company = (Company) httpSession.getAttribute("company");
             switch (action) {
-
+                /**
+                 * Load Purchase Requisition note
+                 */
                 case "toPRN": {
                     System.out.println("Calling to PRN");
                     requestDispatcher = request.getRequestDispatcher("app/pr_note/pr_note.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                
+                /**
+                 * Save PRN
+                 */
                 case "SubmitPRN": {
                     try {
                         String data = request.getParameter("data");
@@ -109,6 +110,9 @@ public class PRNController extends HttpServlet {
 
                     break;
                 }
+                /**
+                 * Load view PRN Note
+                 */
                 case "viewPRN": {
                     String type = request.getParameter("type").trim();
 
@@ -129,12 +133,18 @@ public class PRNController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Get prn items according to prn id
+                 */
                 case "GetItems": {
                     String id = request.getParameter("id");
                     String html = PoDAOImpl.getItems(id);
                     out.print(html);
                     break;
                 }
+                /**
+                 * Change prn status
+                 */
                 case "ChangeStatus": {
                     String id = request.getParameter("poId");
                     request.setAttribute("type", "1");
@@ -143,11 +153,17 @@ public class PRNController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Load create prn page
+                 */
                 case "createPRN": {
                     requestDispatcher = request.getRequestDispatcher("app/pr_note/CreatePRN.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                /**
+                 * Load Products according to category
+                 */
                 case "ProductFromCategory": {
                     String cid = request.getParameter("cid");
                     String html = PoDAOImpl.ProductFromCategory(cid,company);

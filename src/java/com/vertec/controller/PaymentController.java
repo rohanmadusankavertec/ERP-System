@@ -65,6 +65,9 @@ public class PaymentController extends HttpServlet {
         boolean isValidated = true;
 
         switch (action) {
+            /**
+             * Load Do payment page
+             */
             case "ToDoPayment": {
                 List<Customer> customerList = customerDAOImpl.getListofUsers(company);
                 request.setAttribute("customerList", customerList);
@@ -73,7 +76,9 @@ public class PaymentController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
-            
+            /**
+             * Load multi payment page
+             */
             case "ToDoMultiPayment": {
                 List<Customer> customerList = customerDAOImpl.getListofUsers(company);
                 request.setAttribute("customerList", customerList);
@@ -82,20 +87,19 @@ public class PaymentController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * Get customer's outstanding amount
+             */
             case "LoadCusBal": {
                 String customer = request.getParameter("customerId");
-
                 int customerId = 0;
                 if (customer != null) {
                     customerId = Integer.parseInt(customer.trim());
                 }
-
                 List<Object[]> inList = paymentDAOImpl.loadAccordigCus(customerId);
-
                 JSONObject jOB = new JSONObject();
                 JSONArray jar1 = new JSONArray();
                 JSONObject job1 = null;
-
                 for (Object[] p : inList) {
                     job1 = new JSONObject();
                     job1.put("oi_id", p[0].toString());
@@ -109,6 +113,9 @@ public class PaymentController extends HttpServlet {
                 response.getWriter().write(jOB.toString());
                 break;
             }
+            /**
+             * Save Payment details
+             */
             case "SubmitPayment": {
                 String dataArr = request.getParameter("dataArr");
                 String arr[] = dataArr.split(",");
@@ -171,7 +178,9 @@ public class PaymentController extends HttpServlet {
                 response.getWriter().write(result);
                 break;
             }
-            
+            /** 
+             * Save multi payment
+             */
             case "savePaymeny":{
                 
                 String dataArr = request.getParameter("dataArr");
@@ -272,6 +281,9 @@ public class PaymentController extends HttpServlet {
                 break;
                 
             }
+            /**
+             *Load Clear cheque Page
+             */
             case "ClearCheque": {
                 List<Customer> customerList = customerDAOImpl.getListofUsers(company);
                 request.setAttribute("customerList", customerList);
@@ -279,7 +291,9 @@ public class PaymentController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
-
+            /**
+             * Change cheque status
+             */
             case "ChequeStatus": {
                 String customer = request.getParameter("customerId");
 
@@ -308,6 +322,9 @@ public class PaymentController extends HttpServlet {
                 response.getWriter().write(jOB.toString());
                 break;
             }
+            /** 
+             * Clear Cheque
+             */
             case "DoClearCheque": {
                 String dataArr = request.getParameter("dataArr");
                 String arr[] = dataArr.split(",");
@@ -364,6 +381,9 @@ public class PaymentController extends HttpServlet {
 
                 break;
             }
+            /**
+             * Change cheque status to return
+             */
             case "ReturnCheque": {
                 String dataArr = request.getParameter("pId");
                 
@@ -371,6 +391,9 @@ public class PaymentController extends HttpServlet {
 
                 break;
             }
+            /**
+             * Show payment between two dates
+             */
             case "SelectDates": {
                 String fromDate = request.getParameter("fromDate");
                 String toDate = request.getParameter("toDate");
@@ -386,7 +409,9 @@ public class PaymentController extends HttpServlet {
                 break;
             }
 //-----------------------------------------------------------------------------------------
-            
+            /**
+             * Open grn payment page
+             */
             case "ToDoGRNPayment": {
                 List<Supplier> suppList = supplierDAOImpl.getListofUsers(company);
                 request.setAttribute("suppList", suppList);
@@ -395,7 +420,9 @@ public class PaymentController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
-            
+            /**
+             * Open multi grn page
+             */
             case "ToDoGRNMultiPay": {
                 List<Supplier> suppList = supplierDAOImpl.getListofUsers(company);
                 request.setAttribute("suppList", suppList);
@@ -404,10 +431,11 @@ public class PaymentController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
-            
+            /**
+             * Make payment for grn
+             */
             case "doGRNPayment": {
                 String SuppId = request.getParameter("supplierId").trim();
-//                List<GrnInfo> suppList = paymentDAOImpl.loadGRNBySuppid(Integer.parseInt(SuppId));
                 List<GrnInfo> suppList = paymentDAOImpl.loadGRNBySuppidWithBalance(Integer.parseInt(SuppId));
                 JSONObject JOB = new JSONObject();
                 JSONArray jar = new JSONArray();
@@ -427,10 +455,11 @@ public class PaymentController extends HttpServlet {
                 response.getWriter().write(JOB.toString());
                 break;
             }
-            
+            /**
+             * Make multiple grn Payment
+             */
             case "doGRNMultiPayment": {
                 String SuppId = request.getParameter("supplierId").trim();
-//                List<GrnInfo> suppList = paymentDAOImpl.loadGRNBySuppid(Integer.parseInt(SuppId));
                 List<GrnInfo> suppList = paymentDAOImpl.loadGRNBySuppidWithBalance(Integer.parseInt(SuppId));
                 JSONObject JOB = new JSONObject();
                 JSONArray jar = new JSONArray();
@@ -442,17 +471,16 @@ public class PaymentController extends HttpServlet {
                     job.put("total", g.getTotal());
                     job.put("addname", g.getSysUserSysuserId().getFirstName());
                     job.put("outstanding", g.getOutstanding());
-                    
                     jar.add(job);
                 }
-                
                 JOB.put("grninfo", jar);
                 response.getWriter().write(JOB.toString());
                 break;
             }
-            
+            /**
+             * Save grn payment
+             */
             case "saveGRNpayment":{
-                
                 String dataArr = request.getParameter("dataArr");
                 
                 String arr[] = dataArr.split(",");
@@ -477,7 +505,6 @@ public class PaymentController extends HttpServlet {
                 
                 int pType = Integer.parseInt(pT);
 
-//                double am = Integer.parseInt(pamount);
                 double amt = Integer.parseInt(pamount);
                 double balance = Integer.parseInt(bal);
                 
@@ -493,7 +520,6 @@ public class PaymentController extends HttpServlet {
                     payment.setIsCleared(true);
                     
                     result22 = paymentDAOImpl.savePayment(payment);
-//                    response.getWriter().write(result);
                     
                 }else if(pType==2){
                     payment.setAmount(amt);
@@ -518,7 +544,7 @@ public class PaymentController extends HttpServlet {
                 break;
                 
             }
-            
+            //Save multi grn payment
             case "saveGRNMultipayment":{
                 
                 String dataArr = request.getParameter("dataArr");
@@ -539,7 +565,6 @@ public class PaymentController extends HttpServlet {
                     }
                 int pType = Integer.parseInt(pT);
 
-//                double am = Integer.parseInt(pamount);
                 double amt = Integer.parseInt(pamount);
                 
                 Date date = new Date();
@@ -553,8 +578,6 @@ public class PaymentController extends HttpServlet {
                     payment.setIsCleared(true);
                     
                     result22 = paymentDAOImpl.savePayment(payment);
-//                    response.getWriter().write(result);
-                    
                 }else if(pType==2){
                     payment.setAmount(amt);
                     payment.setPaymentDate(date);
@@ -568,12 +591,6 @@ public class PaymentController extends HttpServlet {
                     
                 }
                 
-//                System.out.println(".........."+grnId);
-//                System.out.println(".........."+pamount);
-//                System.out.println(".........."+bal);
-                
-                
-//                double balance = Integer.parseInt(bal);
                 String result="Success";
                 List<GrnInfo> suppList = paymentDAOImpl.loadGRNBySuppidWithBalance(Integer.parseInt(supId));
                     for(GrnInfo g: suppList){
@@ -604,7 +621,9 @@ public class PaymentController extends HttpServlet {
                 
             }
 //------------------------------------------------------------------------------------
-            
+            /**
+             * Open receipt page
+             */
             case "receipt": {
 //                System.out.println("//////////////calling");
                 String invid = request.getParameter("invid");
@@ -626,6 +645,9 @@ public class PaymentController extends HttpServlet {
                 
             }
 //------------------------------------------------------------------------------------
+            /**
+             * Open multi receipt Page
+             */
             case "multiReceipt": {
                 
                 String arrList = request.getParameter("arr");
