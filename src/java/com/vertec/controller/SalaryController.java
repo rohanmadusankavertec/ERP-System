@@ -69,6 +69,7 @@ public class SalaryController extends HttpServlet {
             RequestDispatcher requestDispatcher;
 
             switch (action) {
+                //load working days management page
                 case "ViewDefault": {
                     List<WorkingDays> wd = SalaryDAOImpl.getworkingDays();
                     request.setAttribute("wd", wd);
@@ -76,6 +77,7 @@ public class SalaryController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                // Update working days
                 case "UpdateWorkingDays": {
                     String monin = request.getParameter("monintime").trim();
                     String monout = request.getParameter("monouttime").trim();
@@ -123,6 +125,7 @@ public class SalaryController extends HttpServlet {
                     }
                     break;
                 }
+                // View holiday page
                 case "ViewHolyday": {
                     List<HollyDay> hd = SalaryDAOImpl.getHollyDays();
                     request.setAttribute("hollyday", hd);
@@ -130,6 +133,7 @@ public class SalaryController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                //save holiday
                 case "addHolyday": {
                     String name = request.getParameter("name").trim();
                     String date = request.getParameter("date").trim();
@@ -157,18 +161,21 @@ public class SalaryController extends HttpServlet {
                     }
                     break;
                 }
+                // Delete holiday
                 case "deleteHolyday": {
                     String id = request.getParameter("id");
                     String result = SalaryDAOImpl.deleteHolyday(id);
                     response.getWriter().write(result);
                     break;
                 }
+                //to view salary payable
                 case "getSalaryPayable": {
                     String id = request.getParameter("eid");
                     String result = SalaryDAOImpl.getSalaryPayable(Integer.parseInt(id));
                     response.getWriter().write(result);
                     break;
                 }
+                //load default payment page
                 case "ViewDefaultPayments": {
                     List<PayrollDefault> wd = SalaryDAOImpl.getDefaultPayments();
                     request.setAttribute("dp", wd);
@@ -178,6 +185,8 @@ public class SalaryController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                //Save default Payment page
+                
                 case "AddDefaultPayment": {
                     String emp = request.getParameter("employee").trim();
                     String ot = request.getParameter("ot").trim();
@@ -201,6 +210,7 @@ public class SalaryController extends HttpServlet {
                     }
                     break;
                 }
+//                Load advance payment page
                 case "ViewAdvancePayment": {
                     List<Employee> cuList = EmployeeDAOImpl.getEmployees();
                     request.setAttribute("employee", cuList);
@@ -212,6 +222,7 @@ public class SalaryController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                    //load salary payment page
                 case "ViewSalaryPayment": {
                     List<Employee> cuList = EmployeeDAOImpl.getEmployees();
                     request.setAttribute("employee", cuList);
@@ -223,6 +234,7 @@ public class SalaryController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+//                save salary advance
                 case "saveAdvance": {
                     String Employee = request.getParameter("e").trim();
                     String payType = request.getParameter("pt").trim();
@@ -269,18 +281,21 @@ public class SalaryController extends HttpServlet {
                     response.getWriter().write(result);
                     break;
                 }
+                //Delete advance payment page using id
                 case "deleteAdvancePayment": {
                     String id = request.getParameter("id").trim();
                     String result = SalaryDAOImpl.deleteAdvancePayment(id);
                     response.getWriter().write(result);
                     break;
                 }
+                // delete default payment page
                 case "deletedefaultPayment": {
                     String id = request.getParameter("id").trim();
                     String result = SalaryDAOImpl.deleteDefaultPayment(id);
                     response.getWriter().write(result);
                     break;
                 }
+                //Load salary calculation page
                 case "CalSalary": {
                     List<Employee> cuList = EmployeeDAOImpl.getEmployees();
                     request.setAttribute("employee", cuList);
@@ -288,6 +303,7 @@ public class SalaryController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                //Salary calculation
                 case "toCalculate": {
                     String employee = request.getParameter("employee").trim();
                     String fromDate = request.getParameter("fromDate").trim();
@@ -298,6 +314,7 @@ public class SalaryController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                // Save salary
                 case "SaveSalary": {
                     String eid = request.getParameter("eid").trim();
                     String from = request.getParameter("fromdate").trim();
@@ -376,6 +393,7 @@ public class SalaryController extends HttpServlet {
                     }
                     break;
                 }
+                // Save salary payment
                 case "saveSalaryPayment": {
                     String id = request.getParameter("e").trim();
                     String payType = request.getParameter("pt").trim();
@@ -406,6 +424,7 @@ public class SalaryController extends HttpServlet {
                     response.getWriter().write(result);
                     break;
                 }
+                //load staff loan page
                 case "staffloans": {
                     List<Employee> cuList = EmployeeDAOImpl.getEmployees();
                     request.setAttribute("employee", cuList);
@@ -415,6 +434,7 @@ public class SalaryController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                // save staff loan
                 case "SaveLoans": {
                     System.out.println("Calling");
                     String emp = request.getParameter("employee").trim();
@@ -485,6 +505,7 @@ public class SalaryController extends HttpServlet {
                     }
                     break;
                 }
+                //Load update staff loan page
                 case "viewUpdateLoan": {
                     String loanid = request.getParameter("id").trim();
                     List<Employee> cuList = EmployeeDAOImpl.getEmployees();

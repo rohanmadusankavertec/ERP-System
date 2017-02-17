@@ -67,7 +67,7 @@ public class ReturnController extends HttpServlet {
         boolean isValidated = true;
 
         switch (action) {
-
+            //load customer return page
             case "CustomerReturn": {
                 List<Invoice> invoice = invoiceDAOImpl.getInvoices(company);
                 request.setAttribute("invoice", invoice);
@@ -77,6 +77,7 @@ public class ReturnController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            //Load stock return page
             case "StockReturn": {
                 List<Product> product = productDAOImpl.loadAllProducts(company);
                 request.setAttribute("product", product);
@@ -84,6 +85,9 @@ public class ReturnController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * Load supplier return page
+             */
             case "SupplierReturn": {
                 List<ReturnStock> rs = invoiceDAOImpl.getReturnStock(user1.getBranchBranchId());
                 request.setAttribute("ReturnStock", rs);
@@ -95,6 +99,9 @@ public class ReturnController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * Load dispose page
+             */
             case "Dispose": {
                 List<ReturnStock> rs = invoiceDAOImpl.getReturnStock(user1.getBranchBranchId());
                 request.setAttribute("ReturnStock", rs);
@@ -102,6 +109,9 @@ public class ReturnController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * Load issued invoice products
+             */
             case "loadInvoiceProduct": {
                 String invoice = request.getParameter("invoice");
                 List<InvoiceItem> pList = returnDAOImpl.loadProduct(Integer.parseInt(invoice));
@@ -120,6 +130,7 @@ public class ReturnController extends HttpServlet {
                 response.getWriter().write(JOB.toString());
                 break;
             }
+            //get selling price and purchasing price
             case "loadProductMaster": {
                 String product = request.getParameter("product");
                 List<ProductMaster> pList = returnDAOImpl.loadProductMaster(Integer.parseInt(product));
@@ -138,6 +149,7 @@ public class ReturnController extends HttpServlet {
                 response.getWriter().write(JOB.toString());
                 break;
             }
+            //save customer return
             case "SubmitCustomerReturn": {
                 String result = null;
                 String data = request.getParameter("data");
@@ -196,6 +208,9 @@ public class ReturnController extends HttpServlet {
                 }
                 break;
             }
+            /**
+             * Open return stock page
+             */
             case "ReturnStock": {
                 List<ReturnStock> iiList = returnDAOImpl.loadReturnStock();
                 request.setAttribute("returnstock", iiList);
@@ -203,6 +218,9 @@ public class ReturnController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * Save stock return
+             */
             case "SubmitStockReturn": {
                 String result = VertecConstants.SUCCESS;
                 String data = request.getParameter("data");
@@ -238,6 +256,9 @@ public class ReturnController extends HttpServlet {
                 }
                 break;
             }
+            /**
+             * Save supplier return
+             */
             case "SubmitSupplierReturn": {
                 String result = VertecConstants.SUCCESS;
                 String data = request.getParameter("data");
@@ -305,6 +326,9 @@ public class ReturnController extends HttpServlet {
 
                 break;
             }
+            /**
+             * Save dispose
+             */
             case "SubmitDispose": {
                 String result = VertecConstants.SUCCESS;
                 String data = request.getParameter("data");
@@ -347,6 +371,9 @@ public class ReturnController extends HttpServlet {
                 }
                 break;
             }
+            /**
+             * View supplier return note
+             */
             case "SupplierReturnNote": {
                 List<ReturnStock> rs = invoiceDAOImpl.getReturnStock(user1.getBranchBranchId());
                 request.setAttribute("ReturnStock", rs);
@@ -360,6 +387,9 @@ public class ReturnController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * Save supplier return note
+             */
             case "SubmitSupplierReturnNote": {
                 String result = VertecConstants.SUCCESS;
                 String data = request.getParameter("data");
@@ -404,6 +434,9 @@ public class ReturnController extends HttpServlet {
                 }
                 break;
             }
+            /**
+             * Open Customer return note
+             */
             case "CustomerReturnNote": {
                 List<Invoice> invoice = invoiceDAOImpl.getInvoices(company);
                 request.setAttribute("invoice", invoice);
@@ -411,6 +444,10 @@ public class ReturnController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * Save customer return note
+             */
+            
             case "SubmitCustomerReturnNote": {
                 String result = null;
                 String data = request.getParameter("data");
@@ -459,6 +496,9 @@ public class ReturnController extends HttpServlet {
                 }
                 break;
             }
+            /**
+             * Print customer return Note
+             */
             case "PrintCustomerReturnNote": {
                 CustomerReturn cr = returnDAOImpl.getLastCustomerInvoice(user1.getBranchBranchId());
                 List<ReturnByCustomer> rbc = returnDAOImpl.getLastReturnByCustomer(cr);
@@ -468,6 +508,9 @@ public class ReturnController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * View customer return note
+             */
             case "ViewCustomerReturnNote": {
                 List<CustomerReturn> cr = returnDAOImpl.getCustomerReturn(user1.getBranchBranchId());
                 request.setAttribute("cr", cr);
@@ -475,6 +518,9 @@ public class ReturnController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * View supplier return note
+             */
             case "ViewSupplierReturnNote": {
                 List<SupplierReturn> cr = returnDAOImpl.getSupplierReturn(user1.getBranchBranchId());
                 request.setAttribute("cr", cr);
@@ -482,6 +528,9 @@ public class ReturnController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * View credit note
+             */
             case "ViewCreditNote": {
                 String id= request.getParameter("id").trim();
                 CustomerReturn cr = returnDAOImpl.getCustomerReturnById(Integer.parseInt(id));
@@ -492,6 +541,9 @@ public class ReturnController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            /**
+             * Print supplier return note
+             */
             case "PrintSupplierReturnNote": {
                 String id= request.getParameter("id").trim();
                 SupplierReturn sr = returnDAOImpl.getSupplierReturnById(Integer.parseInt(id));
