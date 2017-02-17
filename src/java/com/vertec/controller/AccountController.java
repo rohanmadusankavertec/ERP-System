@@ -70,7 +70,7 @@ public class AccountController extends HttpServlet {
                     break;
                 }
                 
-                case "loadofSubType":{// this is text
+                case "loadofSubType":{// load sub type on the select element
                     
                     String tId = request.getParameter("typeId").trim();
                     
@@ -123,7 +123,7 @@ public class AccountController extends HttpServlet {
                     
                     break;
                 }
-                case "viewAccount":{ // balapan wada 
+                case "viewAccount":{ // load all accounts
                     List<Account> accList = (List<Account>)accountdao.viewAllOfAccount();
                     request.setAttribute("aList", accList);
                     requestDispatcher = request.getRequestDispatcher("/app/account/AddAccount.jsp");
@@ -155,7 +155,7 @@ public class AccountController extends HttpServlet {
                     break;
                 }
                 
-                case "UpdateAccont":{
+                case "UpdateAccont":{ // update account details
                     String id = request.getParameter("accountId").trim();
                     String sId = request.getParameter("subType").trim();
                     String Name = request.getParameter("accountName").trim();
@@ -186,7 +186,7 @@ public class AccountController extends HttpServlet {
                     break;
                 }
                  
-                case "DeleteAccont":{
+                case "DeleteAccont":{ // remove the account dtails
                     String id = request.getParameter("accountId").trim();
                     
                     System.out.println(id+"aa");
