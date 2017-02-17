@@ -30,7 +30,7 @@
             size: BootstrapDialog.SIZE_NORMAL
         });
     }
-    
+    //Load account to select element according to payment type
     function loadAcconutByPayType(){
         
         var acc = document.getElementById("payType").value;
@@ -40,7 +40,6 @@
             type: 'POST',
             url: "Drawing?action=loadAccountByPayName&account="+acc,
             success: function (msg) {
-                
                 var reply = eval('('+msg+')');
                 var arrL = reply.account;
                 var inhtml = "";
@@ -56,7 +55,7 @@
             
         });
     }
-    
+    // save withdrawing details
     function SaveDrawing() {
         
         var acc = document.getElementById("account").value;

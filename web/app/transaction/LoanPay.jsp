@@ -30,16 +30,13 @@
             size: BootstrapDialog.SIZE_NORMAL
         });
     }
-    
+    //Load account to select element
     function loadAccount() {
         var acc = document.getElementById("payType").value;
-        
         $.ajax({
-            
             type: 'POST',
             url: "LoanPay?action=loadLoanAccount&LoanType="+acc,
             success: function (msg) {
-                
                 var reply = eval('('+msg+')');
                 var arrL = reply.account;
                 var inhtml = "";
@@ -48,21 +45,15 @@
                     for(var i=0; i<arrL.length; i++){
                         inhtml+="<option value='"+arrL[i].id+"'>"+arrL[i].name+"</option>";
                     }
-                    
                     account.innerHTML=inhtml;
-                        
                 }
-            
         });
         
     }
-    
+    //Load account to select element according to payment type
     function loadAcconutByPayType(){
-        
         var acc = document.getElementById("payType1").value;
-        
         $.ajax({
-            
             type: 'POST',
             url: "LoanPay?action=loadPayType&payType="+acc,
             success: function (msg) {
@@ -75,24 +66,18 @@
                     for(var i=0; i<arrL.length; i++){
                         inhtml+="<option value='"+arrL[i].id+"'>"+arrL[i].name+"</option>";
                     }
-                    
                     account.innerHTML=inhtml;
-                        
                 }
-            
         });
     }
     var paid = "";
+    // Load loan details
     function loadLoan(){
-        
         var accId = document.getElementById("account").value;
-        
         $.ajax({
-            
             type: 'POST',
             url: "LoanPay?action=loadLoan&Loan="+accId,
             success: function (msg) {
-                
                 var reply = eval('('+msg+')');
                 var arrL = reply.loan;
                 var inhtml = "";
@@ -101,27 +86,19 @@
                     for(var i=0; i<arrL.length; i++){
                         inhtml+="<option value='"+arrL[i].id+"'>"+arrL[i].descrip+"  "+"("+arrL[i].incriment+")"+"</option>";
                     }
-                    
                     account.innerHTML=inhtml;
-                        
                 }
-            
         });
     }
     
+    //Save Loan Details
     function SaveLoan() {
-        
         var acc1 = document.getElementById("payType").value;
-        
         var loanId = document.getElementById("loan").value;
         var acc = document.getElementById("account").value;
-        
         var amt = document.getElementById("amount").value;
-
         var desc = document.getElementById("descrip").value;
-        
         var pacc = document.getElementById("acc").value;
-        
         if (acc1 === "") {
             sm_warning("Please Select Loan Type......");
         } else if (acc === "") {
@@ -134,7 +111,6 @@
             sm_warning("Please Select Account......");
         } 
          else {
-             
             var xmlHttp = getAjaxObject();
             xmlHttp.onreadystatechange = function ()
             {
@@ -153,29 +129,22 @@
             xmlHttp.send();
         }
     }
-    
+    //Load Loan according to id
     function loadLoanById(){
         alert("aaaa");
         var lId = document.getElementById("loan").value;
         alert("aaaa"+lId);
         $.ajax({
-            
             type: 'POST',
             url: "LoanPay?action=loadLoanById&loanId="+lId,
             success: function (msg) {
-                
                 var reply = eval('('+msg+')');
                 alert(reply);
                 document.getElementById("amount").innerHTML=reply.amount;
                 document.getElementById("outAmount").innerHTML=reply.tot-reply.paid;
-                        
                 }
-            
         });
     }
-    
-    
-    
 </script>
 
 <%

@@ -18,7 +18,7 @@
 
 
 <script type="text/javascript">
-
+    //Load account to select element
     function LoadSecontAccounts() {
         var ptype = document.getElementById("pType").value;
         $("#paccount").empty();
@@ -41,7 +41,7 @@
         xmlHttp.open("POST", "FixedAsset?action=getAccountBysubtype&subType=" + ptype, true);
         xmlHttp.send();
     }
-
+    // calculate discount
     function calculatediscount() {
 
         var price = document.getElementById("price").value;
@@ -67,13 +67,14 @@
     }
 
 
-
+    // show paid amount
     function setPaidAmount() {
         //check for - discount
         calculatediscount();
         document.getElementById("paidamount").value = document.getElementById("totalpayable").innerHTML;
     }
     var cdtype = "null";
+    //show outstanding
     function CheckDue() {
 
         var ptype = document.getElementById("pType").value;
@@ -117,7 +118,7 @@
             size: BootstrapDialog.SIZE_SMALL
         });
     }
-
+    // save purchase (Fixed Assets)
     function SavePurchase() {
         calculatediscount();
         var acc = document.getElementById("accountName").value;

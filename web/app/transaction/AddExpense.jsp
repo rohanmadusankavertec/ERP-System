@@ -30,69 +30,30 @@
             size: BootstrapDialog.SIZE_NORMAL
         });
     }
-    
+    //Load account to select element according to sub type
     function loadACconutBySubType(){
-        
-        
         var sName = document.getElementById("payType").value;
-//        alert(sName);
-//        $.ajax({
-//            
-//            
-//            type: 'POST',
-//            url: "Expense?action=loadOfAccounyByPayType&sbName="+sName,
-//            Success:function (msg){
-//                alert(msg);
-//                var reply = eval('('+ msg +')');
-//                
-//                var arrL = reply.accout;
-//                
-//                var accounts = document.getElementById("acc");
-//                var ihtml = "";
-//                for(i=0; i<arrL.length; i++){
-//                    ihtml+="<option value='"+arrL[i].id+"'>"+arrL[i].name+"</option>";
-//                }
-//                        
-//                        accounts.innerHTML=ihtml;
-//                }
-//            
-//        });
-        
-        
         $.ajax({
-            
             type: 'POST',
             url: "Expense?action=loadOfAccounyByPayType&sbName="+sName,
-            
             success: function (msg) {
-                
                 var reply = eval('('+ msg +')');
-                
                 var arrL = reply.accout;
-                
                 var accounts = document.getElementById("acc");
                 var ihtml = "";
                 for(i=0; i<arrL.length; i++){
                     ihtml+="<option value='"+arrL[i].id+"'>"+arrL[i].name+"</option>";
                 }
-                        
                         accounts.innerHTML=ihtml;
                 }
-            
-            
         });
     }
-    
+    // save expenses type
     function SaveExpense() {
-        
         var acc = document.getElementById("account").value;
-        
         var amt = document.getElementById("amount").value;
-
         var desc = document.getElementById("descrip").value;
-        
         var pacc = document.getElementById("acc").value;
-        
         if (acc === "") {
             sm_warning("Please Select Expense Account......");
         } else if (amt === "") {
@@ -103,7 +64,6 @@
             sm_warning("Please Select Account......");
         } 
          else {
-             
             var xmlHttp = getAjaxObject();
             xmlHttp.onreadystatechange = function ()
             {
@@ -122,8 +82,6 @@
             xmlHttp.send();
         }
     }
-    
-    
 </script>
 
 

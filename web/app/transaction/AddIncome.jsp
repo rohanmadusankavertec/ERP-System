@@ -29,35 +29,12 @@
             size: BootstrapDialog.SIZE_NORMAL
         });
     }
-    
-//    function validate(){
-//        alert("callint validation");
-//        var a = document.getElementById("account").value;
-//        alert(a);
-//        var p = document.getElementById("amount").value;
-//        alert(p);
-//        var d = document.getElementById("descrip").value;
-//        var t = document.getElementById("payType").value;
-//        var c = document.getElementById("acc").value;
-//        
-//        if(a === "" || p === "" || d === ""){
-//            sm_warning("Estimate Cost is not added, Please Try again.");
-//            
-//        }
-//        else{
-//            nom_Success("text");
-//        }
-//    }
+    //save income (Transaction)
      function SaveIncome() {
-        
         var acc = document.getElementById("account").value;
-        
         var amt = document.getElementById("amount").value;
-        
         var desc = document.getElementById("descrip").value;
-        
         var pacc = document.getElementById("acc").value;
-        
         if (acc === "") {
             sm_warning("Please Select Income Account......");
         } else if (amt === "") {
@@ -68,7 +45,6 @@
             sm_warning("Please Select Account......");
         } 
          else {
-             
             var xmlHttp = getAjaxObject();
             xmlHttp.onreadystatechange = function ()
             {
@@ -87,32 +63,22 @@
             xmlHttp.send();
         }
     }
-    
+    //Load account to select element according to payment type
     function loadAcconutByPayType(){
         var pName = document.getElementById("payType").value;
-        
-        
         $.ajax({
-            
             type: 'POST',
             url: "Income?action=loadOfAccounyByPayType&PayType="+pName,
-            
             success: function (msg) {
-                
                 var reply = eval('('+ msg +')');
-                
                 var arrL = reply.account;
-                
                 var accounts = document.getElementById("acc");
                 var ihtml = "";
                 for(i=0; i<arrL.length; i++){
                     ihtml+="<option value='"+arrL[i].id+"'>"+arrL[i].name+"</option>";
                 }
-                        
                         accounts.innerHTML=ihtml;
                 }
-            
-            
         });
     }
     

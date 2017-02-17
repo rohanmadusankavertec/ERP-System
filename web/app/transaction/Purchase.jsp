@@ -17,7 +17,7 @@
 
 
 <script type="text/javascript">
-
+    //Load second account to select element
     function LoadSecontAccounts() {
         var ptype = document.getElementById("pType").value;
         $("#paccount").empty();
@@ -40,7 +40,7 @@
         xmlHttp.open("POST", "Purchase?action=getAccountBysubtype&subType=" + ptype, true);
         xmlHttp.send();
     }
-
+// calculate discount
     function calculatediscount() {
 
         var price = document.getElementById("price").value;
@@ -66,13 +66,14 @@
     }
 
 
-
+// calculate payable amount 
     function setPaidAmount() {
         //check for - discount
         calculatediscount();
         document.getElementById("paidamount").value = document.getElementById("totalpayable").innerHTML;
     }
     var cdtype="null";
+    //calculate outstanding amount
     function CheckDue() {
         
         var ptype = document.getElementById("pType").value;
@@ -116,7 +117,7 @@
             size: BootstrapDialog.SIZE_SMALL
         });
     }
-
+    // save purchase (Transaction)
     function SavePurchase() {
         calculatediscount();
         var acc = document.getElementById("accountName").value;

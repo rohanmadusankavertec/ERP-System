@@ -15,7 +15,7 @@
 
 
 <script type="text/javascript">
-
+    //Load account to select element
     function LoadSecontAccounts() {
         var ptype = document.getElementById("pType").value;
         $("#paccount").empty();
@@ -55,7 +55,7 @@
             size: BootstrapDialog.SIZE_SMALL
         });
     }
-
+    // Save asset Loan (Liability) 
     function SaveLiability() {
         var acc = document.getElementById("accountName").value;
         var pacc = document.getElementById("paccount").value;
@@ -105,7 +105,7 @@
     
     
     
-    
+    // Calculate total payable
     function calculatePayable() {
 
         var a1 = document.getElementById("amount").value;
@@ -128,6 +128,7 @@
     var tamount = 0;
     var interest = 0;
     var terms = 0;
+    // Round float to two decimals
     function roundFloat(num, dec) {
         var d = 1;
         for (var i = 0; i < dec; i++) {
@@ -135,7 +136,7 @@
         }
         return Math.round(num * d) / d;
     }
-
+    // Calculate total Payable
     function caltotalPayable() {
         var itype = document.getElementById("itype").value;
         var iterm = document.getElementById("iterm").value;

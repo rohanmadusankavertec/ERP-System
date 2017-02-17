@@ -17,7 +17,7 @@
 
 
 <script type="text/javascript">
-
+    //Load account to select element
     function LoadSecontAccounts() {
         var ptype = document.getElementById("pType").value;
         $("#paccount").empty();
@@ -41,65 +41,6 @@
         xmlHttp.send();
     }
 
-//    function calculatediscount() {
-//
-//        var price = document.getElementById("price").value;
-//        var dis2 = document.getElementById("discount").value;
-//        var dis = 0.0;
-//        if(dis2!==""){
-//             dis = parseFloat(document.getElementById("discount").value);
-//        }
-//        
-//        if (dis2 === "" || dis === 0) {
-//            document.getElementById("totalpayable").innerHTML = price;
-//            document.getElementById("totaldis").innerHTML = 0.0;
-//        } else if (dis2.indexOf("%") !== -1) {
-//            dis2.replace("%", "");
-//            document.getElementById("totalpayable").innerHTML = parseFloat(price) - (parseFloat(price)) * ((parseFloat(dis2)) / 100);
-//            document.getElementById("totaldis").innerHTML = (parseFloat(price)) * ((parseFloat(dis2)) / 100);
-//
-//        } else {
-//            document.getElementById("totalpayable").innerHTML = parseFloat(price) - parseFloat(dis2);
-//            document.getElementById("totaldis").innerHTML = parseFloat(dis2);
-//        }
-//    
-//    }
-
-
-
-//    function setPaidAmount() {
-//        //check for - discount
-//        calculatediscount();
-//        document.getElementById("paidamount").value = document.getElementById("totalpayable").innerHTML;
-//    }
-//    var cdtype="null";
-//    function CheckDue() {
-//        
-//        var ptype = document.getElementById("pType").value;
-//        if (ptype !== "Loan") {
-//            var pamount = document.getElementById("paidamount");
-//            pamount.disabled = false;
-//            var due = parseFloat(document.getElementById("totalpayable").innerHTML) - parseFloat(document.getElementById("paidamount").value);
-//            if (due > 0) {
-//                cdtype="creditor";
-//                document.getElementById("creditordv").className = "";
-//                document.getElementById("debtordv").className = "hidden";
-//            } else if (due < 0) {
-//                cdtype="debtor";
-//                document.getElementById("creditordv").className = "hidden";
-//                document.getElementById("debtordv").className = "";
-//            } else {
-//                cdtype="null";
-//                document.getElementById("creditordv").className = "hidden";
-//                document.getElementById("debtordv").className = "hidden";
-//            }
-//        } else {
-//            var pamount = document.getElementById("paidamount");
-//            pamount.disabled = true;
-//            document.getElementById("paidamount").value=document.getElementById("totalpayable").innerHTML;
-//        }
-//    }
-
     function nom_Success(text) {
         BootstrapDialog.show({
             title: 'Notification',
@@ -116,7 +57,7 @@
             size: BootstrapDialog.SIZE_SMALL
         });
     }
-
+    // Save liability
     function SaveLiability() {
         var acc = document.getElementById("accountName").value;
         var pacc = document.getElementById("paccount").value;
@@ -166,7 +107,7 @@
     
     
     
-    
+    // Calculate total payable
     function calculatePayable() {
 
         var a1 = document.getElementById("amount").value;
@@ -189,6 +130,8 @@
     var tamount = 0;
     var interest = 0;
     var terms = 0;
+    
+    // Round float value to two decimal
     function roundFloat(num, dec) {
         var d = 1;
         for (var i = 0; i < dec; i++) {
@@ -196,7 +139,7 @@
         }
         return Math.round(num * d) / d;
     }
-
+    // calculate total payable
     function caltotalPayable() {
         var itype = document.getElementById("itype").value;
         var iterm = document.getElementById("iterm").value;

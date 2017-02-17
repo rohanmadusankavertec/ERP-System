@@ -31,7 +31,7 @@
             size: BootstrapDialog.SIZE_NORMAL
         });
     }
-    
+    //Load debit account to select element
     function loadDebitAcc(){
         var sName = document.getElementById("accountType").value;
 
@@ -58,7 +58,7 @@
         });
         
     } 
-    
+    //Load credit account to select element
     function loadCreditAcc(){
         var sName = document.getElementById("crediType").value;
 
@@ -85,7 +85,7 @@
         });
         
     } 
-    
+    //Save finance transfer
     function SaveFinanceTransfer() {
         
         var acc = document.getElementById("account").value;

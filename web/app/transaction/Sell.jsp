@@ -18,6 +18,7 @@
 
 <script type="text/javascript">
 
+    //Load second account to select element
     function LoadSecontAccounts() {
         var ptype = document.getElementById("pType").value;
         $("#paccount").empty();
@@ -41,6 +42,7 @@
         xmlHttp.send();
     }
 
+    // calculate discount
     function calculatediscount() {
 
         var price = document.getElementById("price").value;
@@ -66,15 +68,15 @@
     }
 
 
-
+    // calculate payable amount 
     function setPaidAmount() {
         //check for - discount
         calculatediscount();
         document.getElementById("paidamount").value = document.getElementById("totalpayable").innerHTML;
     }
     var cdtype="null";
+    //calculate outstanding amount
     function CheckDue() {
-        
         var ptype = document.getElementById("pType").value;
         if (ptype !== "Loan") {
             var pamount = document.getElementById("paidamount");
@@ -116,8 +118,8 @@
             size: BootstrapDialog.SIZE_SMALL
         });
     }
-
-    function SavePurchase() {
+    // save sell (Transaction)
+    function SaveSell() {
         calculatediscount();
         var acc = document.getElementById("accountName").value;
         var price = document.getElementById("price").value;
@@ -129,7 +131,6 @@
         
         var cdacc=0;
         
-        
         if(cdtype==="null"){
             cdacc=0;
         }else if(cdtype==="creditor"){
@@ -137,7 +138,6 @@
         }else if(cdtype==="debtor"){
             cdacc=document.getElementById("debtor").value;
         }
-        
         
         if (acc === "") {
             sm_warning("Please Select Selling Account......");
@@ -292,7 +292,7 @@
                         </div>
                         <div class="form-group" style="margin-top: 10px;">
                             <div class="col-md-6 col-md-offset-4 col-lg-offset-4">
-                                <button type="button" onclick="SavePurchase()" class="btn btn-success">Submit</button>
+                                <button type="button" onclick="SaveSell()" class="btn btn-success">Submit</button>
                             </div>
                         </div>
                     </form>

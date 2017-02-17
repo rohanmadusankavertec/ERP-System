@@ -29,7 +29,7 @@
             size: BootstrapDialog.SIZE_NORMAL
         });
     }
-    
+    //Save investment
     function SaveInvesment() {
         
         var acc = document.getElementById("account").value;
@@ -70,7 +70,7 @@
         }
     }
     
-    
+    //Load account to select element according to payment type
     function loadAccBypayName(){
         var subName = document.getElementById("payType").value;
         
