@@ -57,6 +57,7 @@ public class SupplierController extends HttpServlet {
              * registerCustomer.jsp
              *
              */
+            // Save all customer's data
             case "Register": {
                 System.out.println("In Supplier Registration");
                 System.out.println(user1.getFirstName());
@@ -96,6 +97,7 @@ public class SupplierController extends HttpServlet {
             /**
              * URL to customerDetails.jsp
              */
+            //View all suppliers according to comapny
             case "ViewSupplier": {
                 List<Supplier> suList = supplierDAOImpl.getListofUsers(company);
                 request.setAttribute("suList", suList);
@@ -103,6 +105,7 @@ public class SupplierController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            // Delete supplier according to suppiler id
             case "RemoveSupplier": {
                 String userId = request.getParameter("supplierId").trim();
                 int supplierId = Integer.parseInt(userId);
@@ -110,6 +113,7 @@ public class SupplierController extends HttpServlet {
                 response.getWriter().write(status);
                 break;
             }
+            //Load supplier update page
             case "UpdateSupplier": {
                 String userId = request.getParameter("supplierId").trim();
                 int supplierId = Integer.parseInt(userId);
@@ -119,6 +123,7 @@ public class SupplierController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            // update supplier details
             case "UpSel": {
                 System.out.println("CALLING UPDATE FUNCTION");
                 String supplierId = request.getParameter("supplierId").trim();
@@ -159,18 +164,20 @@ public class SupplierController extends HttpServlet {
 
                 break;
             }
+            // Check email
             case "CheckEmail": {
                 String email = request.getParameter("email");
                 String status = supplierDAOImpl.checkEmail(email);
                 response.getWriter().write(status);
                 break;
             }
+            // load supplier group page
              case "LoadSupplierGroup": {
                 requestDispatcher = request.getRequestDispatcher("app/supplier/AddSupplierGroup.jsp");
                 requestDispatcher.forward(request, response);
                 break;
             }
-            
+            // Load manage supplier group page
             case "LoadmanageGroup": {
                 List<SupplierGroup> sgList = supplierDAOImpl.getListofSupplerGroup(company);
                 request.setAttribute("sgList", sgList);
@@ -178,6 +185,7 @@ public class SupplierController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            //View supplier group page
             case "viewGroupDetail": {
                 String id = request.getParameter("groupId").trim();
                 System.out.println("......... "+id);
@@ -187,7 +195,7 @@ public class SupplierController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
-            
+            // Save supplier group page
             case "saveSupplierGroup": {
                 String name = request.getParameter("supplierGName").trim();
                 SupplierGroup s = new SupplierGroup();
@@ -207,7 +215,7 @@ public class SupplierController extends HttpServlet {
                 }
                 break;
             }
-            
+            //Update supplier group page
             case "updateSupplierGroup": {
                 String name = request.getParameter("supplierGName").trim();
                 String id = request.getParameter("groupId").trim();
@@ -230,6 +238,7 @@ public class SupplierController extends HttpServlet {
                 }
                 break;
             }
+            // Manage supplier groups
             case "manageSupplier": {
                 String gid = request.getParameter("groupId").trim();
                 
@@ -243,6 +252,7 @@ public class SupplierController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
+            // Add suppliers to group
             case "addSupplierToGroup": {
                 System.out.println("Call to Add Customer.....");
                 String id = request.getParameter("groupId").trim();

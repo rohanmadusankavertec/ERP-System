@@ -53,13 +53,12 @@ public class StockController extends HttpServlet {
             /**
              * Url for branch product master module
              */
+            //Manage branch product master
             case "ManagePMS": {
-
                 List<Branch> bList = branchDAOImpl.loadAllBranches(user1.getBranchBranchId());
                 List<Product> pList = productDAOImpl.loadAllProducts(company);
                 request.setAttribute("bList", bList);
                 request.setAttribute("pList", pList);
-
                 requestDispatcher = request.getRequestDispatcher("app/stock/branchPM.jsp");
                 requestDispatcher.forward(request, response);
                 break;
@@ -69,6 +68,8 @@ public class StockController extends HttpServlet {
              * function loadPMToAdd() this one is use to load Product Master for
              * Add in Branch Product Master
              */
+            
+            //Load adjustment page
             case "Adjustment": {
                 List<Product> product = productDAOImpl.loadAllProducts(company);
                 request.setAttribute("product", product);
@@ -76,7 +77,7 @@ public class StockController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
-
+            //load product's current qty according to product master
             case "loadProductFromStock": {
                 String pmid = request.getParameter("pmid");
                 BranchProductmaster bpm = stockDAOImpl.loadBranchProductMaster(user1.getBranchBranchId(), Integer.parseInt(pmid));
@@ -86,6 +87,7 @@ public class StockController extends HttpServlet {
                 response.getWriter().write(JOB.toString());
                 break;
             }
+            // Update quantity
             case "SubmitAdjustment": {
                 String bpmid = request.getParameter("bpmid");
                 String qty = request.getParameter("qty");
@@ -97,6 +99,7 @@ public class StockController extends HttpServlet {
                 }
                 break;
             }
+//            get purchase price and selling price  
             case "ToAddBPM": {
 
                 String dataAr = request.getParameter("dataArr");
@@ -145,6 +148,7 @@ public class StockController extends HttpServlet {
              * branchId combobox in branchPm.jsp function loadPC() to load all
              * product masters with save for branches
              */
+//            get product according to branch
             case "ToBranch": {
                 String branch = request.getParameter("branchId");
                 int branchId = 0;
@@ -172,6 +176,7 @@ public class StockController extends HttpServlet {
              * function loadPM() To create table of data that already available
              * product masters with branches
              */
+            // get branch product master details
             case "ToBranchPM": {
                 String dataAr = request.getParameter("dataArr");
                 String dataArr[] = dataAr.split(",");
@@ -212,6 +217,8 @@ public class StockController extends HttpServlet {
              * to save new branch product master form
              * action="Stock?action=SaveBPM" in branchPM.jsp
              */
+            
+            //Save branch product master
             case "SaveBPM": {
 
                 String abranchId = request.getParameter("abranchId");
@@ -277,6 +284,7 @@ public class StockController extends HttpServlet {
             /**
              * function updateBPM() To update Selected Stock
              */
+            // Update branch product master
             case "SaveUpdatedStock": {
 
                 String dataAr = request.getParameter("dataArr");
@@ -323,287 +331,7 @@ public class StockController extends HttpServlet {
                 response.getWriter().write(result);
                 break;
             }
-            /**
-             * Url for branch vehicleStock module
-             */
-            case "ToVehicleStock": {
-                List<Branch> bList = branchDAOImpl.loadAllBranches(user1.getBranchBranchId());
-
-                request.setAttribute("bList", bList);
-
-                requestDispatcher = request.getRequestDispatcher("app/stock/vehicleStock.jsp");
-                requestDispatcher.forward(request, response);
-                break;
-            }
-            /**
-             * function loadVehiclePM() to load vehicle and available product
-             * after selected branch
-             */
-//            case "ToVehicle": {
-//                String branch = request.getParameter("branchId");
-//                int branchId = 0;
-//                if (branch != null) {
-//                    branchId = Integer.parseInt(branch);
-//                }
-//
-//                List<Object[]> pList = stockDAOImpl.loadProductFromBranchStock(branchId);
-//                List<Vehicle> vList = vehicleDAOImpl.loadAllBranchVehicle(branchId);
-//                JSONObject jOB = new JSONObject();
-//                JSONArray jar1 = new JSONArray();
-//                JSONArray jarV = new JSONArray();
-//                JSONObject job1 = null;
-//                JSONObject job2 = null;
-//
-//                for (Object[] p : pList) {
-//                    job1 = new JSONObject();
-//                    job1.put("pid", p[0].toString());
-//                    job1.put("pcode", p[1].toString());
-//                    job1.put("pname", p[2].toString());
-//                    jar1.add(job1);
-//                }
-//                for (Vehicle v : vList) {
-//                    job2 = new JSONObject();
-//                    job2.put("vid", v.getVehicleId());
-//                    job2.put("vno", v.getVehicleRegNo());
-//                    job2.put("con", v.getContactNo());
-//                    jarV.add(job2);
-//                }
-//                jOB.put("jArr1", jar1);
-//                jOB.put("jarV", jarV);
-//                response.getWriter().write(jOB.toString());
-//                break;
-//            }
-            /**
-             * function openAddWindow() to load product masters that not
-             * available with vehicle
-             */
-//            case "ToAddNewVehicleStock": {
-//                String data = request.getParameter("dataArr");
-//                String dataArr[] = data.split(",");
-//                String bran = dataArr[0];
-//                String vehi = dataArr[1];
-//                String product = dataArr[2];
-//
-//                int branchId = 0;
-//                int vehicleId = 0;
-//                int productId = 0;
-//
-//                if (vehi != null) {
-//                    vehicleId = Integer.parseInt(vehi);
-//                }
-//                if (bran != null) {
-//                    branchId = Integer.parseInt(bran);
-//                }
-//                if (product != null) {
-//                    productId = Integer.parseInt(product);
-//                }
-//                int newarr[] = {branchId, productId, vehicleId};
-//                List<Object[]> prList = stockDAOImpl.loadToAddVehicleStock(newarr);
-//
-//                JSONObject jOB = new JSONObject();
-//                JSONArray jar1 = new JSONArray();
-//
-//                JSONObject job1 = null;
-//
-//                for (Object[] p : prList) {
-//                    job1 = new JSONObject();
-//                    job1.put("bpmId", p[0].toString());
-//                    job1.put("pmId", p[1].toString());
-//                    job1.put("pPrice", p[2].toString());
-//                    job1.put("sPrice", p[3].toString());
-//                    job1.put("aQuantity", p[4].toString());
-//                    jar1.add(job1);
-//                }
-//                jOB.put("jArr1", jar1);
-//                response.getWriter().write(jOB.toString());
-//                break;
-//            }
-            /**
-             * To save Vehicle Stock function saveVStock()
-             */
-//            case "SaveVehicleStock": {
-//                String data = request.getParameter("dataArr");
-//                String dataArr[] = data.split(",");
-//                String bran = dataArr[0];
-//                String vehi = dataArr[1];
-//                String product = dataArr[2];
-//                String bmp = dataArr[3];
-//                String quan = dataArr[4];
-//
-//                int branchId = 0;
-//                int vehicleId = 0;
-//                int productId = 0;
-//                int bmpId = 0;
-//                int quantity = 0;
-//
-//                if (vehi != null) {
-//                    vehicleId = Integer.parseInt(vehi);
-//                }
-//                if (bran != null) {
-//                    branchId = Integer.parseInt(bran);
-//                }
-//                if (product != null) {
-//                    productId = Integer.parseInt(product);
-//                }
-//                if (bmp != null) {
-//                    bmpId = Integer.parseInt(bmp);
-//                }
-//                if (quan != null) {
-//                    quantity = Integer.parseInt(quan);
-//                }
-//                Date date = new Date();
-//
-//                VehicleStock vehicleStock = new VehicleStock(quantity, date, new BranchProductmaster(bmpId), new Vehicle(vehicleId));
-//                /**
-//                 * 1)To view BranchProductmaster that according to
-//                 * branchProductMasterId 2)To get BranchStock according to
-//                 * productId 3)result 1 call is update BranchStock 4)result 2
-//                 * call is Update BranchProductMaster 5)result call is to Newly
-//                 * Save VehicleStock
-//                 */
-//
-//                String result1 = "";
-//                String result2 = "";
-//                String result = "";
-//
-//                BranchProductmaster bp = stockDAOImpl.viewBranchPM(bmpId);
-//                int arrNew[] = {branchId, productId};
-//                BranchStock bs = new InvoiceDAOImpl().viewBranchStock(arrNew);
-//
-//                BranchStock branchStock = new BranchStock(bs.getBranchStockId(), bs.getQuantity() - quantity, date, user1);
-//                result1 = stockDAOImpl.updateBranchStock(branchStock);
-//
-//                BranchProductmaster branchProductmaster = new BranchProductmaster(bmpId, bp.getQuantity() - quantity, date);
-//                if (result1.equals(VertecConstants.SUCCESS)) {
-//                    result2 = stockDAOImpl.updateBranchPM(branchProductmaster);
-//                }
-//
-//                if (result2.equals(VertecConstants.SUCCESS)) {
-//                    result = stockDAOImpl.saveVehicleStock(vehicleStock);
-//                }
-//
-//                response.getWriter().write(result);
-//                break;
-//            }
-            /**
-             * function openUpdateWindow()
-             */
-            case "ToUpdateVehicleStock": {
-                String data = request.getParameter("dataArr");
-                String dataArr[] = data.split(",");
-                String bran = dataArr[0];
-                String vehi = dataArr[1];
-                String product = dataArr[2];
-
-                int branchId = 0;
-                int vehicleId = 0;
-                int productId = 0;
-
-                if (vehi != null) {
-                    vehicleId = Integer.parseInt(vehi);
-                }
-                if (bran != null) {
-                    branchId = Integer.parseInt(bran);
-                }
-                if (product != null) {
-                    productId = Integer.parseInt(product);
-                }
-                int newarr[] = {branchId, productId, vehicleId};
-                List<Object[]> prList = stockDAOImpl.loadToUpdateVehicleStock(newarr);
-
-                JSONObject jOB = new JSONObject();
-                JSONArray jar1 = new JSONArray();
-
-                JSONObject job1 = null;
-
-                for (Object[] p : prList) {
-                    job1 = new JSONObject();
-                    job1.put("vsId", p[0].toString());
-                    job1.put("bpmId", p[1].toString());
-                    job1.put("cvQuantity", p[2].toString());
-                    job1.put("pPrice", p[3].toString());
-                    job1.put("sPrice", p[4].toString());
-                    job1.put("aQuantity", p[5].toString());
-                    jar1.add(job1);
-                }
-                jOB.put("jArr1", jar1);
-                response.getWriter().write(jOB.toString());
-                break;
-            }
-            /**
-             * function updateAllVS()
-             */
-//            case "SaveUpdatedVehicleStock": {
-//                String data = request.getParameter("dataArr");
-//                String dataArr[] = data.split(",");
-//                String bran = dataArr[0];
-//                String vehi = dataArr[1];
-//                String product = dataArr[2];
-//                String bmp = dataArr[3];
-//                String quan = dataArr[4];
-//                String vsId = dataArr[5];
-//
-//                int branchId = 0;
-//                int vehicleId = 0;
-//                int productId = 0;
-//                int bmpId = 0;
-//                int quantity = 0;
-//                int vehSId = 0;
-//
-//                if (vehi != null) {
-//                    vehicleId = Integer.parseInt(vehi);
-//                }
-//                if (bran != null) {
-//                    branchId = Integer.parseInt(bran);
-//                }
-//                if (product != null) {
-//                    productId = Integer.parseInt(product);
-//                }
-//                if (bmp != null) {
-//                    bmpId = Integer.parseInt(bmp);
-//                }
-//                if (quan != null) {
-//                    quantity = Integer.parseInt(quan);
-//                }
-//                if (vsId != null) {
-//                    vehSId = Integer.parseInt(vsId);
-//                }
-//                Date date = new Date();
-//                /**
-//                 * 1)To view BranchProductmaster that according to
-//                 * branchProductMasterId 2)To get BranchStock according to
-//                 * productId 3)To get VehicleStock according to vehicleStockId
-//                 * 4)result 1 call is update BranchStock 5)result 2 call is
-//                 * Update BranchProductMaster 6)result call is to Newly Save
-//                 * VehicleStock
-//                 */
-//                BranchProductmaster bp = stockDAOImpl.viewBranchPM(bmpId);
-//                int arrNew[] = {branchId, productId};
-//                BranchStock bs = new InvoiceDAOImpl().viewBranchStock(arrNew);
-//                VehicleStock vs = stockDAOImpl.viewVehicleStock(vehSId);
-//
-//                BranchProductmaster branchProductmaster = new BranchProductmaster(bmpId, bp.getQuantity()  - quantity, date);
-//                BranchStock branchStock = new BranchStock(bs.getBranchStockId(), bs.getQuantity() - quantity, date, user1);
-//                String result1 = "";
-//                String result2 = "";
-//                String result = "";
-//
-//                result1 = stockDAOImpl.updateBranchStock(branchStock);
-//                if (result1.equals(VertecConstants.SUCCESS)) {
-//                    result2 = stockDAOImpl.updateBranchPM(branchProductmaster);
-//
-//                }
-//
-//                VehicleStock vehicleStock = new VehicleStock(vehSId, vs.getQuantity()+quantity, date);
-//                if (result2.equals(VertecConstants.SUCCESS)) {
-//                    result = stockDAOImpl.saveUpdateVehicleStock(vehicleStock);
-//                }
-//
-//                response.getWriter().write(result);
-//
-//                break;
-//
-//            }
+            // Load branch stock
             case "branchStock": {
                 System.out.println("");
                 String type = request.getParameter("stockType");
@@ -615,12 +343,14 @@ public class StockController extends HttpServlet {
                 break;
 
             }
+            // view reorder level
             case "reorderlevel": {
                 List<Branch> bList = stockDAOImpl.loadAllBran(company);
                 request.setAttribute("blist", bList);
                 requestDispatcher = request.getRequestDispatcher("app/report/ReOrderLevel.jsp");
                 requestDispatcher.forward(request, response);break;
             }
+            //reorder level report
             case "reorderlevelreport": {
                 String branchId  = request.getParameter("branchId").trim();
                 List<String[]> productList = stockDAOImpl.viewProductByBranch(branchId);
