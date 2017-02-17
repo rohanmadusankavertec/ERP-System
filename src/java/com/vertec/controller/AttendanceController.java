@@ -57,19 +57,19 @@ public class AttendanceController extends HttpServlet {
             SysUser user1 = (SysUser) httpSession.getAttribute("user");
             RequestDispatcher requestDispatcher;
             switch (action) {
-                case "ViewaddLeave": {
+                case "ViewaddLeave": { // load add leave page
                     List<Employee> cuList = EmployeeDAOImpl.getEmployees();
                     request.setAttribute("employee", cuList);
                     requestDispatcher = request.getRequestDispatcher("app/attendance/addLeave.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                case "ReadFPData": {
+                case "ReadFPData": {// load fp data page(file uploading)
                     requestDispatcher = request.getRequestDispatcher("app/attendance/fpData.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                case "Attendance": {
+                case "Attendance": { //load attendance page
                     List<Employee> cuList = EmployeeDAOImpl.getEmployees();
                     request.setAttribute("employee", cuList);
                     List<Attendance> attendance = AttendanceDAOImpl.getAttendance();
@@ -78,7 +78,7 @@ public class AttendanceController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                case "addLeave": {
+                case "addLeave": { // add leaves for emmplyee
                     String emp = request.getParameter("employee").trim();
                     String leave = request.getParameter("leavetype").trim();
                     String desc = request.getParameter("description").trim();
@@ -121,14 +121,14 @@ public class AttendanceController extends HttpServlet {
                     }
                     break;
                 }
-                case "ViewLeave": {
+                case "ViewLeave": { // load all leaves
                     List<Leaves> cuList = AttendanceDAOImpl.getLeave();
                     request.setAttribute("leave", cuList);
                     requestDispatcher = request.getRequestDispatcher("app/attendance/ViewLeaves.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                case "ApproveLeave": {
+                case "ApproveLeave": { // set the approal
                     String lid = request.getParameter("lid").trim();
                     String remark = request.getParameter("remark").trim();
                     String pay = request.getParameter("pay").trim();
@@ -146,13 +146,13 @@ public class AttendanceController extends HttpServlet {
                     response.getWriter().write(result);
                     break;
                 }
-                case "IgnoreLeave": {
+                case "IgnoreLeave": { // leave ignore
                     String lid = request.getParameter("lid").trim();
                     String result = AttendanceDAOImpl.IgnoreLeave(Integer.parseInt(lid));
                     response.getWriter().write(result);
                     break;
                 }
-                case "addAttendance": {
+                case "addAttendance": {// add attendance
                     String emp = request.getParameter("employee").trim();
                     String date2 = request.getParameter("date").trim();
                     String intime2 = request.getParameter("intime").trim();
@@ -196,7 +196,7 @@ public class AttendanceController extends HttpServlet {
                     }
                     break;
                 }
-                case "viewUpdateAttendance": {
+                case "viewUpdateAttendance": { // load the all attendances according to emplyee
                     String id = request.getParameter("eid").trim();
                     System.out.println(id);
                     Attendance attendance = AttendanceDAOImpl.getattendance(id);
@@ -205,7 +205,7 @@ public class AttendanceController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                case "UpdateAttendance": {
+                case "UpdateAttendance": {// update the attendance
                     String id = request.getParameter("id").trim();
                     String date2 = request.getParameter("date").trim();
                     String intime2 = request.getParameter("intime").trim();
@@ -213,8 +213,8 @@ public class AttendanceController extends HttpServlet {
 
                     SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     SimpleDateFormat TimeFormat = new SimpleDateFormat("hh:mm"); //if 24 hour format
-                    System.out.println(intime2);
-                    System.out.println(outtime2);
+//                    System.out.println(intime2);
+//                    System.out.println(outtime2);
                     Date date = null;
                     Date intime = null;
                     Date outtime = null;
