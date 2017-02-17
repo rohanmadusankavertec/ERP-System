@@ -195,10 +195,6 @@ public class CustomerController extends HttpServlet {
                     cusName = cusName.trim();
                 }
 
-//                Customer customer = new Customer(isValidated, cusName, new Date(), user1, new CustomerRating(3));
-//                Customer customer = new Customer(cusName, "-", "0000000000", "0000000000", "0000000000", "-", "0000000000", "info@email.com", new Date(), user1, new CustomerRating(3), isValidated);
-                
-                
                 Customer c = new Customer();
                 c.setCustomerName(cusName);
                 c.setRegisteredBy(user1);
@@ -222,22 +218,22 @@ public class CustomerController extends HttpServlet {
             
 //-----------------------------------------------------------------------------------------------------------------------------            
             
-            case "LoadCustomerGroup": { 
+            case "LoadCustomerGroup": { // load customer group page
                 requestDispatcher = request.getRequestDispatcher("app/customer/addCustomerGroup.jsp");
                 requestDispatcher.forward(request, response);
                 break;
             }
             
-            case "LoadmanageGroup": {
+            case "LoadmanageGroup": { // load customer group details
                 List<CustomerGroup> cList = customerDAOImpl.getListofCustomerGroup(company);
                 request.setAttribute("cList", cList);
                 requestDispatcher = request.getRequestDispatcher("app/customer/customerGroupDetails.jsp");
                 requestDispatcher.forward(request, response);
                 break;
             }
-            case "viewGroupDetail": {
+            case "viewGroupDetail": { // load  customer group details by customer id 
                 String id = request.getParameter("groupId").trim();
-                System.out.println("......... "+id);
+//                System.out.println("......... "+id);
                 CustomerGroup sgList = customerDAOImpl.viewCustomerGroup(Integer.parseInt(id));
                 request.setAttribute("cg", sgList);
                 requestDispatcher = request.getRequestDispatcher("app/customer/viewCustomerGroup.jsp");
@@ -245,7 +241,7 @@ public class CustomerController extends HttpServlet {
                 break;
             }
             
-            case "saveCustomerGroup": {
+            case "saveCustomerGroup": { // add new customer group
                 String name = request.getParameter("customerGName").trim();
                 CustomerGroup c = new CustomerGroup();
                 c.setName(name);
@@ -265,7 +261,7 @@ public class CustomerController extends HttpServlet {
                 break;
             }
             
-            case "updateCustomerGroup": {
+            case "updateCustomerGroup": { // update customer group
                 String name = request.getParameter("customerGName").trim();
                 String id = request.getParameter("groupId").trim();
                 
@@ -289,7 +285,7 @@ public class CustomerController extends HttpServlet {
                 break;
             }
 
-            case "manageCustomer": {
+            case "manageCustomer": { // load customers details accourdint to group
                 String gid = request.getParameter("groupId").trim();
                 
                 request.setAttribute("gid", gid);
@@ -302,12 +298,12 @@ public class CustomerController extends HttpServlet {
                 requestDispatcher.forward(request, response);
                 break;
             }
-            case "addcustomerToGroup": {
-                System.out.println("Call to Add Customer.....");
+            case "addcustomerToGroup": { // add customer into group
+//                System.out.println("Call to Add Customer.....");
                 String id = request.getParameter("groupId").trim();
-                System.out.println("!!!!!!!!!!"+id);
+//                System.out.println("!!!!!!!!!!"+id);
                 String data = request.getParameter("dataArr");
-                System.out.println(">>>"+data);
+//                System.out.println(">>>"+data);
                 String arrL[] = data.split(",");
                 
                 boolean bool =true;
