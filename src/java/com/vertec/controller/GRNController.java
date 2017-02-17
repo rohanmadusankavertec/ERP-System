@@ -59,9 +59,15 @@ public class GRNController extends HttpServlet {
             Company company = (Company) httpSession.getAttribute("company");
 
             if (action.equals("createGRN")) {
+                /**
+                 * load Create grn Page
+                 */
                 requestDispatcher = request.getRequestDispatcher("app/grn/addGRN.jsp");
                 requestDispatcher.forward(request, response);
             } else if (action.equals("toGRN")) {
+                /**
+                 * Load goods received note Page
+                 */
                 String type = request.getParameter("type");
                 String sup = request.getParameter("sup");
                 String po = request.getParameter("po");
@@ -81,10 +87,16 @@ public class GRNController extends HttpServlet {
                 requestDispatcher = request.getRequestDispatcher("app/grn/grn.jsp");
                 requestDispatcher.forward(request, response);
             } else if (action.equals("LoadPO")) {
+                /**
+                 * Load PO into GRN
+                 */
                 System.out.println("READY TO LOAD PO");
                 JSONObject job = GRNDAOImpl.LoadPO(request.getParameter("poid"));
                 response.getWriter().write(job.toString());
             } else if (action.equals("SubmitGRN")) {
+                /**
+                 * Save goods received note
+                 */
                 try {
                     System.out.println("Saving GRN");
                     String data = request.getParameter("data");
@@ -164,6 +176,9 @@ public class GRNController extends HttpServlet {
                 }
 
             } else if (action.equals("viewGRN")) {
+                /**
+                 * Load view grn Page
+                 */
 
                 System.out.println("In View GRN");
                 String type = request.getParameter("type").trim();
@@ -188,12 +203,17 @@ public class GRNController extends HttpServlet {
                 requestDispatcher.forward(request, response);
 
             } else if (action.equals("GetItems")) {
-
+                /**
+                 * get GRN items according to gin
+                 */
                 String id = request.getParameter("id");
                 String html = GRNDAOImpl.getItems(id);
                 out.print(html);
 
             } else if (action.equals("ProductFromCategory2")) {
+                /**
+                 * get products according to category
+                 */
                 String cid = request.getParameter("cid");
                 String html = GRNDAOImpl.ProductFromCategoryForPO(cid);
                 out.print(html);
