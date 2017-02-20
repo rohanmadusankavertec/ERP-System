@@ -4,7 +4,7 @@
     Author     : User
 --%>
 
-<%@page import="com.vertec.hibe.model.Loan"%>
+<%@page import="com.vertec.hibe.model.StaffLoan"%>
 <%@page import="com.vertec.hibe.model.AllowanceDeduction"%>
 <%@page import="com.vertec.hibe.model.Attendance"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,7 +14,7 @@
 <%if (ca.checkUserAuth("ADD_USER", group) != null) {%>
 
 <%
-    List<Loan> loan = (List<Loan>) request.getAttribute("loan");
+    List<StaffLoan> loan = (List<StaffLoan>) request.getAttribute("loan");
 %>
 
 <div class="">
@@ -58,7 +58,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <%for (Loan l : loan) {%>
+                                    <%for (StaffLoan l : loan) {%>
                                 <tr>
                                     <td><%= l.getEmployeeId().getFname() + " " + l.getEmployeeId().getLname()%></td>
                                     <td><%=l.getDate()%></td>
