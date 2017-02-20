@@ -47,46 +47,46 @@
                                 <thead>
                                     <tr>
                                         <th>Employee</th>
-                                    <th>Date</th>
-                                    <th>Amount</th>
-                                    <th>I. Type</th>
-                                    <th>I. Term</th>
-                                    <th>Interest</th>
-                                    <th>Terms</th>
-                                    <th>Paid</th>
-                                    <th>Balance</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>I. Type</th>
+                                        <th>I. Term</th>
+                                        <th>Interest</th>
+                                        <th>Terms</th>
+                                        <th>Paid</th>
+                                        <th>Balance</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <%for (StaffLoan l : loan) {%>
-                                <tr>
-                                    <td><%= l.getEmployeeId().getFname() + " " + l.getEmployeeId().getLname()%></td>
-                                    <td><%=l.getDate()%></td>
-                                    <td><%=l.getAmount()%></td>
-                                    <td>
-                                        <%
-                                            if (l.getInterestType() == 0) {
-                                                out.write("Simple Interest");
-                                            } else if (l.getInterestType() == 1) {
-                                                out.write("Compound Interest");
-                                            }
-                                        %>
-                                    </td>
-                                    <td>
-                                        <%
-                                            if (l.getInterestTerm()) {
-                                                out.write("Yearly");
-                                            } else {
-                                                out.write("Monthly");
-                                            }
-                                        %>
-                                    </td>
-                                    <td><%=l.getInterest()%></td>
-                                    <td><%=l.getTerm()%> months</td>
-                                    <td><%=l.getPaid()%></td>
-                                    <td><%=l.getBalance()%></td>
-                                </tr>
-                                <%}%>
+                                    <tr>
+                                        <td><%= l.getEmployeeId().getFname() + " " + l.getEmployeeId().getLname()%></td>
+                                        <td><%=l.getDate()%></td>
+                                        <td><%=l.getAmount()%></td>
+                                        <td>
+                                            <%
+                                                if (l.getInterestType() == 0) {
+                                                    out.write("Simple Interest");
+                                                } else if (l.getInterestType() == 1) {
+                                                    out.write("Compound Interest");
+                                                }
+                                            %>
+                                        </td>
+                                        <td>
+                                            <%
+                                                if (l.getInterestTerm()) {
+                                                    out.write("Yearly");
+                                                } else {
+                                                    out.write("Monthly");
+                                                }
+                                            %>
+                                        </td>
+                                        <td><%=l.getInterest()%></td>
+                                        <td><%=l.getTerm()%> months</td>
+                                        <td><%=l.getPaid()%></td>
+                                        <td><%=l.getBalance()%></td>
+                                    </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

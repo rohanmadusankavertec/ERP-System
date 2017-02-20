@@ -60,7 +60,7 @@
                                         <td><%= pi.getId()%></td>
                                         <td><%=pi.getEmployeeId().getFname() + " " + pi.getEmployeeId().getLname()%></td>
                                         <td><%=pi.getDate()%></td>
-                                        <td><%=pi.getPaymentTypeId().getType()%></td>
+                                        <td><%=pi.getSalaryPaymentTypeId().getType()%></td>
                                         <td><%=pi.getAmount()%></td>
                                     </tr>
                                     <%}%>

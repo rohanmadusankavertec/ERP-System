@@ -58,7 +58,7 @@
                                     <tr>
                                         <td><%= l.getSalaryId().getEmployeeId().getFname() + " " + l.getSalaryId().getEmployeeId().getLname()%></td>
                                         <td><%=l.getDate()%></td>
-                                        <td><%=l.getPaymentTypeId().getType() %></td>
+                                        <td><%=l.getSalaryPaymentTypeId().getType() %></td>
                                         <td><%=l.getPayment() %></td>
                                     </tr>
                                     <%}%>
