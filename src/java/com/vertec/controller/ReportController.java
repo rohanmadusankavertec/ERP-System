@@ -5,16 +5,30 @@
  */
 package com.vertec.controller;
 
+import com.vertec.daoimpl.AttendanceDAOImpl;
+import com.vertec.daoimpl.BankDAOImpl;
 import com.vertec.daoimpl.DashboardDAOImpl;
+import com.vertec.daoimpl.EmployeeDAOImpl;
 import com.vertec.daoimpl.ReportDAOImpl;
+import com.vertec.daoimpl.SalaryDAOImpl;
 import com.vertec.daoimpl.StockDAOImpl;
 import com.vertec.hibe.model.Account;
+import com.vertec.hibe.model.Advance;
+import com.vertec.hibe.model.AllowanceDeduction;
+import com.vertec.hibe.model.Attendance;
 import com.vertec.hibe.model.BalanceSheetData;
+import com.vertec.hibe.model.BankAccounts;
 import com.vertec.hibe.model.Bin;
 import com.vertec.hibe.model.BranchProductmaster;
 import com.vertec.hibe.model.Company;
 import com.vertec.hibe.model.DepreciationData;
-import com.vertec.hibe.model.InvoiceItem;
+import com.vertec.hibe.model.Employee;
+import com.vertec.hibe.model.HollyDay;
+import com.vertec.hibe.model.Leaves;
+import com.vertec.hibe.model.Loan;
+import com.vertec.hibe.model.Salary;
+import com.vertec.hibe.model.SalaryPayment;
+import com.vertec.hibe.model.StaffLoan;
 import com.vertec.hibe.model.SysUser;
 import com.vertec.hibe.model.Transaction;
 import java.io.IOException;
@@ -55,6 +69,11 @@ public class ReportController extends HttpServlet {
     private final ReportDAOImpl reportDAOImpl = new ReportDAOImpl();
     private final DashboardDAOImpl dashboarddao = new DashboardDAOImpl();
     private final StockDAOImpl stockDAOImpl = new StockDAOImpl();
+    
+    private final AttendanceDAOImpl AttendanceDAOImpl = new AttendanceDAOImpl();
+    private final EmployeeDAOImpl EmployeeDAOImpl = new EmployeeDAOImpl();
+    private final BankDAOImpl bankDAOImpl = new BankDAOImpl();
+    private final SalaryDAOImpl salaryDAOImpl = new SalaryDAOImpl();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -354,6 +373,233 @@ public class ReportController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                //Open Search employee Page
+                case "SearchEmployee": {
+                    List<Employee> e = EmployeeDAOImpl.getEmployees();
+                    request.setAttribute("employee", e);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/SearchEmployee.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                //View Employee Profile
+                case "ViewProfile": {
+                    String id = request.getParameter("employee");
+                    Employee e = EmployeeDAOImpl.getEmployee(Integer.parseInt(id));
+                    System.out.println(e.getImage());
+                     String Imagepath = getServletContext().getRealPath(e.getImage());
+                     System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>?"+Imagepath);
+                    request.setAttribute("employee", e);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/EmployeeProfile.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                // View Employee Report
+                case "Employees": {
+                    List<Employee> e = EmployeeDAOImpl.getEmployees();
+                    request.setAttribute("employee", e);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/EmployeeReport.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                // Open Leaves Search Page
+                case "Leaves": {
+                    List<Employee> e = EmployeeDAOImpl.getEmployees();
+                    request.setAttribute("employee", e);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/SearchLeaves.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                // Open Leaves Report
+                case "LeaveReport": {
+                    try {
+                        String type = request.getParameter("type");
+                        String employee = request.getParameter("emp");
+                        String from = request.getParameter("from");
+                        String to = request.getParameter("to");
+
+                        List<Leaves> l = null;
+
+                        if (type.equals("0")) {
+                            l = AttendanceDAOImpl.getLeave();
+                        } else if (type.equals("1")) {
+                            l = AttendanceDAOImpl.getLeaveReportByEmployee(Integer.parseInt(employee));
+                        } else if (type.equals("2")) {
+                            SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                            l = AttendanceDAOImpl.getLeaveReportByDateRange(DateFormat.parse(from), DateFormat.parse(to));
+
+                        } else if (type.equals("3")) {
+                            SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            l = AttendanceDAOImpl.getLeaveReportByDate(DateFormat.parse(from));
+                        }
+
+                        request.setAttribute("leaves", l);
+                        requestDispatcher = request.getRequestDispatcher("app/Report/LeaveReport.jsp");
+                        requestDispatcher.forward(request, response);
+                        break;
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                // Open Search Attendance Page
+                case "Attendance": {
+                    List<Employee> e = EmployeeDAOImpl.getEmployees();
+                    request.setAttribute("employee", e);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/SearchAttendance.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                // View Attendance Report
+                case "AttendanceReport": {
+                    try {
+                        String type = request.getParameter("type");
+                        String employee = request.getParameter("emp");
+                        String from = request.getParameter("from");
+                        String to = request.getParameter("to");
+
+                        List<Attendance> l = null;
+
+                        if (type.equals("0")) {
+                            l = AttendanceDAOImpl.getAttendance();
+                        } else if (type.equals("1")) {
+                            l = AttendanceDAOImpl.getattendanceByEmployee(Integer.parseInt(employee));
+                        } else if (type.equals("2")) {
+                            SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                            l = AttendanceDAOImpl.getattendanceByDateRange(DateFormat.parse(from), DateFormat.parse(to));
+
+                        } else if (type.equals("3")) {
+                            SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            l = AttendanceDAOImpl.getattendanceByDate(DateFormat.parse(from));
+                        }
+
+                        request.setAttribute("leaves", l);
+                        requestDispatcher = request.getRequestDispatcher("app/Report/AttendanceReport.jsp");
+                        requestDispatcher.forward(request, response);
+                        break;
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                //View Bank Account Report
+                case "Bank": {
+                    List<BankAccounts> e = bankDAOImpl.loadAllBankAccount();
+                    request.setAttribute("bankaccounts", e);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/BankAccounts.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                //View Allowance And deduction Report
+                case "Allowance": {
+                    List<AllowanceDeduction> e = salaryDAOImpl.getAllowanceDeduction();
+                    request.setAttribute("allowance", e);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/AllowanceDeduction.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                //View Staff Loan Report
+                case "staffloans": {
+                    List<StaffLoan> loan = salaryDAOImpl.getLoans();
+                    request.setAttribute("loan", loan);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/StaffLoans.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                //View holiday Report
+                case "holiday": {
+                    List<HollyDay> hd = salaryDAOImpl.getHollyDays();
+                    request.setAttribute("holiday", hd);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/Holidays.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                //View Advance Payment Report
+                case "advanse": {
+                    List<Advance> ad = salaryDAOImpl.getAdvance();
+                    request.setAttribute("advance", ad);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/AdvancePayments.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                //View Salary Report
+                case "salary": {
+                    List<Salary> ad = salaryDAOImpl.getSalary();
+                    request.setAttribute("salary", ad);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/Salary.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                //View Salary Payment Report
+                case "salarypayment": {
+                    List<SalaryPayment> ad = salaryDAOImpl.getSalaryPayments();
+                    request.setAttribute("sp", ad);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/SalaryPayment.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                //View EPF Payable REport
+                case "epf": {
+                    List<Salary> ad = salaryDAOImpl.getSalary();
+                    request.setAttribute("salary", ad);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/EPFPayable.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                //View ETF Payable Report
+                case "etf": {
+                    List<Salary> ad = salaryDAOImpl.getSalary();
+                    request.setAttribute("salary", ad);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/ETFPayable.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                // View PaySlip Report
+                case "payslip": {
+                    List<Employee> e = EmployeeDAOImpl.getEmployees();
+                    request.setAttribute("employee", e);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/SearchPayslip.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                // Get Salary period Json Object
+                case "getSalaryperiod": {
+                    String id = request.getParameter("id");
+                    List<Salary> des = salaryDAOImpl.getSalaryByEmployee(Integer.parseInt(id));
+                    JSONObject jOB = new JSONObject();
+                    JSONArray jar1 = new JSONArray();
+                    JSONObject job1 = null;
+                    for (Salary d : des) {
+                        job1 = new JSONObject();
+                        job1.put("id", d.getId());
+                        String from = d.getFromdate().toString().replace("-", "/");
+                        String to = d.getTodate().toString().replace("-", "/");
+                        job1.put("from", from);
+                        job1.put("to", to);
+                        jar1.add(job1);
+                    }
+                    jOB.put("des", jar1);
+                    response.getWriter().write(jOB.toString());
+                    break;
+                }
+                //View payslip Report
+                case "Viewpayslip": {
+                    String salary = request.getParameter("salary");
+                    Salary s = salaryDAOImpl.getSalaryByID(Integer.parseInt(salary));
+                    request.setAttribute("salary", s);
+                    requestDispatcher = request.getRequestDispatcher("app/Report/PaySlip.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                
             }
         }
     }
