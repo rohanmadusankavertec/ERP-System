@@ -203,6 +203,8 @@ public class CustomerController extends HttpServlet {
                 c.setRegisterdDate(new Date());
                 c.setCompanyId(company);
                 
+                c.setIsActive(isValidated);
+                
                 
                 String result = customerDAOImpl.saveCustomer(c);
 
