@@ -12,6 +12,7 @@ package com.vertec.daoimpl;
  * @author vertec-r
  */
 
+import com.vertec.hibe.model.Company;
 import com.vertec.hibe.model.Department;
 import com.vertec.hibe.model.Designation;
 import com.vertec.hibe.model.Employee;
@@ -25,12 +26,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 public class EmployeeDAOImpl{
 
-    public List<Department> getDepartments() {
+    public List<Department> getDepartments(Company com) {
     Session session = NewHibernateUtil.getSessionFactory().openSession();
         if (session != null) {
             try {
-                Query query = session.createQuery("SELECT d FROM Department d WHERE d.isValid = :type");
+                Query query = session.createQuery("SELECT d FROM Department d WHERE d.isValid = :type and d.companyId=:com");
                 query.setParameter("type", true);
+                query.setParameter("com", com);
                 List<Department> department = query.list();
                 return department;
 
@@ -44,11 +46,12 @@ public class EmployeeDAOImpl{
         }
         return null;
     }
-    public List<Designation> getDesignation(int id) {
+    public List<Designation> getDesignation(int id,Company com) {
     Session session = NewHibernateUtil.getSessionFactory().openSession();
         if (session != null) {
             try {
-                Query query = session.createQuery("SELECT d FROM Designation d WHERE d.departmentId='"+id+"'");
+                Query query = session.createQuery("SELECT d FROM Designation d WHERE d.companyId=:com and d.departmentId='"+id+"'");
+                query.setParameter("com", com);
                 List<Designation> desig = query.list();
                 return desig;
             } catch (Exception e) {

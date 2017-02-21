@@ -6,6 +6,7 @@
 package com.vertec.controller;
 
 import com.vertec.daoimpl.EmployeeDAOImpl;
+import com.vertec.hibe.model.Company;
 import com.vertec.hibe.model.Department;
 import com.vertec.hibe.model.Designation;
 import com.vertec.hibe.model.Employee;
@@ -59,13 +60,14 @@ public class EmployeeController extends HttpServlet {
 
             HttpSession httpSession = request.getSession();
             SysUser user1 = (SysUser) httpSession.getAttribute("user");
+            Company company = (Company) httpSession.getAttribute("company");
 
             switch (action) {
                 /**
                  * load employee page
                  */
                 case "Department": { 
-                    List<Department> dep = EmployeeDAOImpl.getDepartments();
+                    List<Department> dep = EmployeeDAOImpl.getDepartments(company);
                     request.setAttribute("departments", dep);
                     requestDispatcher = request.getRequestDispatcher("app/employee/addDepartment.jsp");
                     requestDispatcher.forward(request, response);
@@ -90,7 +92,7 @@ public class EmployeeController extends HttpServlet {
                     Department d = new Department();
                     d.setName(dep);
                     d.setIsValid(true);
-
+                    d.setCompanyId(company);
                     String result = Save.Save(d);
 
                     if (result.equals(VertecConstants.SUCCESS)) {
@@ -119,7 +121,7 @@ public class EmployeeController extends HttpServlet {
                  */
                 case "getDesignation": {
                     String id = request.getParameter("id");
-                    List<Designation> des = EmployeeDAOImpl.getDesignation(Integer.parseInt(id));
+                    List<Designation> des = EmployeeDAOImpl.getDesignation(Integer.parseInt(id),company);
 
                     JSONObject jOB = new JSONObject();
                     JSONArray jar1 = new JSONArray();
@@ -139,7 +141,7 @@ public class EmployeeController extends HttpServlet {
                  */
                 case "Designation": {
                     List<Designation> desig = EmployeeDAOImpl.getDesignations();
-                    List<Department> dep = EmployeeDAOImpl.getDepartments();
+                    List<Department> dep = EmployeeDAOImpl.getDepartments(company);
                     request.setAttribute("departments", dep);
                     request.setAttribute("designations", desig);
                     requestDispatcher = request.getRequestDispatcher("app/employee/addDesignation.jsp");
@@ -158,7 +160,7 @@ public class EmployeeController extends HttpServlet {
                     d.setDepartmentId(dep);
                     d.setName(desig);
                     d.setIsValid(true);
-
+                    d.setCompanyId(company);
                     String result = Save.Save(d);
 
                     if (result.equals(VertecConstants.SUCCESS)) {
@@ -189,7 +191,7 @@ public class EmployeeController extends HttpServlet {
                 
                 case "EmployeeReg": {
                     List<Designation> desig = EmployeeDAOImpl.getDesignations();
-                    List<Department> dep = EmployeeDAOImpl.getDepartments();
+                    List<Department> dep = EmployeeDAOImpl.getDepartments(company);
                     List<EmployeeType> emp = EmployeeDAOImpl.getEmployeeTypes();
                     request.setAttribute("employeetype", emp);
                     request.setAttribute("departments", dep);
@@ -267,6 +269,7 @@ public class EmployeeController extends HttpServlet {
                     e.setEducational(educational);
                     e.setExperience(experience);
                     e.setQualification(qualification);
+                    e.setCompanyId(company);
                     boolean cvl = false;
                     if (civil.equals("1")) {
                         cvl = true;//married
@@ -309,7 +312,7 @@ public class EmployeeController extends HttpServlet {
                     eid = Integer.parseInt(emp);
                     Employee employee = EmployeeDAOImpl.getEmployee(eid);
                     List<Designation> desig = EmployeeDAOImpl.getDesignations();
-                    List<Department> dep = EmployeeDAOImpl.getDepartments();
+                    List<Department> dep = EmployeeDAOImpl.getDepartments(company);
                     List<EmployeeType> empt = EmployeeDAOImpl.getEmployeeTypes();
                     request.setAttribute("empt", empt);
                     request.setAttribute("departments", dep);
@@ -450,6 +453,7 @@ public class EmployeeController extends HttpServlet {
                 et.setMonthlyLeaves(Double.parseDouble(monthlyLeaves));
                 et.setMonthlyShortLeaves(Double.parseDouble(shortLeaves));
                 et.setEtfEpf(etfepf);
+                et.setCompanyId(company);
                 String result = EmployeeDAOImpl.saveEmployeeType(et);
                 if (result.equals(VertecConstants.SUCCESS)) {
                     request.getSession().removeAttribute("Success_Message");
@@ -460,7 +464,6 @@ public class EmployeeController extends HttpServlet {
                     request.getSession().setAttribute("Error_Message", "Not Added,Please Try again");
                     response.sendRedirect("Employee?action=ViewEmployeeType");
                 }
-
                 break;
             }
 
