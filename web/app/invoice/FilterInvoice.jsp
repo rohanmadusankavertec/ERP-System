@@ -15,6 +15,44 @@
 <script src="app/js/po.js"></script>
 <script src="app/js/notAlert.js"></script>
 
+<script>
+    
+    function sm_warning(text) {
+        BootstrapDialog.show({
+            title: 'Warning',
+            type: BootstrapDialog.TYPE_WARNING,
+            message: text,
+            size: BootstrapDialog.SIZE_SMALL
+        });
+    }
+
+
+    function nom_Success(text) {
+        BootstrapDialog.show({
+            title: 'Notification',
+            type: BootstrapDialog.TYPE_SUCCESS,
+            message: text,
+            size: BootstrapDialog.SIZE_NORMAL
+        });
+    }
+    
+    
+    
+    
+ function SentData(){
+        
+        var branch=document.getElementById('branch').value;
+        
+        if(branch === "Select Branch"){
+            sm_warning("Please Select the Branch....");
+        
+        }else{
+            window.location = '../../Invoice?action=SelectBranches&branch='+branch; 
+    
+        }
+} 
+</script>
+
 
 
 
@@ -43,14 +81,14 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form action="../../Invoice?action=SelectBranches" method="post">
+                    <form action="" method="">
 
                         <div class="item form-group" style="padding-top: 50px;">
                             <label class="control-label col-md-4 col-sm-12 col-xs-12" for="name">Select Branch 
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="branch" id="branch"  required="required">
-                                    <option selected="true" disabled value="0">Select Branch</option>
+                                <select class="form-control" name="branch" id="branch" >
+                                    <option selected="true" disabled value="Select Branch">Select Branch</option>
                                     <option value="0">All</option>
 
                                     <%
@@ -83,7 +121,7 @@
                         </div>
                         <div class="item form-group" style="padding-top: 50px;">
                             <div class="col-xs-12 col-lg-offset-3">
-                                <button type="submit" class="btn btn-success" onclick="SentData();">View Branch wise Invoices</button>
+                                <button type="button" class="btn btn-success" onclick="SentData();">View Branch wise Invoices</button>
                             </div>
                         </div>
                     </form>

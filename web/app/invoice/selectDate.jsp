@@ -13,6 +13,26 @@
 <script src="app/js/invoice.js"></script>
 <script src="app/js/notAlert.js"></script>
 
+<script>
+ function SentData(){
+         
+        var branch=document.getElementById('branch').value;
+        var fromDate=document.getElementById('fromDate').value;
+        var toDate=document.getElementById('toDate').value;
+        
+        
+        if(branch === ""){
+            sm_warning("Please Select the Branch....");
+        }else if(fromDate === ""){
+            sm_warning("Please Select the From Date....");
+        }else if(toDate === ""){
+            sm_warning("Please Select the To Date....");
+        }else{
+            window.location = 'Invoice?action=SelectDates&branch='+branch+"&fromDate="+fromDate+"&toDate="+toDate; 
+    
+        }
+} 
+</script>
 
 <div class="">
     <div class="page-title">
@@ -44,13 +64,13 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form action="../../Invoice?action=SelectDates" method="post">
+                    <form  method="post">
 
                         <div class="item form-group" style="padding-top: 50px;">
                             <label class="control-label col-md-4 col-sm-12 col-xs-12" for="name">Select Branch 
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="branch" id="branch"  required="required">
+                                <select class="form-control" name="branch" id="branch"  >
                                     <option selected="true" disabled value="0">Select Branch</option>
                                     <option value="ALL">All</option>
                                     <%
@@ -74,19 +94,19 @@
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">From Date <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="date" id="fromDate" name="fromDate" required="required" placeholder="From Date" class="form-control col-md-7 col-xs-12">
+                                <input type="date" id="fromDate" name="fromDate"  placeholder="From Date" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>  
                         <div class="item form-group" style="padding-top: 50px;">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">To Date <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="date" id="toDate" name="toDate" required="required" placeholder="UpTo Date" class="form-control col-md-7 col-xs-12">
+                                <input type="date" id="toDate" name="toDate"  placeholder="UpTo Date" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>  
                         <div class="item form-group" style="padding-top: 50px;">
                             <div class="col-xs-12 col-lg-offset-3">
-                                <button class="btn btn-success" id="viewInvoices"><i class="fa fa-arrow-right"></i>  View Invoices </button>
+                                <button class="btn btn-success" onclick="SentData();" id="viewInvoices"><i class="fa fa-arrow-right"></i>  View Invoices </button>
                             </div>
                         </div> 
                     </form>
