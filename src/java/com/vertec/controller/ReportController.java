@@ -385,7 +385,7 @@ public class ReportController extends HttpServlet {
                 //Open Search employee Page
                 case "SearchEmployee": {
                     System.out.println("Calling");
-                    List<Employee> e = EmployeeDAOImpl.getEmployees();
+                    List<Employee> e = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", e);
                     requestDispatcher = request.getRequestDispatcher("app/report/SearchEmployee.jsp");
                     requestDispatcher.forward(request, response);
@@ -405,7 +405,7 @@ public class ReportController extends HttpServlet {
                 }
                 // View Employee Report
                 case "Employees": {
-                    List<Employee> e = EmployeeDAOImpl.getEmployees();
+                    List<Employee> e = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", e);
                     requestDispatcher = request.getRequestDispatcher("app/report/EmployeeReport.jsp");
                     requestDispatcher.forward(request, response);
@@ -413,7 +413,7 @@ public class ReportController extends HttpServlet {
                 }
                 // Open Leaves Search Page
                 case "Leaves": {
-                    List<Employee> e = EmployeeDAOImpl.getEmployees();
+                    List<Employee> e = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", e);
                     requestDispatcher = request.getRequestDispatcher("app/report/SearchLeaves.jsp");
                     requestDispatcher.forward(request, response);
@@ -453,7 +453,7 @@ public class ReportController extends HttpServlet {
                 }
                 // Open Search Attendance Page
                 case "Attendance": {
-                    List<Employee> e = EmployeeDAOImpl.getEmployees();
+                    List<Employee> e = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", e);
                     requestDispatcher = request.getRequestDispatcher("app/report/SearchAttendance.jsp");
                     requestDispatcher.forward(request, response);
@@ -566,7 +566,7 @@ public class ReportController extends HttpServlet {
                 }
                 // View PaySlip Report
                 case "payslip": {
-                    List<Employee> e = EmployeeDAOImpl.getEmployees();
+                    List<Employee> e = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", e);
                     requestDispatcher = request.getRequestDispatcher("app/report/SearchPayslip.jsp");
                     requestDispatcher.forward(request, response);

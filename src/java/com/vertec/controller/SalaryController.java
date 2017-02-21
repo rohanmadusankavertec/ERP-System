@@ -10,6 +10,7 @@ import com.vertec.daoimpl.SalaryDAOImpl;
 import com.vertec.hibe.model.Advance;
 import com.vertec.hibe.model.BankAccounts;
 import com.vertec.hibe.model.Cheque;
+import com.vertec.hibe.model.Company;
 import com.vertec.hibe.model.Employee;
 import com.vertec.hibe.model.HollyDay;
 import com.vertec.hibe.model.Loan;
@@ -66,6 +67,7 @@ public class SalaryController extends HttpServlet {
             String action = request.getParameter("action");
             HttpSession httpSession = request.getSession();
             SysUser user1 = (SysUser) httpSession.getAttribute("user");
+            Company company = (Company) httpSession.getAttribute("company");
             RequestDispatcher requestDispatcher;
 
             switch (action) {
@@ -179,7 +181,7 @@ public class SalaryController extends HttpServlet {
                 case "ViewDefaultPayments": {
                     List<PayrollDefault> wd = SalaryDAOImpl.getDefaultPayments();
                     request.setAttribute("dp", wd);
-                    List<Employee> emp = EmployeeDAOImpl.getEmployees();
+                    List<Employee> emp = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", emp);
                     requestDispatcher = request.getRequestDispatcher("app/salary/DefaultPayments.jsp");
                     requestDispatcher.forward(request, response);
@@ -212,7 +214,7 @@ public class SalaryController extends HttpServlet {
                 }
 //                Load advance payment page
                 case "ViewAdvancePayment": {
-                    List<Employee> cuList = EmployeeDAOImpl.getEmployees();
+                    List<Employee> cuList = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", cuList);
                     List<BankAccounts> bankaccount = SalaryDAOImpl.getBankAccount();
                     request.setAttribute("bank", bankaccount);
@@ -224,7 +226,7 @@ public class SalaryController extends HttpServlet {
                 }
                     //load salary payment page
                 case "ViewSalaryPayment": {
-                    List<Employee> cuList = EmployeeDAOImpl.getEmployees();
+                    List<Employee> cuList = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", cuList);
                     List<BankAccounts> bankaccount = SalaryDAOImpl.getBankAccount();
                     request.setAttribute("bank", bankaccount);
@@ -297,7 +299,7 @@ public class SalaryController extends HttpServlet {
                 }
                 //Load salary calculation page
                 case "CalSalary": {
-                    List<Employee> cuList = EmployeeDAOImpl.getEmployees();
+                    List<Employee> cuList = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", cuList);
                     requestDispatcher = request.getRequestDispatcher("app/salary/CalculateSalary.jsp");
                     requestDispatcher.forward(request, response);
@@ -426,7 +428,7 @@ public class SalaryController extends HttpServlet {
                 }
                 //load staff loan page
                 case "staffloans": {
-                    List<Employee> cuList = EmployeeDAOImpl.getEmployees();
+                    List<Employee> cuList = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", cuList);
                     List<StaffLoan> loan = SalaryDAOImpl.getLoans();
                     request.setAttribute("loan", loan);
@@ -508,7 +510,7 @@ public class SalaryController extends HttpServlet {
                 //Load update staff loan page
                 case "viewUpdateLoan": {
                     String loanid = request.getParameter("id").trim();
-                    List<Employee> cuList = EmployeeDAOImpl.getEmployees();
+                    List<Employee> cuList = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", cuList);
                     StaffLoan loan = SalaryDAOImpl.getLoanById(Integer.parseInt(loanid));
                     request.setAttribute("loan", loan);
