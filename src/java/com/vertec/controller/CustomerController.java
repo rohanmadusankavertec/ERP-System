@@ -200,6 +200,8 @@ public class CustomerController extends HttpServlet {
                 c.setRegisteredBy(user1);
                 c.setCustomerRatingId(new CustomerRating(3));
                 c.setRegisterdDate(new Date());
+                c.setCompanyId(company);
+                
                 
                 String result = customerDAOImpl.saveCustomer(c);
 
