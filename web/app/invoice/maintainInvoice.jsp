@@ -51,13 +51,51 @@
     
     //send data to server side
      function SentData(){
+         
         var cus=document.getElementById('customerId').value;
         var branch=document.getElementById('branch').value;
         var type=document.getElementById('reportType').value;
         var fromDate=document.getElementById('fromDate').value;
         var toDate=document.getElementById('toDate').value;
-        window.location = 'Invoice?action=LoadCustomerInvoice&customer='+cus+"&branch="+branch+"&type="+type+"&from="+fromDate+"&to="+toDate; 
-    }
+        
+        if(type === "1"){
+            window.location = 'Invoice?action=LoadCustomerInvoice&customer='+cus+"&branch="+branch+"&type="+type+"&from="+fromDate+"&to="+toDate; 
+  
+        }else if(type === "2"){
+            if(cus === ""){
+                sm_warning("Please Select the Customer....");
+            }else{
+                      window.location = 'Invoice?action=LoadCustomerInvoice&customer='+cus+"&branch="+branch+"&type="+type+"&from="+fromDate+"&to="+toDate; 
+    
+            }   
+        }else if(type === "3"){
+            if(fromDate === ""){
+                sm_warning("Please Select the From Date....");
+            }else if(toDate === ""){
+                sm_warning("Please Select the To Date....");
+            }else{
+                window.location = 'Invoice?action=LoadCustomerInvoice&customer='+cus+"&branch="+branch+"&type="+type+"&from="+fromDate+"&to="+toDate; 
+            }
+        }else if(type === "4"){
+            if(fromDate === ""){
+                sm_warning("Please Select the Date....");
+            }else{
+                window.location = 'Invoice?action=LoadCustomerInvoice&customer='+cus+"&branch="+branch+"&type="+type+"&from="+fromDate+"&to="+toDate; 
+    
+            }
+        }else if(type === "5"){
+            if(branch === ""){
+                sm_warning("Please Select the Branch....");
+            }else{
+                window.location = 'Invoice?action=LoadCustomerInvoice&customer='+cus+"&branch="+branch+"&type="+type+"&from="+fromDate+"&to="+toDate; 
+    
+            }
+        }else{
+             
+            sm_warning("Please Select the Type....");
+        }    
+        
+     }    
 </script>
 
 
@@ -88,13 +126,14 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form action="Invoice?action=LoadCustomerInvoice" method="post">
+                    <!--<form  method="">-->
+                    <!--<form action="Invoice?action=LoadCustomerInvoice" method="post">-->
 
                         <div class="item form-group" style="padding-top: 50px;">
                             <label class="control-label col-md-4 col-sm-12 col-xs-12" for="name">Select Search Type 
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="reportType" id="reportType"  required="required" onchange="ChangeFilter()">
+                                <select class="form-control" name="reportType" id="reportType"   onchange="ChangeFilter()">
                                     <option selected="true" disabled value="">Select Type</option>
                                     <option value="1">All</option>
                                     <option value="2">Customer Wise</option>
@@ -108,7 +147,7 @@
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">Select Customer <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="customerId" id="customerId"  required="required">
+                                <select class="form-control" name="customerId" id="customerId"  >
                                     <option selected="true" disabled value="">Select Customer</option>
                                     <%for (Customer c : customerList) {%>
                                     <option value="<%=c.getCustomerId()%>"><%=c.getCustomerName()%></option>
@@ -120,7 +159,7 @@
                                 <label class="control-label col-md-4 col-sm-12 col-xs-12" for="name">Select Branch 
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select class="form-control" name="branch" id="branch"  required="required" onchange="ChangeFilter()">
+                                    <select class="form-control" name="branch" id="branch"   onchange="ChangeFilter()">
                                         <option selected="true" disabled value="">Select Branch</option>
                                         <%
                                             SessionFactory sf = NewHibernateUtil.getSessionFactory();
@@ -142,7 +181,7 @@
                                     <label class="control-label col-md-4 col-sm-4 col-xs-12" id="fromlbl" for="name">From Date <span class="required"></span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="date" id="fromDate" name="fromDate" required="required" placeholder="From Date" class="form-control col-md-7 col-xs-12">
+                                        <input type="date" id="fromDate" name="fromDate"  placeholder="From Date" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
                             </div>
@@ -151,16 +190,17 @@
                                     <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">To Date <span class="required"></span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="date" id="toDate" name="toDate" required="required" placeholder="From Date" class="form-control col-md-7 col-xs-12">
+                                        <input type="date" id="toDate" name="toDate"  placeholder="From Date" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
                             </div>    
                         <div class="item form-group" style="padding-top: 50px;">
                             <div class="col-xs-12 col-lg-offset-3">
+                                <!--<button class="btn btn-success" id="updateP" ><i class="fa fa-arrow-right"></i>Go</button>-->
                                 <button class="btn btn-success" id="updateP" onclick="SentData()"><i class="fa fa-arrow-right"></i>Go</button>
                             </div>
                         </div> 
-                    </form>
+                    <!--</form>-->
 
                 </div>
             </div>
