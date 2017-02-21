@@ -156,12 +156,13 @@ public class EmployeeDAOImpl{
         }
         return null;
     }
-    public List<Employee> getEmployees() {
+    public List<Employee> getEmployees(Company com) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         if (session != null) {
             try {
-                Query query = session.createQuery("SELECT s FROM Employee s Where s.isValid=:isValid ");
+                Query query = session.createQuery("SELECT s FROM Employee s Where s.isValid=:isValid and s.companyId=:com");
                 query.setParameter("isValid", true);
+                query.setParameter("com", com);
                 List<Employee> cuList = query.list();
                 return cuList;
 
@@ -338,13 +339,14 @@ public class EmployeeDAOImpl{
 
     }
 
-    public List<EmployeeType> getListOfEmployeeType() {
+    public List<EmployeeType> getListOfEmployeeType(Company com) {
 
         Session session = NewHibernateUtil.getSessionFactory().openSession();
 
         if (session != null) {
             try {
-                Query query = session.createQuery("SELECT c FROM EmployeeType c");
+                Query query = session.createQuery("SELECT c FROM EmployeeType c where c.companyId=:com");
+                query.setParameter("com", com);
                 List<EmployeeType> csList = query.list();
 
                 return csList;

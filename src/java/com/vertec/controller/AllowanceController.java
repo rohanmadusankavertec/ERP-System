@@ -8,6 +8,7 @@ package com.vertec.controller;
 import com.vertec.daoimpl.EmployeeDAOImpl;
 import com.vertec.daoimpl.SalaryDAOImpl;
 import com.vertec.hibe.model.AllowanceDeduction;
+import com.vertec.hibe.model.Company;
 import com.vertec.hibe.model.Employee;
 import com.vertec.hibe.model.SysUser;
 import com.vertec.util.Save;
@@ -50,10 +51,11 @@ public class AllowanceController extends HttpServlet {
             String action = request.getParameter("action");
             HttpSession httpSession = request.getSession();
             SysUser user1 = (SysUser) httpSession.getAttribute("user");
+            Company company = (Company) httpSession.getAttribute("company");
             RequestDispatcher requestDispatcher;
             switch (action) {
                 case "ViewaddAllowance": { // load add allowance page
-                    List<Employee> cuList = EmployeeDAOImpl.getEmployees();
+                    List<Employee> cuList = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", cuList);
                     requestDispatcher = request.getRequestDispatcher("app/salary/addAllowance.jsp");
                     requestDispatcher.forward(request, response);

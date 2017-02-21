@@ -8,6 +8,7 @@ package com.vertec.controller;
 import com.vertec.daoimpl.AttendanceDAOImpl;
 import com.vertec.daoimpl.EmployeeDAOImpl;
 import com.vertec.hibe.model.Attendance;
+import com.vertec.hibe.model.Company;
 import com.vertec.hibe.model.Employee;
 import com.vertec.hibe.model.Leaves;
 import com.vertec.hibe.model.SysUser;
@@ -55,10 +56,11 @@ public class AttendanceController extends HttpServlet {
             String action = request.getParameter("action");
             HttpSession httpSession = request.getSession();
             SysUser user1 = (SysUser) httpSession.getAttribute("user");
+            Company company = (Company) httpSession.getAttribute("company");
             RequestDispatcher requestDispatcher;
             switch (action) {
                 case "ViewaddLeave": { // load add leave page
-                    List<Employee> cuList = EmployeeDAOImpl.getEmployees();
+                    List<Employee> cuList = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", cuList);
                     requestDispatcher = request.getRequestDispatcher("app/attendance/addLeave.jsp");
                     requestDispatcher.forward(request, response);
@@ -70,7 +72,7 @@ public class AttendanceController extends HttpServlet {
                     break;
                 }
                 case "Attendance": { //load attendance page
-                    List<Employee> cuList = EmployeeDAOImpl.getEmployees();
+                    List<Employee> cuList = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", cuList);
                     List<Attendance> attendance = AttendanceDAOImpl.getAttendance();
                     request.setAttribute("attendance", attendance);

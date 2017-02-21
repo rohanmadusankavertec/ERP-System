@@ -77,7 +77,7 @@ public class EmployeeController extends HttpServlet {
                  * load image uploading page
                  */
                 case "EmployeeImage": {
-                    List<Employee> cuList = EmployeeDAOImpl.getEmployees();
+                    List<Employee> cuList = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", cuList);
                     requestDispatcher = request.getRequestDispatcher("app/employee/ImageUpload.jsp");
                     requestDispatcher.forward(request, response);
@@ -205,7 +205,7 @@ public class EmployeeController extends HttpServlet {
                  * load all employee
                  */
                 case "ViewEmployee": {
-                    List<Employee> cuList = EmployeeDAOImpl.getEmployees();
+                    List<Employee> cuList = EmployeeDAOImpl.getEmployees(company);
                     request.setAttribute("employee", cuList);
                     requestDispatcher = request.getRequestDispatcher("app/employee/ViewEmployee.jsp");
                     requestDispatcher.forward(request, response);
@@ -468,7 +468,7 @@ public class EmployeeController extends HttpServlet {
             }
 
             case "ViewEmployeeType": {
-                List<EmployeeType> et = EmployeeDAOImpl.getListOfEmployeeType();
+                List<EmployeeType> et = EmployeeDAOImpl.getListOfEmployeeType(company);
                 request.setAttribute("employeetype", et);
                 requestDispatcher = request.getRequestDispatcher("app/employee/registerEmployeeType.jsp");
                 requestDispatcher.forward(request, response);
