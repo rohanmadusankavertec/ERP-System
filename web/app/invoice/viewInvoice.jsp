@@ -103,9 +103,16 @@
         }
         document.getElementById("ost").innerHTML = parseFloat(total) - parseFloat(payment);
     }
+    function isEmpty(obj) {
+        for (var i in obj) {
+            return false;
+        }
+        return true;
+    }
 
 // Save invoice
     function submitInvoice() {
+        
         var customerId = document.getElementById('customerId').value;
         var branchId = document.getElementById('branchId').value;
         var data = {};
@@ -139,38 +146,45 @@
         data["tax"] = tax;
         data["gTot"] = gTot;
         data["item_details"] = item_details;
-        var jsonDetails = JSON.stringify(data);
-        BootstrapDialog.show({
-            message: 'Do you want to Submit ?',
-            closable: false,
-            buttons: [{
-                    label: 'Yes',
-                    action: function (dialogRef) {
-                        dialogRef.close();
-                        var xmlHttp = getAjaxObject();
-                        xmlHttp.onreadystatechange = function ()
-                        {
-                            if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+        
+        if(isEmpty(item_details)){
+            sm_warning("Please Add Item...");
+        }else if(payment ==""){
+            sm_warning("Please Add Payment Amount...");
+        }else{
+            var jsonDetails = JSON.stringify(data);
+            BootstrapDialog.show({
+                message: 'Do you want to Submit ?',
+                closable: false,
+                buttons: [{
+                        label: 'Yes',
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                            var xmlHttp = getAjaxObject();
+                            xmlHttp.onreadystatechange = function ()
                             {
-                                var reply = xmlHttp.responseText;
-                                if (reply === "Success") {
-                                    nom_Success("Successfully Added");
-                                    setTimeout("location.href = 'Invoice?action=ToPrint';", 1500);
-                                } else {
-                                    sm_warning("Invoice Not Correctly Entered Please Try Again");
+                                if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+                                {
+                                    var reply = xmlHttp.responseText;
+                                    if (reply === "Success") {
+                                        nom_Success("Successfully Added");
+                                        setTimeout("location.href = 'Invoice?action=ToPrint';", 1500);
+                                    } else {
+                                        sm_warning("Invoice Not Correctly Entered Please Try Again");
+                                    }
                                 }
-                            }
-                        };
-                        xmlHttp.open("POST", "Invoice?action=SubmitInvoice&data=" + jsonDetails, true);
-                        xmlHttp.send();
-                    }
-                }, {
-                    label: 'No',
-                    action: function (dialogRef) {
-                        dialogRef.close();
-                    }
-                }]
-        });
+                            };
+                            xmlHttp.open("POST", "Invoice?action=SubmitInvoice&data=" + jsonDetails, true);
+                            xmlHttp.send();
+                        }
+                    }, {
+                        label: 'No',
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                        }
+                    }]
+            });
+        }
     }
 
     function ItemwiseTotal() {

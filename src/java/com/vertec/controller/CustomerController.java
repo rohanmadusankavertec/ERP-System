@@ -189,6 +189,7 @@ public class CustomerController extends HttpServlet {
              * This used to save customer quickly from create invoice page
              */
             case "SaveQuickCustomer": { // add new customer quickly
+                System.out.println("aaaaaaaaaa");
                 String cusName = request.getParameter("cusName");
 
                 if (cusName != null) {
@@ -200,6 +201,10 @@ public class CustomerController extends HttpServlet {
                 c.setRegisteredBy(user1);
                 c.setCustomerRatingId(new CustomerRating(3));
                 c.setRegisterdDate(new Date());
+                c.setCompanyId(company);
+                
+                c.setIsActive(isValidated);
+                
                 
                 String result = customerDAOImpl.saveCustomer(c);
 

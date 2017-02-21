@@ -40,7 +40,7 @@
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">Select Branch <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="branchId" id="branchId" >
+                                <select class="form-control" name="branchId" id="branchId" required="required" >
                                     <option selected="true" disabled value="">Select Branch</option>
                                     <%if (ca.checkUserAuth("OTHER_BRANCH", group) != null) {%>
                                     <%for (Branch b : branchList) {%>
