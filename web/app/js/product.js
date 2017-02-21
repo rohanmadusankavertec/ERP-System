@@ -85,11 +85,11 @@ function deleteProduct(Pid) {
                         {
                             var reply = xmlHttp.responseText;
                             if (reply === "Success") {
-                                nom_Success("Successfully Updated");
+                                nom_Success("Successfully Deleted");
                                 setTimeout("location.href = 'Product?action=ViewProducts';", 1500);
 //                                window.location = "Product?action=ViewProducts";
                             } else {
-                                sm_warning("Product is Not Updated, Please Try again");
+                                sm_warning("Product is Not Deleted, Please Try again");
                             }
 
                         }
