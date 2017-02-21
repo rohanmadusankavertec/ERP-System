@@ -41,6 +41,25 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Company implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    private Collection<Adtype> adtypeCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    private Collection<Bank> bankCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    private Collection<EmployeeType> employeeTypeCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    private Collection<Fpfiles> fpfilesCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    private Collection<WorkingDays> workingDaysCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    private Collection<Designation> designationCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    private Collection<Department> departmentCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    private Collection<Employee> employeeCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    private Collection<HollyDay> hollyDayCollection;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
     private Collection<Product> productCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
     private Collection<Invoice> invoiceCollection;
@@ -382,6 +401,87 @@ public class Company implements Serializable {
 
     public void setInvoiceCollection(Collection<Invoice> invoiceCollection) {
         this.invoiceCollection = invoiceCollection;
+    }
+
+    @XmlTransient
+    public Collection<Adtype> getAdtypeCollection() {
+        return adtypeCollection;
+    }
+
+    public void setAdtypeCollection(Collection<Adtype> adtypeCollection) {
+        this.adtypeCollection = adtypeCollection;
+    }
+
+    @XmlTransient
+    public Collection<Bank> getBankCollection() {
+        return bankCollection;
+    }
+
+    public void setBankCollection(Collection<Bank> bankCollection) {
+        this.bankCollection = bankCollection;
+    }
+
+    @XmlTransient
+    public Collection<EmployeeType> getEmployeeTypeCollection() {
+        return employeeTypeCollection;
+    }
+
+    public void setEmployeeTypeCollection(Collection<EmployeeType> employeeTypeCollection) {
+        this.employeeTypeCollection = employeeTypeCollection;
+    }
+
+    @XmlTransient
+    public Collection<Fpfiles> getFpfilesCollection() {
+        return fpfilesCollection;
+    }
+
+    public void setFpfilesCollection(Collection<Fpfiles> fpfilesCollection) {
+        this.fpfilesCollection = fpfilesCollection;
+    }
+
+    @XmlTransient
+    public Collection<WorkingDays> getWorkingDaysCollection() {
+        return workingDaysCollection;
+    }
+
+    public void setWorkingDaysCollection(Collection<WorkingDays> workingDaysCollection) {
+        this.workingDaysCollection = workingDaysCollection;
+    }
+
+    @XmlTransient
+    public Collection<Designation> getDesignationCollection() {
+        return designationCollection;
+    }
+
+    public void setDesignationCollection(Collection<Designation> designationCollection) {
+        this.designationCollection = designationCollection;
+    }
+
+    @XmlTransient
+    public Collection<Department> getDepartmentCollection() {
+        return departmentCollection;
+    }
+
+    public void setDepartmentCollection(Collection<Department> departmentCollection) {
+        this.departmentCollection = departmentCollection;
+    }
+
+    @XmlTransient
+    public Collection<Employee> getEmployeeCollection() {
+        return employeeCollection;
+    }
+
+    public void setEmployeeCollection(Collection<Employee> employeeCollection) {
+        this.employeeCollection = employeeCollection;
+    }
+
+    @XmlTransient
+    public Collection<HollyDay> getHollyDayCollection() {
+        return hollyDayCollection;
+    }
+
+    public void setHollyDayCollection(Collection<HollyDay> hollyDayCollection) {
+        this.hollyDayCollection = hollyDayCollection;
     }
     
 }

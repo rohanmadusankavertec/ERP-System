@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -33,6 +35,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HollyDay.findByName", query = "SELECT h FROM HollyDay h WHERE h.name = :name"),
     @NamedQuery(name = "HollyDay.findByDate", query = "SELECT h FROM HollyDay h WHERE h.date = :date")})
 public class HollyDay implements Serializable {
+
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Company companyId;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -100,6 +106,14 @@ public class HollyDay implements Serializable {
     @Override
     public String toString() {
         return "com.vertec.hibe.model.HollyDay[ hollydayId=" + hollydayId + " ]";
+    }
+
+    public Company getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Company companyId) {
+        this.companyId = companyId;
     }
     
 }

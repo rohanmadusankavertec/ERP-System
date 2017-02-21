@@ -37,6 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Designation.findByIsValid", query = "SELECT d FROM Designation d WHERE d.isValid = :isValid")})
 public class Designation implements Serializable {
 
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Company companyId;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "designationId")
     private Collection<Employee> employeeCollection;
 
@@ -125,6 +129,14 @@ public class Designation implements Serializable {
 
     public void setEmployeeCollection(Collection<Employee> employeeCollection) {
         this.employeeCollection = employeeCollection;
+    }
+
+    public Company getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Company companyId) {
+        this.companyId = companyId;
     }
     
 }

@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -36,6 +38,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Bank.findByAddress", query = "SELECT b FROM Bank b WHERE b.address = :address"),
     @NamedQuery(name = "Bank.findByOfficeNo", query = "SELECT b FROM Bank b WHERE b.officeNo = :officeNo")})
 public class Bank implements Serializable {
+
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Company companyId;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -133,6 +139,14 @@ public class Bank implements Serializable {
     @Override
     public String toString() {
         return "com.vertec.hibe.model.Bank[ id=" + id + " ]";
+    }
+
+    public Company getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Company companyId) {
+        this.companyId = companyId;
     }
     
 }

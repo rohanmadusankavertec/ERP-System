@@ -56,6 +56,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Employee.findByAppoint", query = "SELECT e FROM Employee e WHERE e.appoint = :appoint")})
 public class Employee implements Serializable {
 
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Company companyId;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
     private Collection<Salary> salaryCollection;
 
@@ -398,6 +402,14 @@ public class Employee implements Serializable {
 
     public void setSalaryCollection(Collection<Salary> salaryCollection) {
         this.salaryCollection = salaryCollection;
+    }
+
+    public Company getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Company companyId) {
+        this.companyId = companyId;
     }
     
 }
