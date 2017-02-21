@@ -14,6 +14,10 @@
 <script src="app/js/po.js"></script>
 <script src="app/js/notAlert.js"></script>
 <script type="text/javascript">
+    
+    
+    
+    
     //show and hide  fields according to report types
     function ChangeFilter() {
         var reportType = document.getElementById('reportType').value;
@@ -32,6 +36,8 @@
     }
     // validatetion and send data to serverside
     function SentData() {
+        
+        alert("mmmm");
         var type = document.getElementById('reportType').value;
         var fromDate = document.getElementById('fromDate').value;
         var toDate = document.getElementById('toDate').value;
@@ -39,18 +45,21 @@
             window.location = "../../PRN?action=viewPRN&type=" + type + "&from=" + fromDate + "&to=" + toDate;
         }else if(type==="2"){
             if(fromDate === "" || toDate === ""  ){
-                alert("Please enter the dates..");
+                sm_warning("Please enter the dates..");
+//                alert("Please enter the dates..");
             }else{
                 window.location = "../../PRN?action=viewPRN&type=" + type + "&from=" + fromDate + "&to=" + toDate;
             }
         }else if(type==="3"){
             if(fromDate===""){
-                alert("Please enter the date..");
+                sm_warning("Please enter the date..");
+//                alert("Please enter the date..");
             }else{
                 window.location = "../../PRN?action=viewPRN&type=" + type + "&from=" + fromDate + "&to=" + toDate;
             }
         }else{
-            alert("Please select the type..");
+            sm_warning("Please select the type..");
+//            alert("Please select the type..");
         }
     }
 </script>

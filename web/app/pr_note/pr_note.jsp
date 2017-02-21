@@ -54,11 +54,17 @@
     //add product to table
     function AddToPRN() {
         var pro = document.getElementById("getpro").value;
+        var cat = document.getElementById("getcat").value;
         var qty = document.getElementById("qty").value;
         if (pro === "") {
-            alert("Please select a product");
-        } else if (qty === "") {
-            alert("Please Enter the Qty");
+            sm_warning("Please select a product");
+//            alert("Please select a product");
+        } else if (cat === "") {
+            sm_warning("Please Enter the Category");
+//            alert("Please Enter the Qty");
+        }else if (qty === "") {
+            sm_warning("Please Enter the Qty");
+//            alert("Please Enter the Qty");
         } else {
             var product = pro.split("_");
             var item_detail = {};
@@ -257,7 +263,7 @@
                                 <div class="col-md-7 col-sm-6 col-xs-12">
 
                                     <select class="form-control" name="product" id="getpro"  required="required" >
-                                        <option selected="true"  value="">Select Product</option>
+                                        <option selected="true"  value="" disabled="true">Select Product</option>
                                         <%                                            SQLQuery query = ses.createSQLQuery("SELECT product_id,product_code,product_name FROM product WHERE company_id='"+ company.getId()+"'");
                                             List<Object[]> inList = query.list();
                                             for (Object[] list : inList) {%>
