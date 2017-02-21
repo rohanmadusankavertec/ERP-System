@@ -482,11 +482,18 @@ public class InvoiceController extends HttpServlet {
              * viewSelected.jsp
              */
             case "LoadCustomerInvoice": {
-                String customerId = request.getParameter("customerId");
+//                String customerId = request.getParameter("customerId");
+//                String branch = request.getParameter("branch");
+//                String from = request.getParameter("from");
+//                String to = request.getParameter("to");
+//                String type = request.getParameter("type");
+                
+                String customerId = request.getParameter("customer");
                 String branch = request.getParameter("branch");
                 String from = request.getParameter("from");
                 String to = request.getParameter("to");
                 String type = request.getParameter("type");
+                
                 Date date = new Date();
 //                List<Object[]> invoiceList = invoiceDAOImpl.invoiceForCustomers(cusId);
                 List<Object[]> invoiceList = invoiceDAOImpl.invoiceForAll(customerId, branch, type, from, to, company);
