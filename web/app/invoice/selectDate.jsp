@@ -14,21 +14,44 @@
 <script src="app/js/notAlert.js"></script>
 
 <script>
+    function sm_warning(text) {
+        BootstrapDialog.show({
+            title: 'Warning',
+            type: BootstrapDialog.TYPE_WARNING,
+            message: text,
+            size: BootstrapDialog.SIZE_SMALL
+        });
+    }
+
+
+    function nom_Success(text) {
+        BootstrapDialog.show({
+            title: 'Notification',
+            type: BootstrapDialog.TYPE_SUCCESS,
+            message: text,
+            size: BootstrapDialog.SIZE_NORMAL
+        });
+    }    
+    
+    
+    
+    
  function SentData(){
          
         var branch=document.getElementById('branch').value;
         var fromDate=document.getElementById('fromDate').value;
         var toDate=document.getElementById('toDate').value;
+//        alert(branch);
         
         
-        if(branch === ""){
+        if(branch === "Select Branch"){
             sm_warning("Please Select the Branch....");
         }else if(fromDate === ""){
             sm_warning("Please Select the From Date....");
         }else if(toDate === ""){
             sm_warning("Please Select the To Date....");
         }else{
-            window.location = 'Invoice?action=SelectDates&branch='+branch+"&fromDate="+fromDate+"&toDate="+toDate; 
+            window.location = '../../Invoice?action=SelectDates&branch='+branch+"&fromDate="+fromDate+"&toDate="+toDate; 
     
         }
 } 
@@ -64,14 +87,14 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form  method="post">
+                    <!--<form  method="post">-->
 
                         <div class="item form-group" style="padding-top: 50px;">
                             <label class="control-label col-md-4 col-sm-12 col-xs-12" for="name">Select Branch 
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="branch" id="branch"  >
-                                    <option selected="true" disabled value="0">Select Branch</option>
+                                    <option selected="true" disabled value="Select Branch">Select Branch</option>
                                     <option value="ALL">All</option>
                                     <%
                                         HttpSession httpSession = request.getSession();
@@ -106,10 +129,10 @@
                         </div>  
                         <div class="item form-group" style="padding-top: 50px;">
                             <div class="col-xs-12 col-lg-offset-3">
-                                <button class="btn btn-success" onclick="SentData();" id="viewInvoices"><i class="fa fa-arrow-right"></i>  View Invoices </button>
+                                <button type="button" class="btn btn-success" onclick="SentData();" id="viewInvoices"><i class="fa fa-arrow-right"></i>  View Invoices </button>
                             </div>
                         </div> 
-                    </form>
+                    <!--</form>-->
 
                 </div>
             </div>
