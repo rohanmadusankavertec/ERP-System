@@ -8,11 +8,14 @@ function AddToPO() {
     var potot = document.getElementById("pototal");
 
     if (pro === "Select Product") {
-        alert("Please select a product");
+//        alert("Please select a product");
+        sm_warning("Please select a product");
     } else if (qty === "") {
-        alert("Please Enter the Qty");
+//        alert("Please Enter the Qty");
+        sm_warning("Please Enter the Qty");
     } else if (price === "") {
-        alert("Please Enter the Unit Price");
+//        alert("Please Enter the Unit Price");
+        sm_warning("Please Enter the Unit Price");
     } else {
         var product=pro.split("_");
         var item_detail = {};
