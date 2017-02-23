@@ -62,7 +62,7 @@ public class PRNController extends HttpServlet {
                  * Load Purchase Requisition note
                  */
                 case "toPRN": {
-                    System.out.println("Calling to PRN");
+//                    System.out.println("Calling to PRN");
                     requestDispatcher = request.getRequestDispatcher("app/pr_note/pr_note.jsp");
                     requestDispatcher.forward(request, response);
                     break;
