@@ -115,12 +115,13 @@ public class EmployeeDAOImpl{
     }
 
      
-    public List<Designation> getDesignations() {
+    public List<Designation> getDesignations(Company com) {
        Session session = NewHibernateUtil.getSessionFactory().openSession();
         if (session != null) {
             try {
-                Query query = session.createQuery("SELECT d FROM Designation d WHERE d.isValid = :type");
+                Query query = session.createQuery("SELECT d FROM Designation d WHERE d.isValid = :type and d.companyId=:com");
                 query.setParameter("type", true);
+                query.setParameter("com", com);
                 List<Designation> designation = query.list();
                 return designation;
             } catch (Exception e) {

@@ -109,6 +109,7 @@ public class AttendanceController extends HttpServlet {
                     e.setEmployeeId(employee);
                     e.setAddedBy(user1);
                     e.setIsPay(null);
+                    
                     String result = Save.Save(e);
                     if (result.equals(VertecConstants.SUCCESS)) {
                         request.getSession().removeAttribute("Success_Message");

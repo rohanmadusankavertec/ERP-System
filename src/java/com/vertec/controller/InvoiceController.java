@@ -63,7 +63,7 @@ public class InvoiceController extends HttpServlet {
         RequestDispatcher requestDispatcher;
         boolean isValidated = true;
         String path = getServletContext().getInitParameter("pdftemp");
-
+        
         switch (action) {
             /**
              * This action is url for createInvoice.jsp
@@ -82,7 +82,6 @@ public class InvoiceController extends HttpServlet {
              * Invoice Page dispathch viewInvoice.jsp or viewVInvoice.jsp
              * according to invoiceType
              */
-
             case "ToInvoice": {
                 String branch = request.getParameter("branchId");
                 String customer = request.getParameter("customerId");
