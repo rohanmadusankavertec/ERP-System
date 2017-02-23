@@ -19,6 +19,26 @@
 <script src="app/js/notAlert.js"></script>
 
 <script type="text/javascript">
+    
+    function sm_warning(text) {
+        BootstrapDialog.show({
+            title: 'Warning',
+            type: BootstrapDialog.TYPE_WARNING,
+            message: text,
+            size: BootstrapDialog.SIZE_SMALL
+        });
+    }
+
+
+    function nom_Success(text) {
+        BootstrapDialog.show({
+            title: 'Notification',
+            type: BootstrapDialog.TYPE_SUCCESS,
+            message: text,
+            size: BootstrapDialog.SIZE_NORMAL
+        });
+    }
+    
     // load product to select element 
     function loadProducts() {
         var xmlHttp = getAjaxObject();
