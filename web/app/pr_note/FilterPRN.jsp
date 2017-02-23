@@ -15,7 +15,24 @@
 <script src="app/js/notAlert.js"></script>
 <script type="text/javascript">
     
-    
+    function sm_warning(text) {
+        BootstrapDialog.show({
+            title: 'Warning',
+            type: BootstrapDialog.TYPE_WARNING,
+            message: text,
+            size: BootstrapDialog.SIZE_SMALL
+        });
+    }
+
+
+    function nom_Success(text) {
+        BootstrapDialog.show({
+            title: 'Notification',
+            type: BootstrapDialog.TYPE_SUCCESS,
+            message: text,
+            size: BootstrapDialog.SIZE_NORMAL
+        });
+    }
     
     
     //show and hide  fields according to report types
@@ -37,7 +54,7 @@
     // validatetion and send data to serverside
     function SentData() {
         
-        alert("mmmm");
+        
         var type = document.getElementById('reportType').value;
         var fromDate = document.getElementById('fromDate').value;
         var toDate = document.getElementById('toDate').value;
@@ -101,7 +118,7 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="reportType" id="reportType"  required="required" onchange="ChangeFilter()">
-                                    <option selected="true" disabled value="">Select Type</option>
+                                    <option selected="true" disabled="true" value="">Select Type</option>
                                     <option value="1">All</option>
                                     <option value="2">Date Range</option>
                                     <option value="3">Daily Purchased Orders</option>
