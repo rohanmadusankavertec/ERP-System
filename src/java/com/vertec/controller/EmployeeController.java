@@ -140,7 +140,7 @@ public class EmployeeController extends HttpServlet {
                  * load add designation page
                  */
                 case "Designation": {
-                    List<Designation> desig = EmployeeDAOImpl.getDesignations();
+                    List<Designation> desig = EmployeeDAOImpl.getDesignations(company);
                     List<Department> dep = EmployeeDAOImpl.getDepartments(company);
                     request.setAttribute("departments", dep);
                     request.setAttribute("designations", desig);
@@ -190,7 +190,7 @@ public class EmployeeController extends HttpServlet {
                  */
                 
                 case "EmployeeReg": {
-                    List<Designation> desig = EmployeeDAOImpl.getDesignations();
+                    List<Designation> desig = EmployeeDAOImpl.getDesignations(company);
                     List<Department> dep = EmployeeDAOImpl.getDepartments(company);
                     List<EmployeeType> emp = EmployeeDAOImpl.getEmployeeTypes();
                     request.setAttribute("employeetype", emp);
@@ -311,7 +311,7 @@ public class EmployeeController extends HttpServlet {
                     int eid = 0;
                     eid = Integer.parseInt(emp);
                     Employee employee = EmployeeDAOImpl.getEmployee(eid);
-                    List<Designation> desig = EmployeeDAOImpl.getDesignations();
+                    List<Designation> desig = EmployeeDAOImpl.getDesignations(company);
                     List<Department> dep = EmployeeDAOImpl.getDepartments(company);
                     List<EmployeeType> empt = EmployeeDAOImpl.getEmployeeTypes();
                     request.setAttribute("empt", empt);
