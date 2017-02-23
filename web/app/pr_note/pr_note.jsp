@@ -146,7 +146,8 @@
     //save PRN
     function submitPRN() {
         if (isEmpty(item_details)) {
-            alert("Please add products..");
+//            alert("Please add products..");
+            sm_warning("Please add products..");
         } else {
             var data = {};
             data["item_details"] = item_details;
