@@ -31,8 +31,32 @@
         var sup = document.getElementById('sup').value;
         var type = document.getElementById('grnType').value;
         var po = document.getElementById('po').value;
-        window.location = "GRN?action=toGRN&type=" + type + "&po=" + po + "&sup=" + sup;
+        if(po === ""){
+            sm_warning("Please select the feilds...");
+        }else{
+            window.location = "GRN?action=toGRN&type=" + type + "&po=" + po + "&sup=" + sup;
+        }
     }
+    
+    function nom_Success(text) {
+        BootstrapDialog.show({
+            title: 'Notification',
+            type: BootstrapDialog.TYPE_SUCCESS,
+            message: text,
+            size: BootstrapDialog.SIZE_NORMAL
+        });
+    }
+    function sm_warning(text) {
+        BootstrapDialog.show({
+            title: 'Warning',
+            type: BootstrapDialog.TYPE_WARNING,
+            message: text,
+            size: BootstrapDialog.SIZE_SMALL
+        });
+    }
+    
+    
+    
 </script>
 
 
