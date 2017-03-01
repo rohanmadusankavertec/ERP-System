@@ -31,10 +31,13 @@
         
         var fbranch = document.getElementById('fBranch').value;
         var tbranch = document.getElementById('tBranch').value;
+        
         if(fbranch === "Select From Branch"){
             sm_warning("Please Select the FROM Branch...");
         }else if(tbranch === "Select To Branch"){
             sm_warning("Please Select the TO Branch...");
+        }else if(fbranch === tbranch){
+            sm_warning("You have selected SAME Branchs,Please Check...");
         }else{
           window.location = "GTN?action=loadGtnPage&fBranch=" + fbranch + "&tBranch=" + tbranch;
         }
