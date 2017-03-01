@@ -89,6 +89,8 @@ public class GTNController extends HttpServlet {
                     
                     String fb = request.getParameter("fBranch");
                     String tb = request.getParameter("tBranch");
+//                    System.out.println("fb..."+fb);
+//                    System.out.println("tb..."+tb);
                     List<BranchProductmaster> pList = gtndao.loadProductCategory(Integer.parseInt(fb));
                    
                     
