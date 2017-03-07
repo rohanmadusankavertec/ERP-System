@@ -437,6 +437,8 @@
                                 <%if (ca.checkUserAuth("LEDGER_ACCOUNT", group) != null) {%>
                             <li><a href="${context}/Report?action=toLedgerAccounts">Ledger Accounts</a></li>
                                 <%}%>
+                            <li><a href="${context}/Report?action=loadIncomestatementPage">Income Statement</a></li>
+                            
                                 <%if (ca.checkUserAuth("PROFIT_LOST", group) != null) {%>
                             <li><a href="${context}/Report?action=loadProfitLossPage">Profit & lost Statement</a></li>
                                 <%}%>

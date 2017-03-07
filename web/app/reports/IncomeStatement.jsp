@@ -11,7 +11,7 @@
     <div class="page-title">
         <div class="title_left">
             <h3>
-                 Income Statement
+                 New Profit And Loss 
             </h3>
         </div>
 
@@ -38,7 +38,7 @@
                 </div>
                 <div class="x_content">
 
-                    <form  action="Report?action=listOfAcctByCash" method="post" target="_blank" class="form-horizontal form-label-left" novalidate>
+                    <form  action="Report?action=IncomeStatement" method="post" target="_blank" class="form-horizontal form-label-left" novalidate>
 
                         </p>
                         <span class="section">Profit And Loss  Info</span>

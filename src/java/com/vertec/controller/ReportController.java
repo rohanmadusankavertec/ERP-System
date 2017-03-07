@@ -196,6 +196,28 @@ public class ReportController extends HttpServlet {
                         Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                case "IncomeStatement": { // get the details of cash account
+                    String fdate = request.getParameter("fromDay").trim();
+                    String todate = request.getParameter("toDay").trim();
+                    try {
+                        List<Account> aList = reportdao.loadAllOfAccountByCash1(company);
+                        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+                        Date fromDate = sd.parse(fdate);
+                        Date toDate = sd.parse(todate);
+                        reportdao.CalculateDepreciation(fromDate, toDate, company);
+                        List<String[]> arr = reportdao.loadAccountsForProfit(aList, fromDate, toDate);
+                        List<DepreciationData> dep = reportdao.getDepreciationData(fromDate, toDate, company);
+                        request.setAttribute("arr", arr);
+                        request.setAttribute("dep", dep);
+                        request.setAttribute("date", new Date());
+                        request.setAttribute("from", fdate);
+                        request.setAttribute("to", todate);
+                        requestDispatcher = request.getRequestDispatcher("/app/reports/ReportIncomeStatement.jsp");
+                        requestDispatcher.forward(request, response);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                 /**
                  * Load create trial balance page
                  */
