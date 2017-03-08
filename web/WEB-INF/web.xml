@@ -172,6 +172,14 @@
         <servlet-name>DashboardController</servlet-name>
         <servlet-class>com.vertec.controller.DashboardController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TaxController</servlet-name>
+        <servlet-class>com.vertec.controller.TaxController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TaxController</servlet-name>
+        <url-pattern>/Tax</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DashboardController</servlet-name>
         <url-pattern>/Dashboard</url-pattern>

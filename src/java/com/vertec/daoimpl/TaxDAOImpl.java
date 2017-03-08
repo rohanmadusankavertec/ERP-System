@@ -67,7 +67,31 @@ public class TaxDAOImpl {
             }
         }
 
-        return null;}
+        return null;
+    }
+    
+    public Tax getTaxDetail(Company com,int id) {
+       Session session = NewHibernateUtil.getSessionFactory().openSession();
+
+        if (session != null) {
+            try {
+                Query query = session.createQuery("SELECT t FROM Tax t WHERE t.companyId=:com AND t.id=:id");
+                query.setParameter("id", id);
+                query.setParameter("com", com);
+                Tax tax = (Tax)query.uniqueResult();
+                return tax;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
+        }
+
+        return null;
+    }
     
     
 }

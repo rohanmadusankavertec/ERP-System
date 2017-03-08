@@ -70,16 +70,20 @@ public class TaxController extends HttpServlet {
                         request.getSession().removeAttribute("Success_Message");
 
                         request.getSession().setAttribute("Success_Message", "Successfully Added");
-                        response.sendRedirect("dashboard.jsp");
+                        response.sendRedirect("/Tax?action=loadTaxPage");
                     } else {
                         request.getSession().removeAttribute("Error_Message");
 
                         request.getSession().setAttribute("Error_Message", "Not Added,Please Try again");
-                        response.sendRedirect("/Tax?action=Register");
+                        response.sendRedirect("/Tax?action=loadTaxPage");
                     }
 
                     break;
                     
+                }
+                case "loadUpdateTax": {
+                    
+                    break;
                 }
             }
             

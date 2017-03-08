@@ -74,6 +74,7 @@
                                 <%if (ca.checkUserAuth("VIEW_SUPPLIER_GROUP", group) != null) {%>
                             <li><a href="${context}/Supplier?action=LoadmanageGroup">Manage Supplier Group</a></li>
                                 <%}%>
+                            
                         </ul>
                     </li>
                     <li><a><i class="fa fa-product-hunt"></i>Product Management<span class="fa fa-chevron-down"></span></a>
@@ -84,6 +85,7 @@
                                 <%if (ca.checkUserAuth("MANAGE_PRODUCT", group) != null) {%>
                             <li><a href="${context}/Product?action=ViewProducts">Manage Products</a></li>
                                 <%}%>
+                            <li><a href="${context}/Tax?action=loadTaxPage">Manage Tax</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-file-text-o"></i>PRN<span class="fa fa-chevron-down"></span></a>

@@ -32,7 +32,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2><small>Registration new Tax</small></h2>
+                    <h2><small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -50,7 +50,7 @@
                     <form action="Tax?action=Register" method="post" class="form-horizontal form-label-left" novalidate>
 
                         </p>
-                        <span class="section">Tax Registration</span>
+                        <span class="section"></span>
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Tax Name <span class="required">*</span>
