@@ -43,6 +43,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Invoice.findByIsValid", query = "SELECT i FROM Invoice i WHERE i.isValid = :isValid")})
 public class Invoice implements Serializable {
 
+    @Column(name = "tax")
+    private Double tax;
+
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Company companyId;
@@ -291,6 +294,14 @@ public class Invoice implements Serializable {
 
     public void setCompanyId(Company companyId) {
         this.companyId = companyId;
+    }
+
+    public Double getTax() {
+        return tax;
+    }
+
+    public void setTax(Double tax) {
+        this.tax = tax;
     }
 
 }
