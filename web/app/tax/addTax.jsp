@@ -20,7 +20,7 @@
         <div class="page-title">
             <div class="title_left">
                 <h3>
-                   Update Tax
+                   Add Tax Registration
                 </h3>
             </div>
     
@@ -81,7 +81,60 @@
             </div>
         </div>
     </div>
-    
+        <%
+
+        List<Tax> taxList = (List<Tax>) request.getAttribute("taxList");
+
+    %>
+    <div class="row">
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Registered Customers <small>up to now</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="table-responsive">
+                        <table id="example" class="table table-striped responsive-utilities jambo_table">
+                            <thead>
+                                <tr class="headings">
+                                    <th>#</th>
+                                    <th>Tax Name</th>
+                                    <th>Percentage</th>
+                                    <th class=" no-link last"><span class="nobr">Update</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%                                    
+                                    for (Tax t : taxList) {
+                                %>
+                                <tr>
+                                    <td class=""><%=t.getId() %></td>
+                                    <td class=""><%=t.getName() %></td>
+                                    <td class=""><%=t.getPercentage() %></td>
+                                    <td class="last"> 
+                                        <form name="form" method="post" action="Registration?action=UpdateCustomer">
+                                            <input type="hidden" name="customerId" value="<%=t.getId()%>"/>
+                                            <button type="submit" class="glyphicon glyphicon-edit"></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
 </div>
 
