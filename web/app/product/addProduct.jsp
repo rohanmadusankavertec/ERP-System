@@ -98,9 +98,6 @@
         arr=arr2;
     }
     
-    
-    
-    
 </script>
 
 
@@ -201,7 +198,7 @@
                                 <script>
                                 arr.push(<%=t.getId()%>);
                                 </script>
-                                <input type="radio" value="ch<%=t.getId()%>"/><%=t.getName()%><br>
+                                <input type="radio" id="ch<%=t.getId()%>"/><%=t.getName()%><br>
                                 <%}%>
                             </div>
                         </div>
