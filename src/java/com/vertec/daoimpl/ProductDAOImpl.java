@@ -5,7 +5,6 @@
  */
 package com.vertec.daoimpl;
 
-
 import com.vertec.hibe.model.Company;
 import com.vertec.hibe.model.Product;
 import com.vertec.hibe.model.ProductCategory;
@@ -22,9 +21,8 @@ import org.hibernate.Transaction;
  *
  * @author User
  */
-public class ProductDAOImpl{
+public class ProductDAOImpl {
 
-    
     public String saveProductCategory(ProductCategory productCategory) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -50,7 +48,6 @@ public class ProductDAOImpl{
         return null;
     }
 
-    
     public List<ProductCategory> loadAllProductCategories(Company company) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
 
@@ -73,7 +70,6 @@ public class ProductDAOImpl{
         return null;
     }
 
-    
     public ProductCategory viewCategories(int pcId) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -98,7 +94,6 @@ public class ProductDAOImpl{
         return null;
     }
 
-    
     public String saveUpdatedPC(ProductCategory productCategory) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -128,7 +123,6 @@ public class ProductDAOImpl{
         return null;
     }
 
-    
     public List<Product> loadAllProducts(Company com) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         if (session != null) {
@@ -150,7 +144,8 @@ public class ProductDAOImpl{
 
         return null;
     }
-public List<Tax> loadAllTax(Company com) {
+
+    public List<Tax> loadAllTax(Company com) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         if (session != null) {
             try {
@@ -170,8 +165,9 @@ public List<Tax> loadAllTax(Company com) {
 
         return null;
     }
-    public String saveproductMaster(String proId,String pp,String sp) {
-        
+
+    public String saveproductMaster(String proId, String pp, String sp) {
+
         int productId = 0;
         double purchasedPrice = 0;
         double sellingPrice = 0;
@@ -188,14 +184,12 @@ public List<Tax> loadAllTax(Company com) {
         Product p = new Product(productId);
 //        ProductMaster productMaster = new ProductMaster(purchasedPrice, sellingPrice, true, p);
         ProductMaster productMaster = new ProductMaster();
-        
+
         productMaster.setIsAvailable(true);
         productMaster.setProductId(p);
         productMaster.setPurchasedPrice(purchasedPrice);
         productMaster.setSellingPrice(sellingPrice);
-        
-        
-        
+
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -220,9 +214,8 @@ public List<Tax> loadAllTax(Company com) {
         return null;
     }
 
-    
     public String saveProduct(Product product) {
-        
+
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -230,9 +223,9 @@ public List<Tax> loadAllTax(Company com) {
             try {
 
                 session.save(product);
-                
+
                 session.flush();
-                
+
                 transaction.commit();
 //                if(saveproductMaster(product.getProductId().toString(), pp, sp).equals("Success")){
 //                return VertecConstants.SUCCESS;
@@ -250,7 +243,6 @@ public List<Tax> loadAllTax(Company com) {
         return null;
     }
 
-    
     public Product viewProducts(int pId) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -275,7 +267,6 @@ public List<Tax> loadAllTax(Company com) {
         return null;
     }
 
-    
     public String saveUpdatedProduct(Product product) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -307,7 +298,6 @@ public List<Tax> loadAllTax(Company com) {
         return null;
     }
 
-    
     public String deleteProduct(int pId) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -336,7 +326,6 @@ public List<Tax> loadAllTax(Company com) {
         return null;
     }
 
-    
     public List<ProductMaster> loadProductMasters(int pId) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -361,7 +350,7 @@ public List<Tax> loadAllTax(Company com) {
 
         return null;
     }
-    
+
     public String savePM(ProductMaster productMaster) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -387,7 +376,6 @@ public List<Tax> loadAllTax(Company com) {
         return null;
     }
 
-    
     public String saveUpdatedPM(ProductMaster productMaster) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -417,7 +405,6 @@ public List<Tax> loadAllTax(Company com) {
         return null;
     }
 
-    
     public String deletePM(int pmId) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
