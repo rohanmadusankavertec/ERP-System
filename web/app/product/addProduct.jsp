@@ -94,7 +94,7 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="tax" id="tax"  required="required" >
-                                    <option selected="true" disabled="true">No Tax</option>
+                                    <option selected="true" value="">No Tax</option>
                                     <%for (Tax t : taxList) {%>
                                     <option value="<%=t.getId() %>"><%=t.getName() %></option>
                                     <%}%>
@@ -146,6 +146,7 @@
                                     <th>Product Name </th>
                                     <th>Description</th>
                                     <th>Re Order Level</th>
+                                    <th>Tax</th>
 
                                     <th class=" no-link last"><span class="nobr" style="width: 300px;">Action</span></th>
 
@@ -155,13 +156,23 @@
                             <tbody>
                                 <%for (Product pi : pList) {%>
                                 <tr>
-
                                     <td class=" "><%=pi.getProductId()%></td>
                                     <td class=" "><%=pi.getProductCode()%></td>
                                     <td class=" "><%=pi.getProductName()%></td>
                                     <td class=" "><%=pi.getProductDescription()%></td>
                                     <td class=" "><%=pi.getReOrderLevel()%></td>
-
+                                    
+                                    
+                                    <%if(pi.getTaxId()==null){%>
+                                    <td class=" ">No Tax</td>
+                                    <%}else{%>
+                                    <td class=" "><%=pi.getTaxId().getName() %></td>
+                                    <%}%>
+                                    
+                                    
+                                    
+                                    
+                                    
                                     <td class=" last">
                                         
                                         <form action="Product?action=ViewProduct" method="POST">

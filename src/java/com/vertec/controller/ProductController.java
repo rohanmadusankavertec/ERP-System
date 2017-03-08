@@ -122,6 +122,7 @@ public class ProductController extends HttpServlet {
                 String description = request.getParameter("description").trim();
                 String reorderLevel = request.getParameter("reorderLevel").trim();
                 String productCategory = request.getParameter("productCategory").trim();
+                String tax = request.getParameter("tax").trim();
                 
                 int reO = 0;
                 int pcId = 0;
@@ -132,8 +133,24 @@ public class ProductController extends HttpServlet {
                     pcId = Integer.parseInt(productCategory);
                 }
                 ProductCategory pc = new ProductCategory(pcId);
-                Product product = new Product(productCode, productName, description, reO, isValidated, pc,company);
-                String result = productDAOImpl.saveProduct(product);
+//                Product product = new Product(productCode, productName, description, reO, isValidated, pc,company);
+                
+                Product p = new Product();
+                p.setProductCode(productCode);
+                p.setProductName(productName);
+                p.setProductDescription(description);
+                p.setReOrderLevel(reO);
+                p.setIsAvailable(isValidated);
+                p.setProductCategoryId(pc);
+                p.setCompanyId(company);
+                if(tax.equals("")){
+                    p.setTaxId(null);
+                }else{
+                p.setTaxId(new Tax(Integer.parseInt(tax)));
+                }
+                
+                
+                String result = productDAOImpl.saveProduct(p);
                 if (result.equals(VertecConstants.SUCCESS)) {
                     request.getSession().removeAttribute("Success_Message");
                     request.getSession().setAttribute("Success_Message", "Successfully Added Product");
