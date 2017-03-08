@@ -70,12 +70,12 @@ public class TaxController extends HttpServlet {
                         request.getSession().removeAttribute("Success_Message");
 
                         request.getSession().setAttribute("Success_Message", "Successfully Added");
-                        response.sendRedirect("/Tax?action=loadTaxPage");
+                        response.sendRedirect("Tax?action=loadTaxPage");
                     } else {
                         request.getSession().removeAttribute("Error_Message");
 
                         request.getSession().setAttribute("Error_Message", "Not Added,Please Try again");
-                        response.sendRedirect("/Tax?action=loadTaxPage");
+                        response.sendRedirect("Tax?action=loadTaxPage");
                     }
 
                     break;
@@ -93,6 +93,10 @@ public class TaxController extends HttpServlet {
                     String id = request.getParameter("taxid");
                     String name = request.getParameter("name");
                     String per = request.getParameter("Percentage");
+                    System.out.println(".."+id);
+                    System.out.println(".."+name);
+                    System.out.println(".."+per);
+                    
                     
                     Tax tax = new Tax();
                     tax.setId(Integer.parseInt(id));
@@ -105,12 +109,12 @@ public class TaxController extends HttpServlet {
                         request.getSession().removeAttribute("Success_Message");
 
                         request.getSession().setAttribute("Success_Message", "Successfully Updateded");
-                        response.sendRedirect("/Tax?action=loadTaxPage");
+                        response.sendRedirect("Tax?action=loadTaxPage");
                     } else {
                         request.getSession().removeAttribute("Error_Message");
 
                         request.getSession().setAttribute("Error_Message", "Not Added,Please Try again");
-                        response.sendRedirect("/Tax?action=loadTaxPage");
+                        response.sendRedirect("Tax?action=loadTaxPage");
                     }
 
                     break;

@@ -98,10 +98,8 @@ public class TaxDAOImpl {
 
         if (session != null) {
             try {
-
-//                Query query = session.createSQLQuery("Update customer set is_active=:is_active where customer_id=:customer_id");
-                Query query = session.createQuery("UPDATE Tax t SET t.name=:taxName t.percentage=:perc WHERE t.id=:id ");
-
+                Query query = session.createQuery("UPDATE Tax as t set t.name=:taxName,t.percentage=:perc WHERE t.id=:id");
+//                Query query = session.createQuery("UPDATE Tax t set t.name=:taxName t.percentage=:perc WHERE t.id=:id");
                 query.setParameter("taxName", tax.getName());
                 query.setParameter("perc", tax.getPercentage());
                 query.setParameter("id", tax.getId());
