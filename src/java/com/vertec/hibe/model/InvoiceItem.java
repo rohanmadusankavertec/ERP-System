@@ -40,6 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "InvoiceItem.findByTotAfterDis", query = "SELECT i FROM InvoiceItem i WHERE i.totAfterDis = :totAfterDis")})
 public class InvoiceItem implements Serializable {
 
+    @Column(name = "tax")
+    private Double tax;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceItemId")
     private Collection<ReturnByCustomer> returnByCustomerCollection;
 
@@ -188,6 +191,14 @@ public class InvoiceItem implements Serializable {
 
     public void setReturnByCustomerCollection(Collection<ReturnByCustomer> returnByCustomerCollection) {
         this.returnByCustomerCollection = returnByCustomerCollection;
+    }
+
+    public Double getTax() {
+        return tax;
+    }
+
+    public void setTax(Double tax) {
+        this.tax = tax;
     }
 
 
