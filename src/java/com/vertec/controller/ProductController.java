@@ -132,8 +132,19 @@ public class ProductController extends HttpServlet {
                     pcId = Integer.parseInt(productCategory);
                 }
                 ProductCategory pc = new ProductCategory(pcId);
-                Product product = new Product(productCode, productName, description, reO, isValidated, pc,company);
-                String result = productDAOImpl.saveProduct(product);
+//                Product product = new Product(productCode, productName, description, reO, isValidated, pc,company);
+                
+                Product p = new Product();
+                p.setProductCode(productCode);
+                p.setProductName(productName);
+                p.setProductDescription(description);
+                p.setReOrderLevel(reO);
+                p.setIsAvailable(isValidated);
+                p.setProductCategoryId(pc);
+                p.setCompanyId(company);
+                
+                
+                String result = productDAOImpl.saveProduct(p);
                 if (result.equals(VertecConstants.SUCCESS)) {
                     request.getSession().removeAttribute("Success_Message");
                     request.getSession().setAttribute("Success_Message", "Successfully Added Product");
@@ -151,10 +162,8 @@ public class ProductController extends HttpServlet {
             case "ViewProducts": {
                 List<ProductCategory> pcList = productDAOImpl.loadAllProductCategories(company);
                 List<Product> pList = productDAOImpl.loadAllProducts(company);
-                List<Tax> taxList = productDAOImpl.loadAllTax(company);
                 request.setAttribute("pcList", pcList);
                 request.setAttribute("pList", pList);
-                request.setAttribute("taxList", taxList);
                 requestDispatcher = request.getRequestDispatcher("app/product/addProduct.jsp");
                 requestDispatcher.forward(request, response);
                 break;

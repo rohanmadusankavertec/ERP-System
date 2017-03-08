@@ -28,7 +28,6 @@
 
     <%
         List<ProductCategory> pcList = (List<ProductCategory>) request.getAttribute("pcList");
-        List<Tax> taxList = (List<Tax>) request.getAttribute("taxList");
     %>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -89,18 +88,7 @@
                                     <%}%>
                                 </select>                              </div>
                         </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Tax <span class="required"></span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="tax" id="tax"  required="required" >
-                                    <option selected="true" disabled="true">No Tax</option>
-                                    <%for (Tax t : taxList) {%>
-                                    <option value="<%=t.getId() %>"><%=t.getName() %></option>
-                                    <%}%>
-                                </select>                              
-                            </div>
-                        </div>        
+                                
 
                         <div class="ln_solid"></div>
                         <div class="form-group">
@@ -146,6 +134,7 @@
                                     <th>Product Name </th>
                                     <th>Description</th>
                                     <th>Re Order Level</th>
+                                    <th>Tax</th>
 
                                     <th class=" no-link last"><span class="nobr" style="width: 300px;">Action</span></th>
 
@@ -155,13 +144,23 @@
                             <tbody>
                                 <%for (Product pi : pList) {%>
                                 <tr>
-
                                     <td class=" "><%=pi.getProductId()%></td>
                                     <td class=" "><%=pi.getProductCode()%></td>
                                     <td class=" "><%=pi.getProductName()%></td>
                                     <td class=" "><%=pi.getProductDescription()%></td>
                                     <td class=" "><%=pi.getReOrderLevel()%></td>
-
+                                    
+                                    
+                                    <%if(pi.getTaxId()==null){%>
+                                    <td class=" ">No Tax</td>
+                                    <%}else{%>
+                                    <td class=" "><%=pi.getTaxId().getName() %></td>
+                                    <%}%>
+                                    
+                                    
+                                    
+                                    
+                                    
                                     <td class=" last">
                                         
                                         <form action="Product?action=ViewProduct" method="POST">
