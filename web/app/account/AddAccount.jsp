@@ -35,7 +35,7 @@
         var bal = document.getElementById("balance").value;
         var aName = document.getElementById("accountName").value;
         if (acc === "") {
-            sm_warning("Please Select Tyoe of Account......");
+            sm_warning("Please Select Type of Account......");
         } else if (sType === "") {
             sm_warning("Please fill Sub Type......");
         } else if (aName === "") {

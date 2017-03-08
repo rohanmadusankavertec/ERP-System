@@ -162,8 +162,10 @@ public class ProductController extends HttpServlet {
             case "ViewProducts": {
                 List<ProductCategory> pcList = productDAOImpl.loadAllProductCategories(company);
                 List<Product> pList = productDAOImpl.loadAllProducts(company);
+                List<Tax> taxList = productDAOImpl.loadAllTax(company);
                 request.setAttribute("pcList", pcList);
                 request.setAttribute("pList", pList);
+                request.setAttribute("taxList", taxList);
                 requestDispatcher = request.getRequestDispatcher("app/product/addProduct.jsp");
                 requestDispatcher.forward(request, response);
                 break;
