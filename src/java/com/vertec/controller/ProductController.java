@@ -11,7 +11,6 @@ import com.vertec.hibe.model.Product;
 import com.vertec.hibe.model.ProductCategory;
 import com.vertec.hibe.model.ProductMaster;
 import com.vertec.hibe.model.SysUser;
-import com.vertec.hibe.model.Tax;
 import com.vertec.util.VertecConstants;
 import java.io.IOException;
 import java.util.List;
@@ -151,10 +150,8 @@ public class ProductController extends HttpServlet {
             case "ViewProducts": {
                 List<ProductCategory> pcList = productDAOImpl.loadAllProductCategories(company);
                 List<Product> pList = productDAOImpl.loadAllProducts(company);
-                List<Tax> taxList = productDAOImpl.loadAllTax(company);
                 request.setAttribute("pcList", pcList);
                 request.setAttribute("pList", pList);
-                request.setAttribute("taxList", taxList);
                 requestDispatcher = request.getRequestDispatcher("app/product/addProduct.jsp");
                 requestDispatcher.forward(request, response);
                 break;

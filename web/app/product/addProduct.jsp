@@ -4,7 +4,6 @@
     Author     : User
 --%>
 
-<%@page import="com.vertec.hibe.model.Tax"%>
 <%@page import="com.vertec.hibe.model.Product"%>
 <%@page import="com.vertec.hibe.model.ProductCategory"%>
 <%@page import="com.vertec.hibe.model.Branch"%>
@@ -29,7 +28,6 @@
 
     <%
         List<ProductCategory> pcList = (List<ProductCategory>) request.getAttribute("pcList");
-        List<Tax> taxList = (List<Tax>) request.getAttribute("taxList");
     %>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -90,18 +88,8 @@
                                     <%}%>
                                 </select>                              </div>
                         </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Tax <span class="required"></span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="productCategory" id="productCategory"  required="required" >
-                                    <option selected="true">No Tax</option>
-                                    <%for (Tax t : taxList) {%>
-                                    <option value="<%=t.getId()%>"><%=t.getName()%></option>
-                                    <%}%>
-                                </select>                              
-                            </div>
-                        </div>
+
+
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4 col-lg-offset-4">
@@ -128,7 +116,7 @@
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-
+                            
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
                         </li>
@@ -163,18 +151,18 @@
                                     <td class=" "><%=pi.getReOrderLevel()%></td>
 
                                     <td class=" last">
-
+                                        
                                         <form action="Product?action=ViewProduct" method="POST">
                                             <input type="hidden" name="pcId" value="<%=pi.getProductId()%>"/>
                                             <button type="submit" class="glyphicon glyphicon-edit">
 
                                             </button>
                                         </form>
-
-
+                                            
+                                            
                                         <a href="#" id="deleteUser" onclick="deleteProduct(<%=pi.getProductId()%>);" class="glyphicon glyphicon-remove"></a>
-
-
+                                       
+                                        
                                     </td>
 
                                 </tr>
