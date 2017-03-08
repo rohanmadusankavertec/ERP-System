@@ -122,7 +122,6 @@ public class ProductController extends HttpServlet {
                 String description = request.getParameter("description").trim();
                 String reorderLevel = request.getParameter("reorderLevel").trim();
                 String productCategory = request.getParameter("productCategory").trim();
-                String tax = request.getParameter("tax").trim();
                 
                 int reO = 0;
                 int pcId = 0;
@@ -143,11 +142,7 @@ public class ProductController extends HttpServlet {
                 p.setIsAvailable(isValidated);
                 p.setProductCategoryId(pc);
                 p.setCompanyId(company);
-                if(tax.equals("0")){
-                    p.setTaxId(null);
-                }else{
-                p.setTaxId(new Tax(Integer.parseInt(tax)));
-                }
+                
                 
                 String result = productDAOImpl.saveProduct(p);
                 if (result.equals(VertecConstants.SUCCESS)) {
@@ -167,10 +162,8 @@ public class ProductController extends HttpServlet {
             case "ViewProducts": {
                 List<ProductCategory> pcList = productDAOImpl.loadAllProductCategories(company);
                 List<Product> pList = productDAOImpl.loadAllProducts(company);
-                List<Tax> taxList = productDAOImpl.loadAllTax(company);
                 request.setAttribute("pcList", pcList);
                 request.setAttribute("pList", pList);
-                request.setAttribute("taxList", taxList);
                 requestDispatcher = request.getRequestDispatcher("app/product/addProduct.jsp");
                 requestDispatcher.forward(request, response);
                 break;
