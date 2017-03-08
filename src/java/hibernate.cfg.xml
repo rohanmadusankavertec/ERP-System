@@ -82,6 +82,7 @@
     <mapping class="com.vertec.hibe.model.SupplierHasGroup"/>
     <mapping class="com.vertec.hibe.model.SupplierReturn"/>
     <mapping class="com.vertec.hibe.model.SysUser"/>
+    <mapping class="com.vertec.hibe.model.Tax"/>
     <mapping class="com.vertec.hibe.model.Transaction"/>
     <mapping class="com.vertec.hibe.model.Type"/>
     <mapping class="com.vertec.hibe.model.UserGroup"/>
