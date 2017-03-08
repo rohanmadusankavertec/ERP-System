@@ -4,9 +4,9 @@
     Author     : User
 --%>
 
-<%@page import="com.vertec.hibe.model.Product"%>
 <%@page import="com.vertec.hibe.model.ProductCategory"%>
-<%@page import="com.vertec.hibe.model.Branch"%>
+<%@page import="com.vertec.hibe.model.Tax"%>
+<%@page import="com.vertec.hibe.model.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../../template/header.jsp"%>
 <%@include file="../../template/sidebar.jsp"%>
@@ -28,6 +28,7 @@
 
     <%
         List<ProductCategory> pcList = (List<ProductCategory>) request.getAttribute("pcList");
+        List<Tax> taxList = (List<Tax>) request.getAttribute("taxList");
     %>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
