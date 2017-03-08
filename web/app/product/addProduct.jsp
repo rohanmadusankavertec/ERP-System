@@ -89,7 +89,18 @@
                                     <%}%>
                                 </select>                              </div>
                         </div>
-
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Tax <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control" name="tax" id="tax"  required="required" >
+                                    <option selected="true" disabled="true">No Tax</option>
+                                    <%for (Tax t : taxList) {%>
+                                    <option value="<%=t.getId() %>"><%=t.getName() %></option>
+                                    <%}%>
+                                </select>                              
+                            </div>
+                        </div>        
 
                         <div class="ln_solid"></div>
                         <div class="form-group">
