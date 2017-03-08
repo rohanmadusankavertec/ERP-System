@@ -92,6 +92,37 @@ public class TaxDAOImpl {
 
         return null;
     }
+    public String updateTax(Tax tax) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        if (session != null) {
+            try {
+
+//                Query query = session.createSQLQuery("Update customer set is_active=:is_active where customer_id=:customer_id");
+                Query query = session.createQuery("UPDATE Tax t SET t.name=:taxName t.percentage=:perc WHERE t.id=:id ");
+
+                query.setParameter("taxName", tax.getName());
+                query.setParameter("perc", tax.getPercentage());
+                query.setParameter("id", tax.getId());
+
+                query.executeUpdate();
+
+                transaction.commit();
+                return VertecConstants.UPDATED;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return VertecConstants.ERROR;
+            } finally {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
+        }
+
+        return null;
+    }
     
     
 }

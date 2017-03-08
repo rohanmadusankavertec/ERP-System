@@ -82,10 +82,39 @@ public class TaxController extends HttpServlet {
                     
                 }
                 case "loadUpdateTax": {
-                    String id = request.getParameter("").trim();
+                    String id = request.getParameter("taxId").trim();
                     Tax tax = taxDAOImpl.getTaxDetail(company, Integer.parseInt(id));
                     request.setAttribute("tax", tax);
+                    requestDispatcher = request.getRequestDispatcher("app/tax/viewTaxDetails.jsp");
+                    requestDispatcher.forward(request, response);
                     break;
+                }
+                case "updateTax": {
+                    String id = request.getParameter("taxid");
+                    String name = request.getParameter("name");
+                    String per = request.getParameter("Percentage");
+                    
+                    Tax tax = new Tax();
+                    tax.setId(Integer.parseInt(id));
+                    tax.setName(name);
+                    tax.setPercentage(Double.parseDouble(per));
+                    String result = taxDAOImpl.updateTax(tax);
+                    
+                    if(result.equals(VertecConstants.UPDATED)){
+                        
+                        request.getSession().removeAttribute("Success_Message");
+
+                        request.getSession().setAttribute("Success_Message", "Successfully Updateded");
+                        response.sendRedirect("/Tax?action=loadTaxPage");
+                    } else {
+                        request.getSession().removeAttribute("Error_Message");
+
+                        request.getSession().setAttribute("Error_Message", "Not Added,Please Try again");
+                        response.sendRedirect("/Tax?action=loadTaxPage");
+                    }
+
+                    break;
+                    
                 }
             }
             
