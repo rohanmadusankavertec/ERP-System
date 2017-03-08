@@ -82,7 +82,9 @@ public class TaxController extends HttpServlet {
                     
                 }
                 case "loadUpdateTax": {
-                    
+                    String id = request.getParameter("").trim();
+                    Tax tax = taxDAOImpl.getTaxDetail(company, Integer.parseInt(id));
+                    request.setAttribute("tax", tax);
                     break;
                 }
             }
