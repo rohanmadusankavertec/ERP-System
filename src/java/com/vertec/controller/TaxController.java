@@ -63,6 +63,7 @@ public class TaxController extends HttpServlet {
                     Tax t = new Tax();
                     t.setName(name);
                     t.setPercentage(Double.parseDouble(tax));
+                    t.setCompanyId(company);
                     String result = taxDAOImpl.saveTax(t);
                     if(result.equals(VertecConstants.SUCCESS)){
                         
