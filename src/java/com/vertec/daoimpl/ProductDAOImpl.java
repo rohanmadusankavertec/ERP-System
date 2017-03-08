@@ -10,6 +10,7 @@ import com.vertec.hibe.model.Company;
 import com.vertec.hibe.model.Product;
 import com.vertec.hibe.model.ProductCategory;
 import com.vertec.hibe.model.ProductMaster;
+import com.vertec.hibe.model.Tax;
 import com.vertec.util.NewHibernateUtil;
 import com.vertec.util.VertecConstants;
 import java.util.List;
@@ -149,7 +150,27 @@ public class ProductDAOImpl{
 
         return null;
     }
+public List<Tax> loadAllTax(Company com) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        if (session != null) {
+            try {
+                Query query = session.createQuery("SELECT p FROM Tax p WHERE p.companyId=:com");
+                
+                query.setParameter("com", com);
+                List<Tax> pList = query.list();
+                return pList;
 
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
+        }
+
+        return null;
+    }
     public String saveproductMaster(String proId,String pp,String sp) {
         
         int productId = 0;

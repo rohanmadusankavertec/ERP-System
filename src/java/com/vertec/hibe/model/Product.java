@@ -40,6 +40,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByIsAvailable", query = "SELECT p FROM Product p WHERE p.isAvailable = :isAvailable")})
 public class Product implements Serializable {
 
+    @JoinColumn(name = "tax_id", referencedColumnName = "id")
+    @ManyToOne
+    private Tax taxId;
+
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Company companyId;
@@ -254,6 +258,14 @@ public Product(Integer productId, String productCode, int reOrderLevel, boolean 
 
     public void setCompanyId(Company companyId) {
         this.companyId = companyId;
+    }
+
+    public Tax getTaxId() {
+        return taxId;
+    }
+
+    public void setTaxId(Tax taxId) {
+        this.taxId = taxId;
     }
 
     
