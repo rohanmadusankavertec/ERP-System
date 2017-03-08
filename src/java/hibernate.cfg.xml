@@ -63,6 +63,7 @@
     <mapping class="com.vertec.hibe.model.PrnItem"/>
     <mapping class="com.vertec.hibe.model.Product"/>
     <mapping class="com.vertec.hibe.model.ProductCategory"/>
+    <mapping class="com.vertec.hibe.model.ProductHasTax"/>
     <mapping class="com.vertec.hibe.model.ProductMaster"/>
     <mapping class="com.vertec.hibe.model.PurchasingOrder"/>
     <mapping class="com.vertec.hibe.model.ReturnByCustomer"/>

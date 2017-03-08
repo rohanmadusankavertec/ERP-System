@@ -40,6 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByIsAvailable", query = "SELECT p FROM Product p WHERE p.isAvailable = :isAvailable")})
 public class Product implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productProductId")
+    private Collection<ProductHasTax> productHasTaxCollection;
+
     @JoinColumn(name = "tax_id", referencedColumnName = "id")
     @ManyToOne
     private Tax taxId;
@@ -266,6 +269,15 @@ public Product(Integer productId, String productCode, int reOrderLevel, boolean 
 
     public void setTaxId(Tax taxId) {
         this.taxId = taxId;
+    }
+
+    @XmlTransient
+    public Collection<ProductHasTax> getProductHasTaxCollection() {
+        return productHasTaxCollection;
+    }
+
+    public void setProductHasTaxCollection(Collection<ProductHasTax> productHasTaxCollection) {
+        this.productHasTaxCollection = productHasTaxCollection;
     }
 
     

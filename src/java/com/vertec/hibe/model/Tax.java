@@ -8,6 +8,7 @@ package com.vertec.hibe.model;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,6 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tax.findByName", query = "SELECT t FROM Tax t WHERE t.name = :name"),
     @NamedQuery(name = "Tax.findByPercentage", query = "SELECT t FROM Tax t WHERE t.percentage = :percentage")})
 public class Tax implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taxId")
+    private Collection<ProductHasTax> productHasTaxCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -125,6 +129,15 @@ public class Tax implements Serializable {
     @Override
     public String toString() {
         return "com.vertec.hibe.model.Tax[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<ProductHasTax> getProductHasTaxCollection() {
+        return productHasTaxCollection;
+    }
+
+    public void setProductHasTaxCollection(Collection<ProductHasTax> productHasTaxCollection) {
+        this.productHasTaxCollection = productHasTaxCollection;
     }
     
 }
