@@ -149,7 +149,6 @@ public class ProductController extends HttpServlet {
                 p.setTaxId(new Tax(Integer.parseInt(tax)));
                 }
                 
-                
                 String result = productDAOImpl.saveProduct(p);
                 if (result.equals(VertecConstants.SUCCESS)) {
                     request.getSession().removeAttribute("Success_Message");
