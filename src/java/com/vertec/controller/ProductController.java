@@ -143,7 +143,7 @@ public class ProductController extends HttpServlet {
                 p.setIsAvailable(isValidated);
                 p.setProductCategoryId(pc);
                 p.setCompanyId(company);
-                if(tax.equals("")){
+                if(tax.equals("0")){
                     p.setTaxId(null);
                 }else{
                 p.setTaxId(new Tax(Integer.parseInt(tax)));

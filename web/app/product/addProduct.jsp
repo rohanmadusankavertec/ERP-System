@@ -94,7 +94,7 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="tax" id="tax"  required="required" >
-                                    <option selected="true" value="">No Tax</option>
+                                    <option selected="true" value="0">No Tax</option>
                                     <%for (Tax t : taxList) {%>
                                     <option value="<%=t.getId() %>"><%=t.getName() %></option>
                                     <%}%>
