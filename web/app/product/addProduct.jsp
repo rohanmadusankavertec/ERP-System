@@ -17,7 +17,6 @@
     var arr = [];
 
     function taxFields() {
-        
         var tx = document.getElementById("tax").value;
         if (tx === "0") {
             document.getElementById("txfields").className = "hidden";
@@ -25,7 +24,6 @@
             document.getElementById("txfields").className = "item form-group";
         }
     }
-    
     
     function sm_warning(text) {
         BootstrapDialog.show({
@@ -46,15 +44,12 @@
     }
     //Check validation and save Products
     function SaveProduct() {
-        
         CheckTaxes();
-        console.log(arr);
         var pc = document.getElementById("productCode").value;
         var pn = document.getElementById("productName").value;
         var des = document.getElementById("description").value;
         var rl = document.getElementById("reorderLevel").value;
         var pc = document.getElementById("productCategory").value;
-        var t = document.getElementById("tax").value;
         if (pc === "") {
             sm_warning("Please Select Product Code......");
         } else if (pn === "") {
@@ -80,7 +75,7 @@
                     }
                 }
             };
-            xmlHttp.open("POST", "Product?action=SaveProduct&productCode=" + pc + "&productName=" + pn + "&description=" + des+ "&reorderLevel=" + rl+ "&productCategory=" + pc+ "&arr=" + arr , true);
+            xmlHttp.open("POST", "Product?action=SaveProduct&productCode=" + pc + "&productName=" + pn + "&description=" + des+ "&reorderLevel=" + rl+ "&productCategory=" + pc+ "&tax=" + arr , true);
             xmlHttp.send();
         }
     }
@@ -90,7 +85,6 @@
         arr2=[];
         for(var i =0; i< arr.length;i++){
             var id="ch"+arr[i];
-            alert(id);
            if(document.getElementById(id).checked){
                arr2.push(arr[i]);
            }
@@ -247,7 +241,6 @@
                                     <th>Product Name </th>
                                     <th>Description</th>
                                     <th>Re Order Level</th>
-                                    <th>Tax</th>
 
                                     <th class=" no-link last"><span class="nobr" style="width: 300px;">Action</span></th>
 
@@ -262,11 +255,7 @@
                                     <td class=" "><%=pi.getProductName()%></td>
                                     <td class=" "><%=pi.getProductDescription()%></td>
                                     <td class=" "><%=pi.getReOrderLevel()%></td>
-                                    <%if (pi.getTaxId() == null) {%>
-                                    <td class=" ">No Tax</td>
-                                    <%} else {%>
-                                    <td class=" "><%=pi.getTaxId().getName()%></td>
-                                    <%}%>
+                                    
 
                                     <td class=" last">
 

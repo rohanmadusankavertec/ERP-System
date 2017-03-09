@@ -52,8 +52,6 @@ public class Tax implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "percentage")
     private Double percentage;
-    @OneToMany(mappedBy = "taxId")
-    private Collection<Product> productCollection;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Company companyId;
@@ -89,14 +87,6 @@ public class Tax implements Serializable {
         this.percentage = percentage;
     }
 
-    @XmlTransient
-    public Collection<Product> getProductCollection() {
-        return productCollection;
-    }
-
-    public void setProductCollection(Collection<Product> productCollection) {
-        this.productCollection = productCollection;
-    }
 
     public Company getCompanyId() {
         return companyId;

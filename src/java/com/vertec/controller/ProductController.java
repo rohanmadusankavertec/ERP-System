@@ -9,9 +9,11 @@ import com.vertec.daoimpl.ProductDAOImpl;
 import com.vertec.hibe.model.Company;
 import com.vertec.hibe.model.Product;
 import com.vertec.hibe.model.ProductCategory;
+import com.vertec.hibe.model.ProductHasTax;
 import com.vertec.hibe.model.ProductMaster;
 import com.vertec.hibe.model.SysUser;
 import com.vertec.hibe.model.Tax;
+import com.vertec.util.Save;
 import com.vertec.util.VertecConstants;
 import java.io.IOException;
 import java.util.List;
@@ -123,7 +125,7 @@ public class ProductController extends HttpServlet {
                 String reorderLevel = request.getParameter("reorderLevel").trim();
                 String productCategory = request.getParameter("productCategory").trim();
                 String tax = request.getParameter("tax").trim();
-                System.out.println(tax);
+                
                 int reO = 0;
                 int pcId = 0;
                 if (reorderLevel != null) {
@@ -133,8 +135,7 @@ public class ProductController extends HttpServlet {
                     pcId = Integer.parseInt(productCategory);
                 }
                 ProductCategory pc = new ProductCategory(pcId);
-//                Product product = new Product(productCode, productName, description, reO, isValidated, pc,company);
-                
+
                 Product p = new Product();
                 p.setProductCode(productCode);
                 p.setProductName(productName);
@@ -143,9 +144,17 @@ public class ProductController extends HttpServlet {
                 p.setIsAvailable(isValidated);
                 p.setProductCategoryId(pc);
                 p.setCompanyId(company);
-                
-                
                 String result = productDAOImpl.saveProduct(p);
+                
+                
+                String[] taxarr=tax.split(",");
+                for (String string : taxarr) {
+                    ProductHasTax pht = new ProductHasTax();
+                    pht.setProductProductId(p);
+                    pht.setTaxId(new Tax(Integer.parseInt(string)));
+                    Save.Save(pht);
+                }
+                
                 if (result.equals(VertecConstants.SUCCESS)) {
                     request.getSession().removeAttribute("Success_Message");
                     request.getSession().setAttribute("Success_Message", "Successfully Added Product");
@@ -207,9 +216,13 @@ public class ProductController extends HttpServlet {
                 if (reOLevel != null) {
                     reorderLevel = Integer.parseInt(reOLevel);
                 }
-
-                Product product = new Product(productId, productCode, productName, description, reorderLevel);
-                String result = productDAOImpl.saveUpdatedProduct(product);
+                Product p = new Product();
+                p.setProductId(productId);
+                p.setProductCode(productCode);
+                p.setProductName(productName);
+                p.setProductDescription(description);
+                p.setReOrderLevel(reorderLevel);
+                String result = productDAOImpl.saveUpdatedProduct(p);
 
                 response.getWriter().write(result);
                 break;
@@ -270,7 +283,7 @@ public class ProductController extends HttpServlet {
                 productMaster.setSellingPrice(sellingPrice);
                 productMaster.setProductId(p);
                 productMaster.setIsAvailable(isValidated);
-                
+
                 String result = productDAOImpl.savePM(productMaster);
                 response.getWriter().write(result);
                 break;
@@ -332,8 +345,7 @@ public class ProductController extends HttpServlet {
                 productMaster.setProductMasterId(pmId);
                 productMaster.setPurchasedPrice(purchasedPrice);
                 productMaster.setSellingPrice(sellingPrice);
-                
-                
+
                 String result = productDAOImpl.saveUpdatedPM(productMaster);
                 response.getWriter().write(result);
                 break;
