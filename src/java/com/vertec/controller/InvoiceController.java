@@ -246,6 +246,7 @@ public class InvoiceController extends HttpServlet {
                 String totAmountAfterDiscount = jSONObject.get("totAmountAfterDiscount").toString();
                 String tax = jSONObject.get("tax").toString();
                 String gTot = jSONObject.get("gTot").toString();
+//                String taxval = jSONObject.get("taxval").toString();
 
                 String chequeNo = "";
                 if (jSONObject.get("chequeNo") != null) {
@@ -334,6 +335,7 @@ public class InvoiceController extends HttpServlet {
                 invoice.setCustomerId(customer);
                 invoice.setIsPending(true);
                 invoice.setCompanyId(company);
+                invoice.setTax(Double.parseDouble(tax));
 
                 JSONObject itemDetails = (JSONObject) jSONObject.get("item_details");
                 Collection<InvoiceItem> invoiceItemList = new ArrayList<>();
@@ -351,6 +353,7 @@ public class InvoiceController extends HttpServlet {
                     String totAmount = jSONObject1.get("totalAmount").toString();
                     String disc = jSONObject1.get("discount").toString();
                     String groAmount = jSONObject1.get("grossAmount").toString();
+                    String taxvalue2 = jSONObject1.get("taxvalue").toString();
 
                     int productId = 0;
                     if (product.isEmpty() || product.equals("")) {
@@ -358,6 +361,15 @@ public class InvoiceController extends HttpServlet {
                     } else {
                         productId = Integer.parseInt(product);
                     }
+                    
+                    Double taxvalue = 0.0;
+                    if (taxvalue2.isEmpty() || taxvalue2.equals("")) {
+
+                    } else {
+                        taxvalue = Double.parseDouble(taxvalue2);
+                    }
+                    
+                    
                     int bmpId = 0;
                     if (bmp.isEmpty() || bmp.equals("")) {
 
@@ -399,8 +411,21 @@ public class InvoiceController extends HttpServlet {
 
                     bpmList.add(new BranchProductmaster(bmpId, quantity, date, branch, pmId));
 
-                    InvoiceItem invoiceItem = new InvoiceItem(sellingPrice, quantity, totalAmount, discount, grossAmount, pmId, invoice);
-                    invoiceItemList.add(invoiceItem);
+//                    InvoiceItem invoiceItem = new InvoiceItem(sellingPrice, quantity, totalAmount, discount, grossAmount, pmId, invoice);
+                    
+                    InvoiceItem i = new InvoiceItem();
+                    i.setUnitPrice(sellingPrice);
+                    i.setQuantity(quantity);
+                    i.setTotAmount(totalAmount);
+                    i.setDiscount(discount);
+                    i.setTotAfterDis(grossAmount);
+                    i.setProductMasterId(pmId);
+                    i.setInvoiceId(invoice);
+                    i.setTax(taxvalue);
+                    
+                    
+                    
+                    invoiceItemList.add(i);
                 }
                 invoice.setInvoiceItemCollection(invoiceItemList);
                 Collection<OutstandigInvoice> outstandigInvoiceList = new ArrayList<>();

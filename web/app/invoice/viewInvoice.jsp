@@ -127,6 +127,7 @@
         var totAmountAfterDiscount = document.getElementById('totaftdis').innerHTML;
         var tax = document.getElementById('tax').innerHTML;
         var gTot = document.getElementById('gTot').innerHTML;
+        var taxval = document.getElementById('tax').innerHTML;
 
 
 
@@ -149,7 +150,7 @@
         data["totalInAmount"] = totalInAmount;
         data["invoiceDiscount"] = invoiceDiscount;
         data["totAmountAfterDiscount"] = totAmountAfterDiscount;
-        data["tax"] = tax;
+        data["tax"] = taxval;
         data["gTot"] = gTot;
         data["item_details"] = item_details;
 
@@ -482,6 +483,10 @@
                                     <table class="table">
                                         <tbody>
                                             <tr>
+                                                <th>Tax </th>
+                                                <td id="tax"></td>
+                                            </tr>
+                                            <tr>
                                                 <th style="width:50%">Subtotal:</th>
                                                 <td id="subtot"></td>
                                             </tr>
@@ -494,10 +499,7 @@
                                                 <th>Total After DIscount</th>
                                                 <td id="totaftdis"></td>
                                             </tr>
-                                            <tr class="hidden">
-                                                <th>Tax (15%)</th>
-                                                <td id="tax"></td>
-                                            </tr>
+                                            
                                             <tr>
                                                 <th>Total:</th>
                                                 <td id="gTot"></td>

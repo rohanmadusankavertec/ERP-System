@@ -144,7 +144,7 @@ function addAllToGrid(productId, bmpId, sellPrice, quantity, totalAmount, discou
     item_detail["quantity"] = quantity;
     item_detail["totalAmount"] = totalAmount;
     item_detail["discount"] = discountAmount;
-    item_detail["tax"] = taxvalue;
+    item_detail["taxvalue"] = taxvalue;
     item_detail["grossAmount"] = grossAmount;
     item_details[bmpId] = item_detail;
 
@@ -211,12 +211,11 @@ function addAllToGrid(productId, bmpId, sellPrice, quantity, totalAmount, discou
 
 
 
-        var tax = (totalInvoice * taxpercentage) / 100;
-
-        document.getElementById('tax').innerHTML = tax;
-        document.getElementById('gTot').innerHTML = Number(totalInvoice) + Number(tax);
+//        var tax = (totalInvoice * taxpercentage) / 100;
+        document.getElementById('tax').innerHTML=(Number(document.getElementById('tax').innerHTML)+taxvalue);
+         
+        document.getElementById('gTot').innerHTML = Number(totalInvoice) ;
     } else {
-        alert(inDis);
         if (document.getElementById('subtot').innerHTML === "") {
             totalInvoice += grossAmount;
 
@@ -232,14 +231,13 @@ function addAllToGrid(productId, bmpId, sellPrice, quantity, totalAmount, discou
         } else {
             inDis = document.getElementById('inDis').value;
         }
-        alert(inDis);
 
         var totalAftDis = totalInvoice - Number(inDis);
         $("#subtot").empty();
         $("#totaftdis").empty();
         $("#tax").empty();
         $("#gTot").empty();
-        $("#gTot").empty();
+//        $("#itemtax").empty();
         document.getElementById('ittot').innerHTML = "0000.00";
         document.getElementById('itemtax').innerHTML = "0000.00";
         document.getElementById('subtot').innerHTML = totalInvoice;
@@ -248,6 +246,8 @@ function addAllToGrid(productId, bmpId, sellPrice, quantity, totalAmount, discou
 
         document.getElementById('tax').innerHTML = tax;
         document.getElementById('gTot').innerHTML = Number(totalAftDis) + Number(tax);
+        document.getElementById('tax').innerHTML=(Number(document.getElementById('tax').innerHTML)+taxvalue);
+        
     }
 
 
@@ -275,7 +275,7 @@ function clearFields() {
     document.getElementById('discountDiv').className = 'hidden';
     document.getElementById('btnDiv').className = 'hidden';
     document.getElementById('taxfield').className = 'hidden';
-
+     document.getElementById('itemtax').innerHTML = "0000.00";
 }
 
 $(document).on('click', '#invoiceItemTable span', function () {
@@ -284,7 +284,8 @@ $(document).on('click', '#invoiceItemTable span', function () {
     if (r === true) {
         var tr = $(this).closest('tr');
         var productId = tr.find('td:first-child').text();
-        var gross = tr.find('td:nth-child(6)').text();
+        var gross = tr.find('td:nth-child(7)').text();
+        var tax = tr.find('td:nth-child(7)').text();
 
         //
         totalInvoice = totalInvoice - Number(gross);
@@ -305,10 +306,10 @@ $(document).on('click', '#invoiceItemTable span', function () {
         $("#subtot").empty();
         document.getElementById('subtot').innerHTML = totalInvoice;
         document.getElementById('totaftdis').innerHTML = totalAftDis;
-        var tax = (totalAftDis * taxpercentage) / 100;
-
-        document.getElementById('tax').innerHTML = tax;
-        document.getElementById('gTot').innerHTML = Number(totalAftDis) + Number(tax);
+//        var tax = (totalAftDis * taxpercentage) / 100;
+        document.getElementById('tax').innerHTML=(Number(document.getElementById('tax').innerHTML)-tax);
+//        document.getElementById('tax').innerHTML = tax;
+        document.getElementById('gTot').innerHTML = Number(totalAftDis)
 
         $("#productId option[value='" + productId + "']").prop('disabled', false);
 

@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByIsAvailable", query = "SELECT p FROM Product p WHERE p.isAvailable = :isAvailable")})
 public class Product implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
+    private Collection<ProductMaster> productMasterCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -169,6 +172,15 @@ public class Product implements Serializable {
     @Override
     public String toString() {
         return "com.vertec.hibe.model.Product[ productId=" + productId + " ]";
+    }
+
+    @XmlTransient
+    public Collection<ProductMaster> getProductMasterCollection() {
+        return productMasterCollection;
+    }
+
+    public void setProductMasterCollection(Collection<ProductMaster> productMasterCollection) {
+        this.productMasterCollection = productMasterCollection;
     }
     
 }
