@@ -4,6 +4,12 @@
     Author     : User
 --%>
 
+<%@page import="com.vertec.util.NewHibernateUtil"%>
+<%@page import="org.hibernate.Session"%>
+<%@page import="org.hibernate.SessionFactory"%>
+<%@page import="org.hibernate.SQLQuery"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="com.vertec.hibe.model.ProductHasTax"%>
 <%@page import="com.vertec.hibe.model.ProductCategory"%>
 <%@page import="com.vertec.hibe.model.Tax"%>
 <%@page import="com.vertec.hibe.model.Product"%>
@@ -24,7 +30,7 @@
             document.getElementById("txfields").className = "item form-group";
         }
     }
-    
+
     function sm_warning(text) {
         BootstrapDialog.show({
             title: 'Warning',
@@ -60,7 +66,7 @@
             sm_warning("Please Fill Re-Order Level......");
         } else if (pc === "") {
             sm_warning("Please Select Product Category......");
-        }else {
+        } else {
             var xmlHttp = getAjaxObject();
             xmlHttp.onreadystatechange = function ()
             {
@@ -75,23 +81,23 @@
                     }
                 }
             };
-            xmlHttp.open("POST", "Product?action=SaveProduct&productCode=" + pc + "&productName=" + pn + "&description=" + des+ "&reorderLevel=" + rl+ "&productCategory=" + pc+ "&tax=" + arr , true);
+            xmlHttp.open("POST", "Product?action=SaveProduct&productCode=" + pc + "&productName=" + pn + "&description=" + des + "&reorderLevel=" + rl + "&productCategory=" + pc + "&tax=" + arr, true);
             xmlHttp.send();
         }
     }
-    
-    var arr2=[];
-    function CheckTaxes(){
-        arr2=[];
-        for(var i =0; i< arr.length;i++){
-            var id="ch"+arr[i];
-           if(document.getElementById(id).checked){
-               arr2.push(arr[i]);
-           }
+
+    var arr2 = [];
+    function CheckTaxes() {
+        arr2 = [];
+        for (var i = 0; i < arr.length; i++) {
+            var id = "ch" + arr[i];
+            if (document.getElementById(id).checked) {
+                arr2.push(arr[i]);
+            }
         }
-        arr=arr2;
+        arr = arr2;
     }
-    
+
 </script>
 
 
@@ -128,82 +134,82 @@
                 </div>
                 <div class="x_content">
                     <!--<form action="Product?action=SaveProduct" method="post" class="form-horizontal form-label-left" novalidate>-->
-                        <span class="section"></span>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Product Code <span class="required"></span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="productCode" class="form-control col-md-7 col-xs-12" placeholder="Enter Product Code" name="productCode" required="required" value="" />
-                            </div>
+                    <span class="section"></span>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Product Code <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="productCode" class="form-control col-md-7 col-xs-12" placeholder="Enter Product Code" name="productCode" required="required" value="" />
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="item form-group" style="margin-top: 10px;">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Product Name <span class="required"></span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="productName" class="form-control col-md-7 col-xs-12" placeholder="Enter Product Name" data-validate-words="1" name="productName" required="required" value="" />
-                            </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="item form-group" style="margin-top: 10px;">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Product Name <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="productName" class="form-control col-md-7 col-xs-12" placeholder="Enter Product Name" data-validate-words="1" name="productName" required="required" value="" />
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="item form-group" style="margin-top: 10px;">
-                            <label for="Privilege" class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea rows="4" cols="50" class="form-control col-md-7 col-xs-12" placeholder="Enter Description" name="description" id="description"></textarea>                
-                            </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="item form-group" style="margin-top: 10px;">
+                        <label for="Privilege" class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <textarea rows="4" cols="50" class="form-control col-md-7 col-xs-12" placeholder="Enter Description" name="description" id="description"></textarea>                
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="item form-group" style="margin-top: 10px;">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Re Order Level <span class="required"></span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="reorderLevel" class="form-control col-md-7 col-xs-12" placeholder="Enter Re-Order Level" data-validate-words="1" name="reorderLevel" required="required" value="" />
-                            </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="item form-group" style="margin-top: 10px;">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Re Order Level <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" id="reorderLevel" class="form-control col-md-7 col-xs-12" placeholder="Enter Re-Order Level" data-validate-words="1" name="reorderLevel" required="required" value="" />
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="item form-group" style="margin-top: 10px;">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Product Category <span class="required"></span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="productCategory" id="productCategory"  required="required" >
-                                    <option selected="true" disabled="true">Select Product Category</option>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="item form-group" style="margin-top: 10px;">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Product Category <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" name="productCategory" id="productCategory"  required="required" >
+                                <option selected="true" disabled="true">Select Product Category</option>
 
-                                    <%for (ProductCategory pc : pcList) {%>
-                                    <option value="<%=pc.getProductCategoryId()%>"><%=pc.getProductCategoryName()%></option>
-                                    <%}%>
-                                </select>                              </div>
-                        </div>
-                                <div class="clearfix"></div>
-                        <div class="item form-group" style="margin-top: 10px;">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Tax <span class="required"></span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="tax" id="tax"  required="required" onchange="taxFields()">
-                                    <option value="1">Yes</option>
-                                    <option selected="true" value="0">No</option>
-
-                                </select>                              
-                            </div>
-                        </div>
-                                <div class="clearfix"></div>
-                        <div class="hidden" id="txfields" style="margin-top: 10px;">
-                            <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                            <div class="col-md-6 col-sm-6 col-xs-12" >
-                                <%for (Tax t : taxList) {%>
-                                <script>
-                                arr.push(<%=t.getId()%>);
-                                </script>
-                                <input type="radio" id="ch<%=t.getId()%>"/><%=t.getName()%><br>
+                                <%for (ProductCategory pc : pcList) {%>
+                                <option value="<%=pc.getProductCategoryId()%>"><%=pc.getProductCategoryName()%></option>
                                 <%}%>
-                            </div>
+                            </select>                              </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="item form-group" style="margin-top: 10px;">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Tax <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" name="tax" id="tax"  required="required" onchange="taxFields()">
+                                <option value="1">Yes</option>
+                                <option selected="true" value="0">No</option>
+
+                            </select>                              
                         </div>
-                            <div class="clearfix"></div>
-                        <div class="ln_solid"></div>
-                        <div class="form-group" style="margin-top: 10px;">
-                            <div class="col-md-6 col-md-offset-4 col-lg-offset-4">
-                                <!--                                <button type="submit" class="btn btn-primary">Cancel</button>-->
-                                <button id="send" onclick="SaveProduct()" type="button" class="btn btn-success">Submit</button>
-                            </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="hidden" id="txfields" style="margin-top: 10px;">
+                        <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                        <div class="col-md-6 col-sm-6 col-xs-12" >
+                            <%for (Tax t : taxList) {%>
+                            <script>
+                                arr.push(<%=t.getId()%>);
+                            </script>
+                            <input type="radio" id="ch<%=t.getId()%>"/><%=t.getName()%><br>
+                            <%}%>
                         </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group" style="margin-top: 10px;">
+                        <div class="col-md-6 col-md-offset-4 col-lg-offset-4">
+                            <!--                                <button type="submit" class="btn btn-primary">Cancel</button>-->
+                            <button id="send" onclick="SaveProduct()" type="button" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
                     <!--</form>-->
 
                 </div>
@@ -235,18 +241,15 @@
                         <table id="example" class="table table-striped responsive-utilities jambo_table">
                             <thead>
                                 <tr class="headings">
-
                                     <th>Product ID </th>
                                     <th>Product Code </th>
                                     <th>Product Name </th>
                                     <th>Description</th>
                                     <th>Re Order Level</th>
-
+                                    <th>Tax</th>
                                     <th class=" no-link last"><span class="nobr" style="width: 300px;">Action</span></th>
-
                                 </tr>
                             </thead>
-
                             <tbody>
                                 <%for (Product pi : pList) {%>
                                 <tr>
@@ -255,33 +258,41 @@
                                     <td class=" "><%=pi.getProductName()%></td>
                                     <td class=" "><%=pi.getProductDescription()%></td>
                                     <td class=" "><%=pi.getReOrderLevel()%></td>
-                                    
 
+                                    <%
+                                        SessionFactory sf = NewHibernateUtil.getSessionFactory();
+                                        Session ses = sf.openSession();
+                                        HttpSession httpSession = request.getSession();
+                                        SQLQuery q = ses.createSQLQuery("select t.name from product_has_tax pht inner join tax t on pht.tax_id=t.id where pht.product_product_id='" + pi.getProductId() + "'");
+
+                                        List<String> inList = q.list();
+                                        String tax = "";
+                                        for (String list : inList) {
+                                            tax += list+", ";
+                                        }
+                                        tax=tax.substring(0, tax.length()-2);
+
+                                    %>
+                                    <td class=" "><%=tax%></td>
                                     <td class=" last">
-
                                         <form action="Product?action=ViewProduct" method="POST">
                                             <input type="hidden" name="pcId" value="<%=pi.getProductId()%>"/>
                                             <button type="submit" class="glyphicon glyphicon-edit">
                                             </button>
                                         </form>
                                         <a href="#" id="deleteUser" onclick="deleteProduct(<%=pi.getProductId()%>);" class="glyphicon glyphicon-remove"></a>
-
                                     </td>
-
                                 </tr>
                                 <%}%>
                             </tbody>
-
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
         <br />
         <br />
         <br />
-
     </div>
 </div>
 
