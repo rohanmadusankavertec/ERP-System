@@ -129,8 +129,6 @@
         var gTot = document.getElementById('gTot').innerHTML;
         var taxval = document.getElementById('tax').innerHTML;
 
-
-
         var chequeNo = document.getElementById('chequeNo').value;
         var bankName = document.getElementById('bankName').value;
         var chequeDate = document.getElementById('chequeDate').value;
@@ -156,7 +154,7 @@
 
         if (isEmpty(item_details)) {
             sm_warning("Please Add Item...");
-        } else if (payment == "") {
+        } else if (payment === "") {
             sm_warning("Please Add Payment Amount...");
         } else {
             var jsonDetails = JSON.stringify(data);
@@ -209,8 +207,7 @@
         }
 
         totalAmount += tax;
-        document.getElementById('itemtax').innerHTML = tax;
-
+        
         var dAmount = 0;
         if (disType === "Percentage") {
             if (disAmount === "") {
@@ -223,7 +220,9 @@
                 dAmount = disAmount;
             }
         }
-        document.getElementById('ittot').innerHTML = totalAmount - dAmount;
+        var tamount=(totalAmount - dAmount);
+        document.getElementById('ittot').innerHTML = tamount;
+        document.getElementById('itemtax').innerHTML = tax;
     }
     var taxarray = [];
 // load product master details to page
@@ -250,6 +249,7 @@
                 document.getElementById('pmasterDiv').className = 'form-group';
                 document.getElementById('quanDiv').className = 'form-group';
                 document.getElementById('discountDiv').className = 'form-group';
+                document.getElementById('ittot').className = 'form-group';
                 document.getElementById('itemtot').className = 'form-group';
                 document.getElementById('btnDiv').className = 'form-group';
                 document.getElementById('taxfield').className = 'form-group';

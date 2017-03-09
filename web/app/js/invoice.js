@@ -264,6 +264,7 @@ function clearFields() {
     t1.value = "";
     t1.innerHTML = "Select Price Master";
     s1.appendChild(t1);
+    document.getElementById('ittot').innerHTML = "0000.00";
     document.getElementById("productId").value = '';
     document.getElementById("bpmId").value = '';
     document.getElementById("bpmQuantity").value = '';
@@ -271,7 +272,7 @@ function clearFields() {
     document.getElementById("disAmount").value = '';
     document.getElementById('pmasterDiv').className = 'hidden';
     document.getElementById('quanDiv').className = 'hidden';
-    document.getElementById('ittot').className = 'hidden';
+    document.getElementById('itemtot').className = 'hidden';
     document.getElementById('discountDiv').className = 'hidden';
     document.getElementById('btnDiv').className = 'hidden';
     document.getElementById('taxfield').className = 'hidden';

@@ -423,8 +423,6 @@ public class InvoiceController extends HttpServlet {
                     i.setInvoiceId(invoice);
                     i.setTax(taxvalue);
                     
-                    
-                    
                     invoiceItemList.add(i);
                 }
                 invoice.setInvoiceItemCollection(invoiceItemList);
