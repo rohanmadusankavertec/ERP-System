@@ -38,7 +38,7 @@
     // add zero in front of numbers < 10
     function checkTime(i) {
         if (i < 10) {
-            i = "0" + i
+            i = "0" + i;
         }
         return i;
     }
@@ -194,7 +194,16 @@
         var disAmount = document.getElementById('disAmount').value;
         var bmpArr = bpm.split("_");
         var sellPrice = bmpArr[1];
-        var totalAmount = quantity * sellPrice;
+         var totalAmount = quantity * sellPrice;
+        var tax=0;
+        
+            for(var i=0; i<taxarray.length;i++){
+                tax+=totalAmount*(taxarray[i]/100);
+            }
+        
+        totalAmount+=tax;
+        document.getElementById('itemtax').innerHTML =tax;
+       
         var dAmount = 0;
         if (disType === "Percentage") {
             if (disAmount === "") {
@@ -209,7 +218,7 @@
         }
         document.getElementById('ittot').innerHTML = totalAmount - dAmount;
     }
-
+ var taxarray=[];
 // load product master details to page
     function loadBranchPM() {
         $("#bpmId").empty();
@@ -229,18 +238,24 @@
             success: function (msg) {
                 var reply = eval('(' + msg + ')');
                 var arrLn1 = reply.jArr1;
+                var arrLn2 = reply.taxarr;
                 var bpm = document.getElementById('bpmId');
                 document.getElementById('pmasterDiv').className = 'form-group';
                 document.getElementById('quanDiv').className = 'form-group';
                 document.getElementById('discountDiv').className = 'form-group';
                 document.getElementById('itemtot').className = 'form-group';
                 document.getElementById('btnDiv').className = 'form-group';
+                document.getElementById('taxfield').className = 'form-group';
                 for (var f = 0; f < arrLn1.length; f++) {
                     var t = document.createElement("option");
                     var val = arrLn1[f].bpmid + "_" + arrLn1[f].sprice + "_" + arrLn1[f].branquan;
                     t.value = val;
                     t.innerHTML = arrLn1[f].pprice + "_" + arrLn1[f].sprice;
                     bpm.appendChild(t);
+                }
+                taxarray=[];
+                for (var f = 0; f < arrLn2.length; f++) {
+                    taxarray.push(arrLn2[f].percentage);
                 }
             }
         });
@@ -408,6 +423,11 @@
                                 <div class="col-lg-3 col-md-3">
                                     <input type="text" id="disAmount" name="disAmount" placeholder="Enter Discount Aount" class="form-control col-lg-6 col-md-6 col-xs-12" onkeyup="ItemwiseTotal();"/>
                                 </div>
+                            </div>
+                                        <div class="hidden" style="padding-top: 40px;" id="taxfield">
+                                <label class="control-label col-lg-3 col-md-3 lbl_name">Tax</label>
+                                <label class="control-label col-lg-6 col-md-6 lbl_name" id="itemtax">0000.00</label>
+
                             </div>
                             <div class="hidden" style="padding-top: 40px;" id="itemtot">
                                 <label class="control-label col-lg-3 col-md-3 lbl_name">Total</label>

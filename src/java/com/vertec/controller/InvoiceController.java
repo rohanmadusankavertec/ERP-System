@@ -16,6 +16,7 @@ import com.vertec.hibe.model.InvoicePayment;
 import com.vertec.hibe.model.OutstandigInvoice;
 import com.vertec.hibe.model.Payment;
 import com.vertec.hibe.model.PaymentType;
+import com.vertec.hibe.model.ProductHasTax;
 import com.vertec.hibe.model.ProductMaster;
 import com.vertec.hibe.model.SysUser;
 import com.vertec.util.VertecConstants;
@@ -165,7 +166,7 @@ public class InvoiceController extends HttpServlet {
                 }
                 int arr[] = {branchId, productId};
                 List<Object[]> bpmList = stockDAOImpl.loadBPMForInvoice(arr);
-                System.out.println(bpmList.size() + "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + branId + proId);
+                List<ProductHasTax> phtList = stockDAOImpl.loadProductHasTax(productId);
                 JSONObject jOB = new JSONObject();
                 JSONArray jar1 = new JSONArray();
                 JSONObject job1 = null;
@@ -179,7 +180,20 @@ public class InvoiceController extends HttpServlet {
                     job1.put("sprice", p[4].toString());
                     jar1.add(job1);
                 }
+                
+                JSONArray jar2 = new JSONArray();
+                JSONObject job2 = null;
+
+                for (ProductHasTax p : phtList) {
+                    job2 = new JSONObject();
+                    job2.put("taxid", p.getTaxId().getId());
+                    job2.put("percentage", p.getTaxId().getPercentage());
+                    jar2.add(job2);
+                }
+                
+                
                 jOB.put("jArr1", jar1);
+                jOB.put("taxarr", jar2);
                 response.getWriter().write(jOB.toString());
                 break;
             }
