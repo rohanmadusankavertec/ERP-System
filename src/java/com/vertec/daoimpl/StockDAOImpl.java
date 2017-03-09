@@ -366,11 +366,11 @@ public class StockDAOImpl {
 
     public BranchProductmaster viewBranchPM(int bpmId) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
 
         if (session != null) {
             try {
-                Query query = session.getNamedQuery("BranchProductmaster.findByBpmId");
+                System.out.println("Branch Product Master : "+bpmId);
+                Query query = session.createQuery("SELECT b FROM BranchProductmaster b WHERE b.bpmId=:bpmId");
                 query.setParameter("bpmId", bpmId);
                 BranchProductmaster bp = (BranchProductmaster) query.uniqueResult();
                 return bp;
