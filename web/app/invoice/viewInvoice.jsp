@@ -17,7 +17,13 @@
 <script src="app/js/invoice.js"></script>
 <script src="app/js/notAlert.js"></script>
 
+
+
 <script type="text/javascript">
+
+
+
+
     //to call start time method after 1 second
     var t = setTimeout(startTime, 1000);
 
@@ -112,7 +118,7 @@
 
 // Save invoice
     function submitInvoice() {
-        
+
         var customerId = document.getElementById('customerId').value;
         var branchId = document.getElementById('branchId').value;
         var data = {};
@@ -146,12 +152,12 @@
         data["tax"] = tax;
         data["gTot"] = gTot;
         data["item_details"] = item_details;
-        
-        if(isEmpty(item_details)){
+
+        if (isEmpty(item_details)) {
             sm_warning("Please Add Item...");
-        }else if(payment ==""){
+        } else if (payment == "") {
             sm_warning("Please Add Payment Amount...");
-        }else{
+        } else {
             var jsonDetails = JSON.stringify(data);
             BootstrapDialog.show({
                 message: 'Do you want to Submit ?',
@@ -194,16 +200,16 @@
         var disAmount = document.getElementById('disAmount').value;
         var bmpArr = bpm.split("_");
         var sellPrice = bmpArr[1];
-         var totalAmount = quantity * sellPrice;
-        var tax=0;
-        
-            for(var i=0; i<taxarray.length;i++){
-                tax+=totalAmount*(taxarray[i]/100);
-            }
-        
-        totalAmount+=tax;
-        document.getElementById('itemtax').innerHTML =tax;
-       
+        var totalAmount = quantity * sellPrice;
+        var tax = 0;
+
+        for (var i = 0; i < taxarray.length; i++) {
+            tax += totalAmount * (taxarray[i] / 100);
+        }
+
+        totalAmount += tax;
+        document.getElementById('itemtax').innerHTML = tax;
+
         var dAmount = 0;
         if (disType === "Percentage") {
             if (disAmount === "") {
@@ -218,7 +224,7 @@
         }
         document.getElementById('ittot').innerHTML = totalAmount - dAmount;
     }
- var taxarray=[];
+    var taxarray = [];
 // load product master details to page
     function loadBranchPM() {
         $("#bpmId").empty();
@@ -253,7 +259,7 @@
                     t.innerHTML = arrLn1[f].pprice + "_" + arrLn1[f].sprice;
                     bpm.appendChild(t);
                 }
-                taxarray=[];
+                taxarray = [];
                 for (var f = 0; f < arrLn2.length; f++) {
                     taxarray.push(arrLn2[f].percentage);
                 }
@@ -424,7 +430,7 @@
                                     <input type="text" id="disAmount" name="disAmount" placeholder="Enter Discount Aount" class="form-control col-lg-6 col-md-6 col-xs-12" onkeyup="ItemwiseTotal();"/>
                                 </div>
                             </div>
-                                        <div class="hidden" style="padding-top: 40px;" id="taxfield">
+                            <div class="hidden" style="padding-top: 40px;" id="taxfield">
                                 <label class="control-label col-lg-3 col-md-3 lbl_name">Tax</label>
                                 <label class="control-label col-lg-6 col-md-6 lbl_name" id="itemtax">0000.00</label>
 
@@ -451,7 +457,9 @@
                                             <th>Qty#</th>
                                             <th>Total #</th>
                                             <th>Discount</th>
+                                            <th>Tax</th>
                                             <th>Gross Total</th>
+                                            <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody id="invoiceItemBody">

@@ -658,7 +658,7 @@ public class StockDAOImpl {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         if (session != null) {
             try {
-                Query query = session.createQuery("SELECT p FROM ProductHasTax p WHERE p.productProductId=:product_id");
+                Query query = session.createQuery("SELECT p FROM ProductHasTax p WHERE p.productProductId.productId=:product_id");
                 query.setParameter("product_id", id);
                 List<ProductHasTax> bpmList = query.list();
                 return bpmList;

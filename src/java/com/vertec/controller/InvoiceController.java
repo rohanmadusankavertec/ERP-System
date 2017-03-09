@@ -169,7 +169,7 @@ public class InvoiceController extends HttpServlet {
                 List<ProductHasTax> phtList = stockDAOImpl.loadProductHasTax(productId);
                 JSONObject jOB = new JSONObject();
                 JSONArray jar1 = new JSONArray();
-                JSONObject job1 = null;
+                JSONObject job1;
 
                 for (Object[] p : bpmList) {
                     job1 = new JSONObject();
@@ -182,7 +182,7 @@ public class InvoiceController extends HttpServlet {
                 }
                 
                 JSONArray jar2 = new JSONArray();
-                JSONObject job2 = null;
+                JSONObject job2;
 
                 for (ProductHasTax p : phtList) {
                     job2 = new JSONObject();

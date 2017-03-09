@@ -23,12 +23,12 @@ function loadBranchPM() {
     var productId = document.getElementById('productId').value;
     var branchId = document.getElementById('branchId').value;
     var customerId = document.getElementById('customerId').value;
-    var pid=productId.split("_");
+    var pid = productId.split("_");
     var dataArr = [branchId, pid[0], customerId];
     $.ajax({
         type: "POST",
         url: "Invoice?action=LoadBPMToInvoice&dataArr=" + dataArr,
-        success: function(msg) {
+        success: function (msg) {
             var reply = eval('(' + msg + ')');
             var arrLn1 = reply.jArr1;
             var bpm = document.getElementById('bpmId');
@@ -60,9 +60,10 @@ function checkAddToGrid() {
     var quantity = document.getElementById('bpmQuantity').value;
     var disType = document.getElementById('disType').value;
     var disAmount = document.getElementById('disAmount').value;
+    
     document.getElementById('tottableDiv').className = 'row';
     if (bpm === "") {
-        sm_warning("Please Select Bracnh Product Master");
+        sm_warning("Please Select Branch Product Master");
     } else if (quantity === "") {
         sm_warning("Please Enter Quantity");
     } else if (productId === "") {
@@ -127,17 +128,23 @@ function viewAvailableQuan() {
     setTimeout("document.getElementById('divAvaQuan').className='hidden';", 3000);
 }
 
-function addAllToGrid(productId, bmpId, sellPrice, quantity, totalAmount, discountAmount, item_detail, bpm_detail) {
-    
-    var pid=productId.split("_");
-    
-    var grossAmount = totalAmount - discountAmount;
+function addAllToGrid(productId, bmpId, sellPrice, quantity, totalAmount, discountAmount, item_detail, bpm_detail, taxvalue) {
+
+    var taxvalue = document.getElementById('itemtax').innerHTML;
+    taxvalue = parseFloat(taxvalue);
+
+
+    var pid = productId.split("_");
+    console.log(taxvalue);
+    var grossAmount = totalAmount - discountAmount + taxvalue;
+    console.log(grossAmount);
     item_detail["productId"] = pid[0];
     item_detail["bmpId"] = bmpId;
     item_detail["sellingPrice"] = sellPrice;
     item_detail["quantity"] = quantity;
     item_detail["totalAmount"] = totalAmount;
     item_detail["discount"] = discountAmount;
+    item_detail["tax"] = taxvalue;
     item_detail["grossAmount"] = grossAmount;
     item_details[bmpId] = item_detail;
 
@@ -164,6 +171,10 @@ function addAllToGrid(productId, bmpId, sellPrice, quantity, totalAmount, discou
     col5.type = "text";
     col5.value = discountAmount;
     col5.innerHTML = discountAmount;
+    var col8 = document.createElement("td");
+    col8.type = "text";
+    col8.value = taxvalue;
+    col8.innerHTML = taxvalue;
     var col6 = document.createElement("td");
     col6.type = "text";
     col6.value = grossAmount;
@@ -180,6 +191,7 @@ function addAllToGrid(productId, bmpId, sellPrice, quantity, totalAmount, discou
     row.appendChild(col3);
     row.appendChild(col4);
     row.appendChild(col5);
+    row.appendChild(col8);
     row.appendChild(col6);
     row.appendChild(col7);
     invoiceItemTable.appendChild(row);
@@ -228,7 +240,8 @@ function addAllToGrid(productId, bmpId, sellPrice, quantity, totalAmount, discou
         $("#tax").empty();
         $("#gTot").empty();
         $("#gTot").empty();
-        document.getElementById('ittot').innerHTML ="0000.00";
+        document.getElementById('ittot').innerHTML = "0000.00";
+        document.getElementById('itemtax').innerHTML = "0000.00";
         document.getElementById('subtot').innerHTML = totalInvoice;
         document.getElementById('totaftdis').innerHTML = totalAftDis;
         var tax = (totalAftDis * taxpercentage) / 100;
@@ -261,10 +274,11 @@ function clearFields() {
     document.getElementById('ittot').className = 'hidden';
     document.getElementById('discountDiv').className = 'hidden';
     document.getElementById('btnDiv').className = 'hidden';
+    document.getElementById('taxfield').className = 'hidden';
 
 }
 
-$(document).on('click', '#invoiceItemTable span', function() {
+$(document).on('click', '#invoiceItemTable span', function () {
 
     var r = confirm("Are you Sure You want to delete this?");
     if (r === true) {
@@ -337,25 +351,25 @@ function submitInvoice() {
     var totAmountAfterDiscount = document.getElementById('totaftdis').innerHTML;
     var tax = document.getElementById('tax').innerHTML;
     var gTot = document.getElementById('gTot').innerHTML;
-    
-    
-    
+
+
+
     var chequeNo = document.getElementById('chequeNo').value;
     var bankName = document.getElementById('bankName').value;
     var chequeDate = document.getElementById('chequeDate').value;
     var payment = document.getElementById('payment').value;
-    var pt=0;
+    var pt = 0;
     var ptype = document.getElementById("cash");
-        if (ptype.checked) {
-            pt=1;
-        }
-    
+    if (ptype.checked) {
+        pt = 1;
+    }
+
     data["chequeNo"] = chequeNo;
     data["bankName"] = bankName;
     data["chequeDate"] = chequeDate;
     data["payment"] = payment;
     data["pt"] = pt;
-    
+
     data["customerId"] = customerId;
     data["billno"] = billno;
     data["branchId"] = branchId;
@@ -375,12 +389,12 @@ function submitInvoice() {
         closable: false,
         buttons: [{
                 label: 'Yes',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
 
 
                     var xmlHttp = getAjaxObject();
-                    xmlHttp.onreadystatechange = function()
+                    xmlHttp.onreadystatechange = function ()
                     {
                         if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
                         {
@@ -404,7 +418,7 @@ function submitInvoice() {
                 }
             }, {
                 label: 'No',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
                 }
             }]
@@ -453,7 +467,7 @@ function loadVehiclePMToInvoice() {
     $.ajax({
         type: "POST",
         url: "Invoice?action=LoadVSToInvoice&dataArr=" + dataArr,
-        success: function(msg) {
+        success: function (msg) {
             // alert(msg);
             var reply = eval('(' + msg + ')');
             var arrLn1 = reply.jArr1;
@@ -503,12 +517,12 @@ function submitVInvoice() {
         closable: false,
         buttons: [{
                 label: 'Yes',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
 
 
                     var xmlHttp = getAjaxObject();
-                    xmlHttp.onreadystatechange = function()
+                    xmlHttp.onreadystatechange = function ()
                     {
                         if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
                         {
@@ -532,7 +546,7 @@ function submitVInvoice() {
                 }
             }, {
                 label: 'No',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
                 }
             }]
@@ -546,12 +560,12 @@ function reqdeleteInvoice(invoiceId) {
         closable: false,
         buttons: [{
                 label: 'Yes',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
 
 
                     var xmlHttp = getAjaxObject();
-                    xmlHttp.onreadystatechange = function()
+                    xmlHttp.onreadystatechange = function ()
                     {
                         if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
                         {
@@ -574,7 +588,7 @@ function reqdeleteInvoice(invoiceId) {
                 }
             }, {
                 label: 'No',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
                 }
             }]
@@ -588,11 +602,11 @@ function ignoreInvoice(invoiceId) {
         closable: false,
         buttons: [{
                 label: 'Yes',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
-                    
+
                     var xmlHttp = getAjaxObject();
-                    xmlHttp.onreadystatechange = function()
+                    xmlHttp.onreadystatechange = function ()
                     {
                         if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
                         {
@@ -613,7 +627,7 @@ function ignoreInvoice(invoiceId) {
                 }
             }, {
                 label: 'No',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
                 }
             }]
@@ -627,12 +641,12 @@ function deleteInvoice(invoiceId) {
         closable: false,
         buttons: [{
                 label: 'Yes',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
 
 
                     var xmlHttp = getAjaxObject();
-                    xmlHttp.onreadystatechange = function()
+                    xmlHttp.onreadystatechange = function ()
                     {
                         if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
                         {
@@ -656,7 +670,7 @@ function deleteInvoice(invoiceId) {
                 }
             }, {
                 label: 'No',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
                 }
             }]
@@ -702,7 +716,7 @@ function updateDisFields(i) {
     document.getElementById(tadamount).value = totalAfterDis;
 
 }
-$(document).on('click', '#invDate span', function() {
+$(document).on('click', '#invDate span', function () {
 
     var pmIdd = "pmid" + this.id;
     var mastepricee = "masteprice" + this.id;
@@ -770,7 +784,7 @@ function changeToWholeDiscount() {
 }
 
 function updateInvoice() {
-    
+
     var data = {};
 
     var tot = document.getElementById('invoiceTotal').value;
@@ -793,12 +807,12 @@ function updateInvoice() {
         closable: false,
         buttons: [{
                 label: 'Yes',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
 
 
                     var xmlHttp = getAjaxObject();
-                    xmlHttp.onreadystatechange = function()
+                    xmlHttp.onreadystatechange = function ()
                     {
                         if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
                         {
@@ -820,7 +834,7 @@ function updateInvoice() {
                 }
             }, {
                 label: 'No',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
                 }
             }]
@@ -833,7 +847,7 @@ function openBillPDF(invoiceId) {
     $.ajax({
         type: "POST",
         url: "Invoice?action=LoadInvoicePDF&invoiceId=" + invoiceId,
-        success: function(msg) {
+        success: function (msg) {
 
 
             var reply = msg.responseText;
@@ -847,16 +861,16 @@ function openBillPDF(invoiceId) {
 
 
 
- function ignoreInvoice(invoiceId) {
+function ignoreInvoice(invoiceId) {
     BootstrapDialog.show({
         message: "Don't you want to Approve this invoice to delete  ?",
         closable: false,
         buttons: [{
                 label: 'Yes',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
                     var xmlHttp = getAjaxObject();
-                    xmlHttp.onreadystatechange = function()
+                    xmlHttp.onreadystatechange = function ()
                     {
                         if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
                         {
@@ -875,7 +889,7 @@ function openBillPDF(invoiceId) {
                 }
             }, {
                 label: 'No',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
                 }
             }]
@@ -889,12 +903,12 @@ function deleteInvoice(invoiceId) {
         closable: false,
         buttons: [{
                 label: 'Yes',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
 
 
                     var xmlHttp = getAjaxObject();
-                    xmlHttp.onreadystatechange = function()
+                    xmlHttp.onreadystatechange = function ()
                     {
                         if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
                         {
@@ -913,7 +927,7 @@ function deleteInvoice(invoiceId) {
                 }
             }, {
                 label: 'No',
-                action: function(dialogRef) {
+                action: function (dialogRef) {
                     dialogRef.close();
                 }
             }]
