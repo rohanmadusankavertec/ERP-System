@@ -118,7 +118,7 @@
 
 // Save invoice
     function submitInvoice() {
-
+        if(CheckCreditLimit()){
         var customerId = document.getElementById('customerId').value;
         var branchId = document.getElementById('branchId').value;
         var data = {};
@@ -191,6 +191,7 @@
             });
         }
     }
+    }
 
     function ItemwiseTotal() {
         var bpm = document.getElementById('bpmId').value;
@@ -207,7 +208,7 @@
         }
 
         totalAmount += tax;
-        
+
         var dAmount = 0;
         if (disType === "Percentage") {
             if (disAmount === "") {
@@ -220,7 +221,7 @@
                 dAmount = disAmount;
             }
         }
-        var tamount=(totalAmount - dAmount);
+        var tamount = (totalAmount - dAmount);
         document.getElementById('ittot').innerHTML = tamount;
         document.getElementById('itemtax').innerHTML = tax;
     }
@@ -266,6 +267,47 @@
                 }
             }
         });
+    }
+
+
+
+
+
+
+
+
+
+    function CheckCreditLimit() {
+        var gTot = document.getElementById('gTot').innerHTML;
+        var payment = document.getElementById('payment').value;
+        var outstanding = (parseFloat(gTot) - parseFloat(payment));
+        if (outstanding > 0) {
+            var customerId = document.getElementById('customerId').value;
+            $.ajax({
+                type: "POST",
+                url: "Invoice?action=CheckCreditLimit&customer=" + customerId + "&outstanding="+outstanding,
+                success: function (msg) {
+                    var reply = eval('(' + msg + ')');
+                    alert(reply);
+                    if(reply==="0"){
+                        return true;
+                    }else if(reply==="1"){
+                        sm_warning("This Customer Exceeded his credit limit .....");
+                        return false;
+                    }else if(reply==="2"){
+                        sm_warning("This Customer's Credit Period is outdated ....");
+                         return false;
+                    }else if(reply==="3"){
+                        sm_warning("Something went wrong. Please try again....");
+                         return false;
+                    }
+                    return false;
+                }
+            });
+        }else{
+            return true;
+            
+        }
     }
 </script>
 
@@ -499,7 +541,7 @@
                                                 <th>Total After DIscount</th>
                                                 <td id="totaftdis"></td>
                                             </tr>
-                                            
+
                                             <tr>
                                                 <th>Total:</th>
                                                 <td id="gTot"></td>
