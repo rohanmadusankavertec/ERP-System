@@ -197,6 +197,7 @@
                             <li><a href="${context}/Invoice?action=toCanceledInvoice">Canceled Invoice Report </a></li>
                             <li><a href="${context}/Report?action=ToCreateBIN">BIN Card</a></li>
                             <li><a href="${context}/Stock?action=reorderlevel">Re Order Level Report </a></li>
+                            <li><a href="${context}/Invoice?action=SearchCreditLimit">Customer Credit Limit </a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-users"></i>Customer Management<span class="fa fa-chevron-down"></span></a>

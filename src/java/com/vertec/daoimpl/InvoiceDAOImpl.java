@@ -979,20 +979,23 @@ public class InvoiceDAOImpl {
                 }
                 System.out.println("First Invoice Date : " + nearestDate);
                 System.out.println("Total Outstanding : " + (credits + outstanding));
+                System.out.println("Customer's Credit Limit : " + cus.getCreditLimit());
+                System.out.println(cus.getCreditLimit() < (credits + outstanding));
                 if (cus.getCreditLimit() < (credits + outstanding)) {
+                    System.out.println("Came to one");
                     return 1;
                 }
                 if (nearestDate != null) {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     Calendar c = Calendar.getInstance();
-                    c.setTime(nearestDate); // Now use today date.
-                    c.add(Calendar.DATE, cus.getCreditPeriod()); // Adding 5 days
+                    c.setTime(nearestDate);
+                    c.add(Calendar.DATE, cus.getCreditPeriod());
                     String output = sdf.format(c.getTime());
                     System.out.println("Credit Period Expire date : " + output);
 
                     Date date1 = sdf.parse(output);
 
-                    if (date1.after(new Date())) {
+                    if (date1.before(new Date())) {
                         System.out.println("Date1 is after Date2");
                         return 2;
                     }
@@ -1001,15 +1004,45 @@ public class InvoiceDAOImpl {
                 return 0;
             } catch (Exception e) {
                 e.printStackTrace();
+
+                return 3;
             } finally {
                 if (session != null && session.isOpen()) {
                     session.close();
 
                 }
-                return 3;
             }
         }
         return 3;
+    }
+
+    public List<Object[]> GetCreditLimit(int cid, Company com) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Customer cus = new CustomerDAOImpl().viewCustomer(cid);
+        if (session != null) {
+            try {
+                String hql;
+                if (cid != 0) {
+                    hql = "SELECT o.invoiceId,o.balanceAmount FROM OutstandigInvoice o WHERE o.invoiceId.customerId=:cus AND o.balanceAmount>0 AND o.invoiceId.companyId=:com";
+                } else {
+                    hql = "SELECT o.invoiceId,o.balanceAmount FROM OutstandigInvoice o WHERE o.balanceAmount>0 AND o.invoiceId.companyId=:com";
+                }
+                Query query = session.createQuery(hql);
+                if (cid != 0) {
+                    query.setParameter("cus", cus);
+                }
+                query.setParameter("com", com);
+                List<Object[]> outstandings = (List<Object[]>) query.list();
+                return outstandings;
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
+        }
+        return null;
     }
 
 }

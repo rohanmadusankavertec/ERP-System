@@ -118,7 +118,7 @@
 
 // Save invoice
     function submitInvoice() {
-        if(CheckCreditLimit()){
+
         var customerId = document.getElementById('customerId').value;
         var branchId = document.getElementById('branchId').value;
         var data = {};
@@ -190,7 +190,6 @@
                     }]
             });
         }
-    }
     }
 
     function ItemwiseTotal() {
@@ -283,30 +282,27 @@
         var outstanding = (parseFloat(gTot) - parseFloat(payment));
         if (outstanding > 0) {
             var customerId = document.getElementById('customerId').value;
-            $.ajax({
-                type: "POST",
-                url: "Invoice?action=CheckCreditLimit&customer=" + customerId + "&outstanding="+outstanding,
-                success: function (msg) {
-                    var reply = eval('(' + msg + ')');
-                    alert(reply);
-                    if(reply==="0"){
-                        return true;
-                    }else if(reply==="1"){
+            var xmlHttp = getAjaxObject();
+            xmlHttp.onreadystatechange = function ()
+            {
+                if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+                {
+                    var reply = xmlHttp.responseText;
+                    if (reply === "0") {
+                        submitInvoice();
+                    } else if (reply === "1") {
                         sm_warning("This Customer Exceeded his credit limit .....");
-                        return false;
-                    }else if(reply==="2"){
+                    } else if (reply === "2") {
                         sm_warning("This Customer's Credit Period is outdated ....");
-                         return false;
-                    }else if(reply==="3"){
+                    } else if (reply === "3") {
                         sm_warning("Something went wrong. Please try again....");
-                         return false;
+                    } else {
+                        sm_warning("Something went wrong. Please try again....");
                     }
-                    return false;
                 }
-            });
-        }else{
-            return true;
-            
+            };
+            xmlHttp.open("POST", "Invoice?action=CheckCreditLimit&customer=" + customerId + "&outstanding=" + outstanding, true);
+            xmlHttp.send();
         }
     }
 </script>
@@ -589,7 +585,7 @@
                         <div class="row no-print">
                             <div class="col-xs-12">
                                 <button class="btn btn-default" onclick="clearItem();"><i class="fa fa-print"></i> Print</button>
-                                <button class="btn btn-success pull-right" onclick="submitInvoice();"><i class="fa fa-credit-card"></i> Submit Invoice</button>
+                                <button class="btn btn-success pull-right" onclick="CheckCreditLimit();"><i class="fa fa-credit-card"></i> Submit Invoice</button>
 
                             </div>
                         </div>

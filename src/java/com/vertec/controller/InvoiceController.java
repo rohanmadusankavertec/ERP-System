@@ -897,7 +897,22 @@ public class InvoiceController extends HttpServlet {
                 
                 int out=invoiceDAOImpl.CheckCreditLimit(Integer.parseInt(cid), Double.parseDouble(outstanding));
                 System.out.println("Returned Value : "+out);
-                response.getWriter().write(out);
+                response.getWriter().write(out+"");
+                break;
+            }
+            case "SearchCreditLimit": {
+                List<Customer> customerList = customerDAOImpl.getListofUsers(company);
+                request.setAttribute("clist", customerList);
+                requestDispatcher = request.getRequestDispatcher("app/report/SearchCreditLimit.jsp");
+                requestDispatcher.forward(request, response);
+                break;
+            }
+            case "creditlimitreport": {
+                String cid = request.getParameter("cusId").trim();
+                List<Object[]> customerList = invoiceDAOImpl.GetCreditLimit(Integer.parseInt(cid),company);
+                request.setAttribute("oblist", customerList);
+                requestDispatcher = request.getRequestDispatcher("app/report/CreditLimitReport.jsp");
+                requestDispatcher.forward(request, response);
                 break;
             }
         }
