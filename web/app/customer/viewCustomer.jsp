@@ -33,7 +33,7 @@
             <div class="x_panel">
                 <div class="x_title">
                     <h2><small></small></h2>
-                    
+
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -99,7 +99,21 @@
                                 <input id="contactPersonEmail" type="email" name="contactPersonEmail"  class="form-control col-md-7 col-xs-12" value="<%=cu.getContactPersonEmail()%>" required="required">
                             </div>
                         </div>
-
+                            
+                        <div class="item form-group">
+                            <label for="password" class="control-label col-md-3">Credit Limit</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="creditLimit" type="number" name="creditLimit"  class="form-control col-md-7 col-xs-12" value="<%=cu.getCreditLimit()%>" required="required">
+                            </div>
+                        </div>
+                            
+                        <div class="item form-group">
+                            <label for="password" class="control-label col-md-3">Credit Period (Days)</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="creditPeriod" type="number" name="creditPeriod"  class="form-control col-md-7 col-xs-12" value="<%=cu.getCreditPeriod()%>" required="required">
+                            </div>
+                        </div>
+                            
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3">

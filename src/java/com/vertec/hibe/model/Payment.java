@@ -44,6 +44,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Payment.findByChequeDate", query = "SELECT p FROM Payment p WHERE p.chequeDate = :chequeDate")})
 public class Payment implements Serializable {
 
+    @Column(name = "cc_number")
+    private String ccNumber;
+    @Column(name = "cc_expire_year")
+    private Integer ccExpireYear;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentId")
     private Collection<GrnPayment> grnPaymentCollection;
 
@@ -227,6 +232,22 @@ public Payment(Integer paymentId, Date paymentDate, double amount) {
 
     public void setGrnPaymentCollection(Collection<GrnPayment> grnPaymentCollection) {
         this.grnPaymentCollection = grnPaymentCollection;
+    }
+
+    public String getCcNumber() {
+        return ccNumber;
+    }
+
+    public void setCcNumber(String ccNumber) {
+        this.ccNumber = ccNumber;
+    }
+
+    public Integer getCcExpireYear() {
+        return ccExpireYear;
+    }
+
+    public void setCcExpireYear(Integer ccExpireYear) {
+        this.ccExpireYear = ccExpireYear;
     }
 
 

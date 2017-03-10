@@ -100,6 +100,19 @@
                         </div>
                         
                         <div class="item form-group">
+                            <label for="password" class="control-label col-md-3">Credit Limit</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="creditLimit" type="number" name="creditLimit"  class="form-control col-md-7 col-xs-12" required="required">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="password" class="control-label col-md-3">Credit Period (Days)</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="creditPeriod" type="number" name="creditPeriod"  class="form-control col-md-7 col-xs-12" required="required">
+                            </div>
+                        </div>
+                        
+                        <div class="item form-group">
                             <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Select Rating</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="rating" id="rating"  required="required" >

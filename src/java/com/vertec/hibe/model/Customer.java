@@ -48,6 +48,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findByIsActive", query = "SELECT c FROM Customer c WHERE c.isActive = :isActive")})
 public class Customer implements Serializable {
 
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "credit_limit")
+    private Double creditLimit;
+    @Column(name = "credit_period")
+    private Integer creditPeriod;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
     private Collection<CustomerHasGroup> customerHasGroupCollection;
 
@@ -252,6 +258,22 @@ public class Customer implements Serializable {
 
     public void setCustomerHasGroupCollection(Collection<CustomerHasGroup> customerHasGroupCollection) {
         this.customerHasGroupCollection = customerHasGroupCollection;
+    }
+
+    public Double getCreditLimit() {
+        return creditLimit;
+    }
+
+    public void setCreditLimit(Double creditLimit) {
+        this.creditLimit = creditLimit;
+    }
+
+    public Integer getCreditPeriod() {
+        return creditPeriod;
+    }
+
+    public void setCreditPeriod(Integer creditPeriod) {
+        this.creditPeriod = creditPeriod;
     }
     
 }

@@ -64,6 +64,8 @@
                                 <th>Contact Person</th>
                                 <th>C P No </th>
                                 <th>C P Email </th>
+                                <th>Credit Limit</th>
+                                <th>Credit Period </th>
                                 <th>Ratings </th>
                                 <th class=" no-link last"><span class="nobr">Action</span>
                                 </th>
@@ -79,6 +81,8 @@
                                 <td class=" "><%=cu.getContactPerson()%></td>
                                 <td class=" "><%=cu.getContactPersonNo()%></td>
                                 <td class=" "><%=cu.getContactPersonEmail()%></td>
+                                <td class=" "><%=cu.getCreditLimit()%></td>
+                                <td class=" "><%=cu.getCreditPeriod()%></td>
                                 <td class=" ">
                                     <%for (int i = 0; i < cu.getCustomerRatingId().getNoOfStars(); i = i + 1) {%>
                                     <span class="glyphicon glyphicon-star"></span>
