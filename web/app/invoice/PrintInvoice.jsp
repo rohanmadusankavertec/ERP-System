@@ -121,6 +121,7 @@
                                                     <th>Qty#</th>
                                                     <th>Total #</th>
                                                     <th>Discount</th>
+                                                    <th>Tax</th>
                                                     <th>Gross Total</th>
                                                 </tr>
                                             </thead>
@@ -140,6 +141,7 @@
                                                     out.println("-");
                                                 }
                                                 %></td>
+                                            <td><% out.println(formatter.format(ii.getTax()));%></td>
                                             <td><% out.println(formatter.format(ii.getTotAfterDis()));%></td>
                                             </tbody>
                                             <%}%>
@@ -155,6 +157,12 @@
                                             <table class="table">
                                                 <tbody>
                                                     <tr>
+                                                        <th style="width:50%">Tax : </th>
+                                                        <td id="subtot">
+                                                            <% out.println(formatter.format(invoice.getTax()));%>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
                                                         <th style="width:50%">Subtotal:</th>
                                                         <td id="subtot">
                                                             <% out.println(formatter.format(invoice.getInvoiceTotal()));%>
@@ -163,8 +171,6 @@
                                                     <tr>
                                                         <th>Discount</th>
                                                         <td>
-
-
                                                             <%
                                                                 if (invoice.getDiscount() > 0) {
                                                                     out.println(formatter.format(invoice.getDiscount()));
@@ -172,8 +178,6 @@
                                                                     out.println("-");
                                                                 }
                                                             %>
-
-
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -182,7 +186,6 @@
                                                             <% out.println(formatter.format(invoice.getTotAfterDiscount()));%>
                                                         </td>
                                                     </tr>
-
                                                     <tr>
                                                         <th>Payment Amount:</th>
                                                         <td> 
@@ -193,7 +196,6 @@
                                                                     out.println("-");
                                                                 }
                                                             %>
-                                                            
                                                         </td>
                                                     </tr>
                                                     <tr>
