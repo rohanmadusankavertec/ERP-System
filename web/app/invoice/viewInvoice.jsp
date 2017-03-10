@@ -88,15 +88,24 @@
 
     //Change fields' visibility according to payment type
     function paymentType() {
-        var ptype = document.getElementById("cash");
-        if (ptype.checked) {
+        var cash = document.getElementById("cash");
+        var cheque = document.getElementById("cheque");
+        var cc = document.getElementById("creditcard");
+        if (cash.checked) {
             document.getElementById('cn').className = 'hidden';
             document.getElementById('bn').className = 'hidden';
             document.getElementById('cd').className = 'hidden';
-        } else {
+            document.getElementById('ccn').className = 'hidden';
+        } else if (cheque.checked){
             document.getElementById('cn').className = '';
             document.getElementById('bn').className = '';
             document.getElementById('cd').className = '';
+            document.getElementById('ccn').className = 'hidden';
+        }else if (cc.checked){
+            document.getElementById('cn').className = 'hidden';
+            document.getElementById('bn').className = 'hidden';
+            document.getElementById('cd').className = 'hidden';
+            document.getElementById('ccn').className = '';
         }
     }
 
@@ -133,14 +142,22 @@
         var bankName = document.getElementById('bankName').value;
         var chequeDate = document.getElementById('chequeDate').value;
         var payment = document.getElementById('payment').value;
+        var ccnum = document.getElementById('ccnum').value;
         var pt = 0;
-        var ptype = document.getElementById("cash");
-        if (ptype.checked) {
+        var cash = document.getElementById("cash");
+        var cheque = document.getElementById("cheque");
+        var creditcard = document.getElementById("creditcard");
+        if (cash.checked) {
             pt = 1;
+        }else if(cheque.checked){
+            pt = 2;
+        }else if(creditcard.checked){
+            pt = 3;
         }
         data["chequeNo"] = chequeNo;
         data["bankName"] = bankName;
         data["chequeDate"] = chequeDate;
+        data["ccnum"] = ccnum;
         data["payment"] = payment;
         data["pt"] = pt;
         data["customerId"] = customerId;
@@ -305,6 +322,48 @@
             xmlHttp.send();
         }
     }
+
+
+
+
+    function validateCreditCard() {
+        var inputtxt= document.getElementById("ccnum");
+        var cardlogo= document.getElementById("cardlogo");
+        
+        var aecard = /^(?:3[47][0-9]{13})$/; //American Express credit card
+        var visacard = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/; //visa credit card
+        var mastercard = /^(?:5[1-5][0-9]{14})$/; //Master Credit card
+        var discovercard = /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/; //Discover Credit card
+        var jcbcard = /^(?:(?:2131|1800|35\d{3})\d{11})$/; //JCB Credit card
+        
+        if (inputtxt.value.match(aecard)){
+            cardlogo.className="fa fa-cc-amex custom";
+            
+        } else if(inputtxt.value.match(visacard)){
+            cardlogo.className="fa fa-cc-visa custom";
+            
+        }else if(inputtxt.value.match(mastercard)){
+            cardlogo.className="fa fa-cc-mastercard custom";
+            
+        }else if(inputtxt.value.match(discovercard)){
+            cardlogo.className="fa fa-cc-discover custom";
+            
+        }else if(inputtxt.value.match(jcbcard)){
+            cardlogo.className="fa fa-cc-jcb custom";
+            
+        }else{
+            cardlogo.className="";
+            
+        }
+
+    }
+
+
+
+
+
+
+
 </script>
 
 
@@ -547,6 +606,13 @@
                                                 <td>
                                                     <input type="radio"  value="cash" name="pt" id="cash" checked onchange="paymentType()" />Cash
                                                     <input type="radio" value="cheque" name="pt" id="cheque" onchange="paymentType()"/>Cheque
+                                                    <input type="radio" value="creditcard" name="pt" id="creditcard" onchange="paymentType()"/>Credit Card
+                                                </td>
+                                            </tr>
+                                            <tr class="hidden" id="ccn">
+                                                <th>Credit/Debit Card No</th>
+                                                <td>
+                                                    <input type="text" id="ccnum" placeholder="Credit/Debit Card Number" class="form-control" onkeyup="validateCreditCard()"/><span class="" id="cardlogo" style="font-size: 2em; color: gray;"></span>
                                                 </td>
                                             </tr>
                                             <tr class="hidden" id="cn">

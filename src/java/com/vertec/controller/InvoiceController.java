@@ -261,6 +261,13 @@ public class InvoiceController extends HttpServlet {
                 if (jSONObject.get("chequeDate") != null) {
                     chequeDate = jSONObject.get("chequeDate").toString();
                 }
+                
+                
+                String ccnum = "";
+                if (jSONObject.get("ccnum") != null) {
+                    ccnum = jSONObject.get("ccnum").toString();
+                }
+                
 
                 String payment = "0";
                 if (jSONObject.get("payment") != null) {
@@ -277,6 +284,10 @@ public class InvoiceController extends HttpServlet {
                     pt = jSONObject.get("pt").toString();
                     if (pt.equals("1")) {
                         paymentType = 1;
+                    }else if (pt.equals("2")) {
+                        paymentType = 2;
+                    }else if (pt.equals("3")) {
+                        paymentType = 3;
                     }
                 }
 
@@ -429,7 +440,7 @@ public class InvoiceController extends HttpServlet {
 
                 double CurrentOutAmount = 0;
 
-                if (paymentType == 1) {
+                if (paymentType == 1 ||paymentType == 3) {
                     CurrentOutAmount = Double.valueOf(gTot) - Double.valueOf(payment);
                 } else {
                     CurrentOutAmount = Double.valueOf(gTot);
@@ -482,7 +493,7 @@ public class InvoiceController extends HttpServlet {
                 PaymentType ptype = new PaymentType(paymentType);
                 p.setPaymentTypeId(ptype);
                 p.setSysUserSysuserId(user1);
-                if (paymentType == 1) {
+                if (paymentType == 1 || paymentType == 3) {
                     p.setIsCleared(true);
                 } else {
                     p.setIsCleared(false);
