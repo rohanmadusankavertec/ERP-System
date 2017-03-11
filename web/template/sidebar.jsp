@@ -434,7 +434,7 @@
                     <li><a><i class="fa fa-check"></i>TAX<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
                             <li><a href="${context}/Tax?action=loadTaxPage">Manage Tax</a></li>
-                            <li><a href="${context}/Tax?action=loadTaxPage">View Tax</a></li>
+                            <li><a href="${context}/Tax?action=SearchTaxDetails">View Tax</a></li>
                         </ul>
                     </li>
 

@@ -115,6 +115,11 @@ public class TaxController extends HttpServlet {
                     break;
                     
                 }
+                case "SearchTaxDetails": {
+                    requestDispatcher = request.getRequestDispatcher("app/report/SearchTaxdetails.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
             }
             
             
