@@ -17,7 +17,13 @@
 <script src="app/js/invoice.js"></script>
 <script src="app/js/notAlert.js"></script>
 
+
+
 <script type="text/javascript">
+
+
+
+
     //to call start time method after 1 second
     var t = setTimeout(startTime, 1000);
 
@@ -38,7 +44,7 @@
     // add zero in front of numbers < 10
     function checkTime(i) {
         if (i < 10) {
-            i = "0" + i
+            i = "0" + i;
         }
         return i;
     }
@@ -82,15 +88,27 @@
 
     //Change fields' visibility according to payment type
     function paymentType() {
-        var ptype = document.getElementById("cash");
-        if (ptype.checked) {
+        var cash = document.getElementById("cash");
+        var cheque = document.getElementById("cheque");
+        var cc = document.getElementById("creditcard");
+        if (cash.checked) {
             document.getElementById('cn').className = 'hidden';
             document.getElementById('bn').className = 'hidden';
             document.getElementById('cd').className = 'hidden';
-        } else {
+            document.getElementById('ccn').className = 'hidden';
+            document.getElementById('ccym').className = 'hidden';
+        } else if (cheque.checked){
             document.getElementById('cn').className = '';
             document.getElementById('bn').className = '';
             document.getElementById('cd').className = '';
+            document.getElementById('ccn').className = 'hidden';
+            document.getElementById('ccym').className = 'hidden';
+        }else if (cc.checked){
+            document.getElementById('cn').className = 'hidden';
+            document.getElementById('bn').className = 'hidden';
+            document.getElementById('cd').className = 'hidden';
+            document.getElementById('ccn').className = '';
+            document.getElementById('ccym').className = '';
         }
     }
 
@@ -112,7 +130,7 @@
 
 // Save invoice
     function submitInvoice() {
-        
+
         var customerId = document.getElementById('customerId').value;
         var branchId = document.getElementById('branchId').value;
         var data = {};
@@ -121,21 +139,32 @@
         var totAmountAfterDiscount = document.getElementById('totaftdis').innerHTML;
         var tax = document.getElementById('tax').innerHTML;
         var gTot = document.getElementById('gTot').innerHTML;
-
-
+        var taxval = document.getElementById('tax').innerHTML;
 
         var chequeNo = document.getElementById('chequeNo').value;
         var bankName = document.getElementById('bankName').value;
         var chequeDate = document.getElementById('chequeDate').value;
         var payment = document.getElementById('payment').value;
+        var ccnum = document.getElementById('ccnum').value;
+        var ccy = document.getElementById('ccyear').value;
+        var ccm = document.getElementById('ccmonth').value;
         var pt = 0;
-        var ptype = document.getElementById("cash");
-        if (ptype.checked) {
+        var cash = document.getElementById("cash");
+        var cheque = document.getElementById("cheque");
+        var creditcard = document.getElementById("creditcard");
+        if (cash.checked) {
             pt = 1;
+        }else if(cheque.checked){
+            pt = 2;
+        }else if(creditcard.checked){
+            pt = 3;
         }
         data["chequeNo"] = chequeNo;
         data["bankName"] = bankName;
         data["chequeDate"] = chequeDate;
+        data["ccnum"] = ccnum;
+        data["ccy"] = ccy;
+        data["ccm"] = ccm;
         data["payment"] = payment;
         data["pt"] = pt;
         data["customerId"] = customerId;
@@ -143,15 +172,15 @@
         data["totalInAmount"] = totalInAmount;
         data["invoiceDiscount"] = invoiceDiscount;
         data["totAmountAfterDiscount"] = totAmountAfterDiscount;
-        data["tax"] = tax;
+        data["tax"] = taxval;
         data["gTot"] = gTot;
         data["item_details"] = item_details;
-        
-        if(isEmpty(item_details)){
+
+        if (isEmpty(item_details)) {
             sm_warning("Please Add Item...");
-        }else if(payment ==""){
+        } else if (payment === "") {
             sm_warning("Please Add Payment Amount...");
-        }else{
+        } else {
             var jsonDetails = JSON.stringify(data);
             BootstrapDialog.show({
                 message: 'Do you want to Submit ?',
@@ -195,6 +224,14 @@
         var bmpArr = bpm.split("_");
         var sellPrice = bmpArr[1];
         var totalAmount = quantity * sellPrice;
+        var tax = 0;
+
+        for (var i = 0; i < taxarray.length; i++) {
+            tax += totalAmount * (taxarray[i] / 100);
+        }
+
+        totalAmount += tax;
+
         var dAmount = 0;
         if (disType === "Percentage") {
             if (disAmount === "") {
@@ -207,9 +244,11 @@
                 dAmount = disAmount;
             }
         }
-        document.getElementById('ittot').innerHTML = totalAmount - dAmount;
+        var tamount = (totalAmount - dAmount);
+        document.getElementById('ittot').innerHTML = tamount;
+        document.getElementById('itemtax').innerHTML = tax;
     }
-
+    var taxarray = [];
 // load product master details to page
     function loadBranchPM() {
         $("#bpmId").empty();
@@ -229,12 +268,15 @@
             success: function (msg) {
                 var reply = eval('(' + msg + ')');
                 var arrLn1 = reply.jArr1;
+                var arrLn2 = reply.taxarr;
                 var bpm = document.getElementById('bpmId');
                 document.getElementById('pmasterDiv').className = 'form-group';
                 document.getElementById('quanDiv').className = 'form-group';
                 document.getElementById('discountDiv').className = 'form-group';
+                document.getElementById('ittot').className = 'form-group';
                 document.getElementById('itemtot').className = 'form-group';
                 document.getElementById('btnDiv').className = 'form-group';
+                document.getElementById('taxfield').className = 'form-group';
                 for (var f = 0; f < arrLn1.length; f++) {
                     var t = document.createElement("option");
                     var val = arrLn1[f].bpmid + "_" + arrLn1[f].sprice + "_" + arrLn1[f].branquan;
@@ -242,9 +284,95 @@
                     t.innerHTML = arrLn1[f].pprice + "_" + arrLn1[f].sprice;
                     bpm.appendChild(t);
                 }
+                taxarray = [];
+                for (var f = 0; f < arrLn2.length; f++) {
+                    taxarray.push(arrLn2[f].percentage);
+                }
             }
         });
     }
+
+
+
+
+
+
+
+
+
+    function CheckCreditLimit() {
+        var gTot = document.getElementById('gTot').innerHTML;
+        var payment = document.getElementById('payment').value;
+        var outstanding = (parseFloat(gTot) - parseFloat(payment));
+        if (outstanding > 0) {
+            var customerId = document.getElementById('customerId').value;
+            var xmlHttp = getAjaxObject();
+            xmlHttp.onreadystatechange = function ()
+            {
+                if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+                {
+                    var reply = xmlHttp.responseText;
+                    if (reply === "0") {
+                        submitInvoice();
+                    } else if (reply === "1") {
+                        sm_warning("This Customer Exceeded his credit limit .....");
+                    } else if (reply === "2") {
+                        sm_warning("This Customer's Credit Period is outdated ....");
+                    } else if (reply === "3") {
+                        sm_warning("Something went wrong. Please try again....");
+                    } else {
+                        sm_warning("Something went wrong. Please try again....");
+                    }
+                }
+            };
+            xmlHttp.open("POST", "Invoice?action=CheckCreditLimit&customer=" + customerId + "&outstanding=" + outstanding, true);
+            xmlHttp.send();
+        }else{
+            submitInvoice();
+        }
+    }
+
+
+
+
+    function validateCreditCard() {
+        var inputtxt= document.getElementById("ccnum");
+        var cardlogo= document.getElementById("cardlogo");
+        
+        var aecard = /^(?:3[47][0-9]{13})$/; //American Express credit card
+        var visacard = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/; //visa credit card
+        var mastercard = /^(?:5[1-5][0-9]{14})$/; //Master Credit card
+        var discovercard = /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/; //Discover Credit card
+        var jcbcard = /^(?:(?:2131|1800|35\d{3})\d{11})$/; //JCB Credit card
+        
+        if (inputtxt.value.match(aecard)){
+            cardlogo.className="fa fa-cc-amex custom";
+            
+        } else if(inputtxt.value.match(visacard)){
+            cardlogo.className="fa fa-cc-visa custom";
+            
+        }else if(inputtxt.value.match(mastercard)){
+            cardlogo.className="fa fa-cc-mastercard custom";
+            
+        }else if(inputtxt.value.match(discovercard)){
+            cardlogo.className="fa fa-cc-discover custom";
+            
+        }else if(inputtxt.value.match(jcbcard)){
+            cardlogo.className="fa fa-cc-jcb custom";
+            
+        }else{
+            cardlogo.className="";
+            
+        }
+
+    }
+
+
+
+
+
+
+
 </script>
 
 
@@ -409,6 +537,11 @@
                                     <input type="text" id="disAmount" name="disAmount" placeholder="Enter Discount Aount" class="form-control col-lg-6 col-md-6 col-xs-12" onkeyup="ItemwiseTotal();"/>
                                 </div>
                             </div>
+                            <div class="hidden" style="padding-top: 40px;" id="taxfield">
+                                <label class="control-label col-lg-3 col-md-3 lbl_name">Tax</label>
+                                <label class="control-label col-lg-6 col-md-6 lbl_name" id="itemtax">0000.00</label>
+
+                            </div>
                             <div class="hidden" style="padding-top: 40px;" id="itemtot">
                                 <label class="control-label col-lg-3 col-md-3 lbl_name">Total</label>
                                 <label class="control-label col-lg-6 col-md-6 lbl_name" id="ittot">0000.00</label>
@@ -431,7 +564,9 @@
                                             <th>Qty#</th>
                                             <th>Total #</th>
                                             <th>Discount</th>
+                                            <th>Tax</th>
                                             <th>Gross Total</th>
+                                            <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody id="invoiceItemBody">
@@ -454,6 +589,10 @@
                                     <table class="table">
                                         <tbody>
                                             <tr>
+                                                <th>Tax </th>
+                                                <td id="tax"></td>
+                                            </tr>
+                                            <tr>
                                                 <th style="width:50%">Subtotal:</th>
                                                 <td id="subtot"></td>
                                             </tr>
@@ -466,10 +605,7 @@
                                                 <th>Total After DIscount</th>
                                                 <td id="totaftdis"></td>
                                             </tr>
-                                            <tr class="hidden">
-                                                <th>Tax (15%)</th>
-                                                <td id="tax"></td>
-                                            </tr>
+
                                             <tr>
                                                 <th>Total:</th>
                                                 <td id="gTot"></td>
@@ -479,6 +615,20 @@
                                                 <td>
                                                     <input type="radio"  value="cash" name="pt" id="cash" checked onchange="paymentType()" />Cash
                                                     <input type="radio" value="cheque" name="pt" id="cheque" onchange="paymentType()"/>Cheque
+                                                    <input type="radio" value="creditcard" name="pt" id="creditcard" onchange="paymentType()"/>Credit Card
+                                                </td>
+                                            </tr>
+                                            <tr class="hidden" id="ccn">
+                                                <th>Credit/Debit Card No</th>
+                                                <td>
+                                                    <input type="text" id="ccnum" placeholder="Credit/Debit Card Number" class="form-control" onkeyup="validateCreditCard()"/><span class="" id="cardlogo" style="font-size: 2em; color: gray;"></span>
+                                                </td>
+                                            </tr>
+                                            <tr class="hidden" id="ccym">
+                                                <th>Expire Year and Month</th>
+                                                <td>
+                                                    <input type="text" id="ccyear" placeholder="yyyy" class="form-control" style="width: 80px"/>
+                                                    <input type="text" id="ccmonth" placeholder="mm" class="form-control" style="width: 80px"/>
                                                 </td>
                                             </tr>
                                             <tr class="hidden" id="cn">
@@ -517,7 +667,7 @@
                         <div class="row no-print">
                             <div class="col-xs-12">
                                 <button class="btn btn-default" onclick="clearItem();"><i class="fa fa-print"></i> Print</button>
-                                <button class="btn btn-success pull-right" onclick="submitInvoice();"><i class="fa fa-credit-card"></i> Submit Invoice</button>
+                                <button class="btn btn-success pull-right" onclick="CheckCreditLimit();"><i class="fa fa-credit-card"></i> Submit Invoice</button>
 
                             </div>
                         </div>

@@ -74,7 +74,7 @@
                                 <%if (ca.checkUserAuth("VIEW_SUPPLIER_GROUP", group) != null) {%>
                             <li><a href="${context}/Supplier?action=LoadmanageGroup">Manage Supplier Group</a></li>
                                 <%}%>
-                            
+
                         </ul>
                     </li>
                     <li><a><i class="fa fa-product-hunt"></i>Product Management<span class="fa fa-chevron-down"></span></a>
@@ -85,7 +85,7 @@
                                 <%if (ca.checkUserAuth("MANAGE_PRODUCT", group) != null) {%>
                             <li><a href="${context}/Product?action=ViewProducts">Manage Products</a></li>
                                 <%}%>
-                            <li><a href="${context}/Tax?action=loadTaxPage">Manage Tax</a></li>
+
                         </ul>
                     </li>
                     <li><a><i class="fa fa-file-text-o"></i>PRN<span class="fa fa-chevron-down"></span></a>
@@ -197,6 +197,7 @@
                             <li><a href="${context}/Invoice?action=toCanceledInvoice">Canceled Invoice Report </a></li>
                             <li><a href="${context}/Report?action=ToCreateBIN">BIN Card</a></li>
                             <li><a href="${context}/Stock?action=reorderlevel">Re Order Level Report </a></li>
+                            <li><a href="${context}/Invoice?action=SearchCreditLimit">Customer Credit Limit </a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-users"></i>Customer Management<span class="fa fa-chevron-down"></span></a>
@@ -231,7 +232,7 @@
                             <li><a href="${context}/Return?action=CustomerReturnNote">Customer Return Note</a></li>
                             <li><a href="${context}/Return?action=ViewCustomerReturnNote">View Customer Return Note</a></li>
                             <!--<li><a href="${context}/Return?action=CustomerReturn">Customer Return</a></li>-->
-                                <%if (ca.checkUserAuth("STOCK_RETURN", group) != null) {%>
+                            <%if (ca.checkUserAuth("STOCK_RETURN", group) != null) {%>
                             <li><a href="${context}/Return?action=StockReturn">Stock Return</a></li>
                                 <%}%>
                                 <%if (ca.checkUserAuth("RETURN_STOCK", group) != null) {%>
@@ -241,7 +242,7 @@
                             <li><a href="${context}/Return?action=Dispose">Product Dispose</a></li>
                                 <%}%>
                             <!--<li><a href="${context}/Return?action=SupplierReturn">Supplier Return</a></li>-->
-                                
+
                             <li><a href="${context}/Return?action=SupplierReturnNote">Supplier Return Note</a></li>
                             <li><a href="${context}/Return?action=ViewSupplierReturnNote">View Supplier Return Note</a></li>
                         </ul>
@@ -428,6 +429,16 @@
                                 <%}%>
                         </ul>
                     </li>
+
+
+                    <li><a><i class="fa fa-check"></i>TAX<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display: none">
+                            <li><a href="${context}/Tax?action=loadTaxPage">Manage Tax</a></li>
+                            <li><a href="${context}/Tax?action=loadTaxPage">View Tax</a></li>
+                        </ul>
+                    </li>
+
+
                     <li><a><i class="fa fa-check"></i>Reports<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
                             <%if (ca.checkUserAuth("GENERAL_JOURNAL", group) != null) {%>
@@ -440,8 +451,8 @@
                             <li><a href="${context}/Report?action=toLedgerAccounts">Ledger Accounts</a></li>
                                 <%}%>
                             <li><a href="${context}/Report?action=loadIncomestatementPage">Income Statement</a></li>
-                            
-                                <%if (ca.checkUserAuth("PROFIT_LOST", group) != null) {%>
+
+                            <%if (ca.checkUserAuth("PROFIT_LOST", group) != null) {%>
                             <li><a href="${context}/Report?action=loadProfitLossPage">Profit & lost Statement</a></li>
                                 <%}%>
                                 <%if (ca.checkUserAuth("TRIAL_BALANCE", group) != null) {%>

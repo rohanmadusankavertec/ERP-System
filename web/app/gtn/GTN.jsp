@@ -72,7 +72,6 @@
                 var price = document.getElementById("sprice");
                 for(var i =0; i<arrL1.length; i++){
                     ihtml+="<option value='"+arrL1[i].id+"~"+arrL1[i].price+"'>"+arrL1[i].price+"</option>";
-                    
                 }
                 
                 price.innerHTML=ihtml;        

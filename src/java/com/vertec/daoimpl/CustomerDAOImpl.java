@@ -167,7 +167,7 @@ public class CustomerDAOImpl{
         if (session != null) {
             try {
 
-                SQLQuery query = session.createSQLQuery("Update customer set customer_name=:customer_name,address=:address,hotline=:hotline,office_no=:office_no,fax_no=:fax_no,contact_person=:contact_person,contact_person_no=:contact_person_no,contact_person_email=:contact_person_email where customer_id=:customer_id");
+                SQLQuery query = session.createSQLQuery("Update customer set customer_name=:customer_name,address=:address,hotline=:hotline,office_no=:office_no,fax_no=:fax_no,contact_person=:contact_person,contact_person_no=:contact_person_no,contact_person_email=:contact_person_email,credit_limit=:credit_limit,credit_period=:credit_period where customer_id=:customer_id");
 
                 query.setParameter("customer_name", customer.getCustomerName());
                 query.setParameter("address", customer.getAddress());
@@ -178,6 +178,8 @@ public class CustomerDAOImpl{
                 query.setParameter("contact_person_no", customer.getContactPersonNo());
                 query.setParameter("contact_person_email", customer.getContactPersonEmail());
                 query.setParameter("customer_id", customer.getCustomerId());
+                query.setParameter("credit_limit", customer.getCreditLimit());
+                query.setParameter("credit_period", customer.getCreditPeriod());
 
                 query.executeUpdate();
 

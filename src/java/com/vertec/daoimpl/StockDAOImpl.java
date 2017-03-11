@@ -5,11 +5,11 @@
  */
 package com.vertec.daoimpl;
 
-
 import com.vertec.hibe.model.Branch;
 import com.vertec.hibe.model.BranchProductmaster;
 import com.vertec.hibe.model.BranchStock;
 import com.vertec.hibe.model.Company;
+import com.vertec.hibe.model.ProductHasTax;
 import com.vertec.util.NewHibernateUtil;
 import com.vertec.util.VertecConstants;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import org.hibernate.Transaction;
  *
  * @author User
  */
-public class StockDAOImpl{
+public class StockDAOImpl {
 
     /**
      * call from InvoiceController case "ToInvoice" call from StockController
@@ -32,7 +32,6 @@ public class StockDAOImpl{
      * @param branchId
      * @return
      */
-    
     public List<Object[]> loadProductFromBranchStock(int branchId) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -55,8 +54,8 @@ public class StockDAOImpl{
 
         return null;
     }
-    
-    public BranchProductmaster loadBranchProductMaster(Branch branchId,int pmid) {
+
+    public BranchProductmaster loadBranchProductMaster(Branch branchId, int pmid) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         if (session != null) {
             try {
@@ -77,14 +76,14 @@ public class StockDAOImpl{
 
         return null;
     }
-    
+
     public List<Object[]> loadProductFromWarehouseStock() {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
 
         if (session != null) {
             try {
                 SQLQuery query = session.createSQLQuery("Select p.product_id,p.product_code,p.product_name From warehouse_stock ws inner join product_master pm on pm.product_master_id=ws.product_master_product_master_id inner join product p on pm.product_id=p.product_id group by p.product_id order by p.product_code asc");
-                
+
                 List<Object[]> prList = query.list();
                 return prList;
 
@@ -99,11 +98,6 @@ public class StockDAOImpl{
 
         return null;
     }
-    
-    
-    
-    
-    
 
     /**
      * from StockController case "ToBranchPM"
@@ -111,7 +105,6 @@ public class StockDAOImpl{
      * @param arr
      * @return
      */
-    
     public List<Object[]> loadProductMasterFromBPM(int[] arr) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -124,8 +117,7 @@ public class StockDAOImpl{
                         + "inner join product p on pm.product_id=p.product_id where bp.branch_id=:branch_id and p.product_id=:product_id");
                 query.setParameter("branch_id", arr[0]);
                 query.setParameter("product_id", arr[1]);
-                
-                
+
                 List<Object[]> prList = query.list();
                 return prList;
 
@@ -147,7 +139,6 @@ public class StockDAOImpl{
      * @param arr
      * @return
      */
-    
     public List<Object[]> loadProductMasterToAddBPM(int[] arr) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -156,7 +147,7 @@ public class StockDAOImpl{
             try {
                 SQLQuery query = session.createSQLQuery("SELECT * FROM product_master pm where pm.product_id=:product_id and pm.product_master_id not in (SELECT product_master_id FROM branch_productmaster where branch_id=:branchId);");
 //                SQLQuery query = session.createSQLQuery("SELECT pm.product_master_id,pm.product_id,pm.purchased_price,pm.selling_price,pm.is_available FROM product_master pm inner join branch_productmaster bpm on bpm.product_master_id=pm.product_master_id where pm.product_id:product_id and bpm.branch_id=:branchId ;");
-                
+
                 query.setParameter("branchId", arr[0]);
                 query.setParameter("product_id", arr[1]);
                 List<Object[]> prList = query.list();
@@ -181,7 +172,6 @@ public class StockDAOImpl{
      * @param arr
      * @return
      */
-    
     public List<BranchStock> viewAvailability(int[] arr) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -192,9 +182,9 @@ public class StockDAOImpl{
                 System.out.println(arr[0]);
                 System.out.println(arr[1]);
                 System.out.println("___________________________________________");
-                
-                Query query = session.createQuery("select bs from BranchStock bs where bs.branchId.branchId='"+arr[0]+"' and bs.productId.productId='"+arr[1]+"'");
-                
+
+                Query query = session.createQuery("select bs from BranchStock bs where bs.branchId.branchId='" + arr[0] + "' and bs.productId.productId='" + arr[1] + "'");
+
                 List<BranchStock> prList = query.list();
                 return prList;
 
@@ -210,7 +200,6 @@ public class StockDAOImpl{
         return null;
     }
 
-    
     public List<Object[]> viewAvailabilitylist(int[] arr) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
 
@@ -220,9 +209,9 @@ public class StockDAOImpl{
                 System.out.println(arr[0]);
                 System.out.println(arr[1]);
                 System.out.println("___________________________________________");
-                
+
                 Query query = session.createQuery("select branch_stock_id,quantity from BranchStock where branchId.branchId=:branchId and productId.productId=:productid");
-                
+
                 query.setParameter("branchId", arr[0]);
                 query.setParameter("productid", arr[1]);
                 List<Object[]> prList = query.list();
@@ -239,17 +228,13 @@ public class StockDAOImpl{
 
         return null;
     }
-    
-    
-    
-    
+
     /**
      * call from StockController case "SaveBPM"
      *
      * @param branchProductmaster
      * @return
      */
-    
     public String saveBranchPM(BranchProductmaster branchProductmaster) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -281,7 +266,6 @@ public class StockDAOImpl{
      * @param branchStock
      * @return
      */
-    
     public String saveBranchStock(BranchStock branchStock) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -316,7 +300,6 @@ public class StockDAOImpl{
      * @param branchStock
      * @return
      */
-    
     public String updateBranchStock(BranchStock branchStock) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -371,6 +354,7 @@ public class StockDAOImpl{
 
         return null;
     }
+
     /**
      * call from StockController case
      * "SaveBPM","SaveUpdatedStock","SaveVehicleStock","SaveUpdatedVehicleStock"
@@ -379,14 +363,14 @@ public class StockDAOImpl{
      * @param bpmId
      * @return
      */
-    
+
     public BranchProductmaster viewBranchPM(int bpmId) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
 
         if (session != null) {
             try {
-                Query query = session.getNamedQuery("BranchProductmaster.findByBpmId");
+                System.out.println("Branch Product Master : "+bpmId);
+                Query query = session.createQuery("SELECT b FROM BranchProductmaster b WHERE b.bpmId=:bpmId");
                 query.setParameter("bpmId", bpmId);
                 BranchProductmaster bp = (BranchProductmaster) query.uniqueResult();
                 return bp;
@@ -412,7 +396,6 @@ public class StockDAOImpl{
      * @param branchProductmaster
      * @return
      */
-    
     public String updateBranchPM(BranchProductmaster branchProductmaster) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -449,7 +432,6 @@ public class StockDAOImpl{
      * @param arr
      * @return
      */
-    
     public List<Object[]> loadToAddVehicleStock(int[] arr) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -488,7 +470,6 @@ public class StockDAOImpl{
      * @param arr
      * @return
      */
-    
     public List<Object[]> loadToUpdateVehicleStock(int[] arr) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -523,7 +504,6 @@ public class StockDAOImpl{
      * @param vehicleStock
      * @return
      */
-    
 //    public String saveVehicleStock(VehicleStock vehicleStock) {
 //        Session session = NewHibernateUtil.getSessionFactory().openSession();
 //        Transaction transaction = session.beginTransaction();
@@ -548,14 +528,12 @@ public class StockDAOImpl{
 //        }
 //        return null;
 //    }
-
     /**
-     * 
+     *
      *
      * @param productId
      * @return
      */
-    
     public BranchStock viewBranchStock(int productId) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -585,7 +563,6 @@ public class StockDAOImpl{
      * @param vsId
      * @return
      */
-    
 //    public VehicleStock viewVehicleStock(int vsId) {
 //        Session session = NewHibernateUtil.getSessionFactory().openSession();
 //        Transaction transaction = session.beginTransaction();
@@ -608,14 +585,13 @@ public class StockDAOImpl{
 //
 //        return null;
 //    }
-
     /**
-     * call from StockController case "SaveUpdatedVehicleStock"
-     *call from InvoiceController case "SubmitVInvoice","DeleteInvoice","UpdateAll"
+     * call from StockController case "SaveUpdatedVehicleStock" call from
+     * InvoiceController case "SubmitVInvoice","DeleteInvoice","UpdateAll"
+     *
      * @param vehicleStock
      * @return
      */
-    
 //    public String saveUpdateVehicleStock(VehicleStock vehicleStock) {
 //        Session session = NewHibernateUtil.getSessionFactory().openSession();
 //        Transaction transaction = session.beginTransaction();
@@ -645,14 +621,12 @@ public class StockDAOImpl{
 //
 //        return null;
 //    }
-
     /**
      * call from InvoiceController case "LoadBPMToInvoice"
      *
      * @param arr
      * @return
      */
-    
     public List<Object[]> loadBPMForInvoice(int[] arr) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -680,18 +654,34 @@ public class StockDAOImpl{
         return null;
     }
 
-    
-    
-    
+    public List<ProductHasTax> loadProductHasTax(int id) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        if (session != null) {
+            try {
+                Query query = session.createQuery("SELECT p FROM ProductHasTax p WHERE p.productProductId.productId=:product_id");
+                query.setParameter("product_id", id);
+                List<ProductHasTax> bpmList = query.list();
+                return bpmList;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
+        }
+        return null;
+    }
+
     public List<Object[]> loadWSForInvoice(int pro) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
 
         if (session != null) {
             try {
-                
-                SQLQuery query2=session.createSQLQuery("select ws.warehouse_stock_id,ws.qty,pm.purchased_price,pm.selling_price from warehouse_stock ws inner join product_master pm on pm.product_master_id=ws.product_master_product_master_id where pm.product_id=:product_id and ws.qty>0");
-                
-                
+
+                SQLQuery query2 = session.createSQLQuery("select ws.warehouse_stock_id,ws.qty,pm.purchased_price,pm.selling_price from warehouse_stock ws inner join product_master pm on pm.product_master_id=ws.product_master_product_master_id where pm.product_id=:product_id and ws.qty>0");
+
 //                SQLQuery query = session.createSQLQuery("SELECT bpm.bpm_id,bpm.product_master_id,bpm.quantity as branchquan,pm.purchased_price,pm.selling_price\n"
 //                        + "FROM branch_productmaster bpm inner join product_master pm on (bpm.product_master_id=pm.product_master_id)\n"
 //                        + "where pm.product_id=:product_id and bpm.branch_id=:branch_id and pm.is_available=:is_available");
@@ -711,16 +701,13 @@ public class StockDAOImpl{
 
         return null;
     }
-    
-    
-    
+
     /**
      * call from InvoiceController case "LoadBPMToInvoice"
      *
      * @param arr
      * @return
      */
-    
     public List<Object[]> loadVSForInvoice(int[] arr) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -756,7 +743,6 @@ public class StockDAOImpl{
      * @param bpmId
      * @return
      */
-    
 //    public VehicleStock loadVS(int bpmId) {
 //        Session session = NewHibernateUtil.getSessionFactory().openSession();
 //        Transaction transaction = session.beginTransaction();
@@ -779,14 +765,12 @@ public class StockDAOImpl{
 //
 //        return null;
 //    }
-
     /**
      * call from InvoiceController case "DeleteInvoice" and "UpdateAll"
      *
      * @param arr
      * @return
      */
-    
     public BranchProductmaster loadBranchPM(int[] arr) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -817,7 +801,6 @@ public class StockDAOImpl{
      * @param arr
      * @return
      */
-    
 //    public VehicleStock viewVStock(int[] arr) {
 //        Session session = NewHibernateUtil.getSessionFactory().openSession();
 //        Transaction transaction = session.beginTransaction();
@@ -841,39 +824,36 @@ public class StockDAOImpl{
 //
 //        return null;
 //    }
-    
-    
     public List<String[]> viewProductByBranch(String bid) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
 
         if (session != null) {
             try {
-                
-                String hql="";
-                if(bid.equals("All_All")){
-                    hql="SELECT b.productMasterId.productId.productCode,b.productMasterId.productId.productName,b.productMasterId.productId.productDescription,b.productMasterId.productId.reOrderLevel,SUM(b.quantity) FROM BranchProductmaster b GROUP BY b.productMasterId.productId.productId ";
-                }else{
-                    hql="SELECT b.productMasterId.productId.productCode,b.productMasterId.productId.productName,b.productMasterId.productId.productDescription,b.productMasterId.productId.reOrderLevel,SUM(b.quantity) FROM BranchProductmaster b WHERE b.branchId.branchId=:bid GROUP BY b.productMasterId.productId.productId ";
+
+                String hql = "";
+                if (bid.equals("All_All")) {
+                    hql = "SELECT b.productMasterId.productId.productCode,b.productMasterId.productId.productName,b.productMasterId.productId.productDescription,b.productMasterId.productId.reOrderLevel,SUM(b.quantity) FROM BranchProductmaster b GROUP BY b.productMasterId.productId.productId ";
+                } else {
+                    hql = "SELECT b.productMasterId.productId.productCode,b.productMasterId.productId.productName,b.productMasterId.productId.productDescription,b.productMasterId.productId.reOrderLevel,SUM(b.quantity) FROM BranchProductmaster b WHERE b.branchId.branchId=:bid GROUP BY b.productMasterId.productId.productId ";
                 }
-                
-                
-                Query query2=session.createQuery(hql);
-                if(!bid.equals("All_All")){
-                query2.setParameter("bid", Integer.parseInt(bid));
+
+                Query query2 = session.createQuery(hql);
+                if (!bid.equals("All_All")) {
+                    query2.setParameter("bid", Integer.parseInt(bid));
                 }
                 List<Object[]> bpmList = query2.list();
-                
-                List<String[]> Stringarr=new ArrayList<String[]>();
-                for(Object[] arr:bpmList){
-                    
-                    if(Integer.parseInt(arr[3].toString())>Integer.parseInt(arr[4].toString())){
-                        
-                    String[] sarr={arr[0].toString(),arr[1].toString(),arr[2].toString(),arr[3].toString(),arr[4].toString()};
-                    Stringarr.add(sarr);
-                        
+
+                List<String[]> Stringarr = new ArrayList<String[]>();
+                for (Object[] arr : bpmList) {
+
+                    if (Integer.parseInt(arr[3].toString()) > Integer.parseInt(arr[4].toString())) {
+
+                        String[] sarr = {arr[0].toString(), arr[1].toString(), arr[2].toString(), arr[3].toString(), arr[4].toString()};
+                        Stringarr.add(sarr);
+
                     }
                 }
-                
+
                 return Stringarr;
 
             } catch (Exception e) {
@@ -887,6 +867,7 @@ public class StockDAOImpl{
 
         return null;
     }
+
     public List<Branch> loadAllBran(Company com) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
 

@@ -25,7 +25,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vertec-r
+ * @author Rohan Madusanka @Contact 071 - 9085504 @E-mail
+ * rohanmadusanka72@gmail.com
  */
 @Entity
 @Table(name = "product")
@@ -40,33 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByIsAvailable", query = "SELECT p FROM Product p WHERE p.isAvailable = :isAvailable")})
 public class Product implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productProductId")
-    private Collection<ProductHasTax> productHasTaxCollection;
-
-    @JoinColumn(name = "tax_id", referencedColumnName = "id")
-    @ManyToOne
-    private Tax taxId;
-
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Company companyId;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
-    private Collection<Mrn> mrnCollection;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productProductId")
-    private Collection<PrnItem> prnItemCollection;
-
-    
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
-    private Collection<BranchStock> branchStockCollection;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productProductId")
-    private Collection<Grn> grnCollection;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productProductId")
-    private Collection<PurchasingOrder> purchasingOrderCollection;
+    private Collection<ProductMaster> productMasterCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -84,11 +60,14 @@ public class Product implements Serializable {
     private Integer reOrderLevel;
     @Column(name = "is_available")
     private Boolean isAvailable;
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Company companyId;
     @JoinColumn(name = "product_category_id", referencedColumnName = "product_category_id")
     @ManyToOne(optional = false)
     private ProductCategory productCategoryId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
-    private Collection<ProductMaster> productMasterCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productProductId")
+    private Collection<ProductHasTax> productHasTaxCollection;
 
     public Product() {
     }
@@ -100,30 +79,7 @@ public class Product implements Serializable {
     public Integer getProductId() {
         return productId;
     }
-public Product(Integer productId, String productCode, int reOrderLevel, boolean isAvailable) {
-        this.productId = productId;
-        this.productCode = productCode;
-        this.reOrderLevel = reOrderLevel;
-        this.isAvailable = isAvailable;
-    }
 
-    public Product(String productCode, String productName, String productDescription, int reOrderLevel, boolean isAvailable, ProductCategory productCategoryId,Company com) {
-        this.productCode = productCode;
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.reOrderLevel = reOrderLevel;
-        this.isAvailable = isAvailable;
-        this.productCategoryId = productCategoryId;
-        this.companyId=com;
-    }
-
-    public Product(Integer productId, String productCode, String productName, String productDescription, int reOrderLevel) {
-        this.productId = productId;
-        this.productCode = productCode;
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.reOrderLevel = reOrderLevel;
-    }
     public void setProductId(Integer productId) {
         this.productId = productId;
     }
@@ -168,6 +124,14 @@ public Product(Integer productId, String productCode, int reOrderLevel, boolean 
         this.isAvailable = isAvailable;
     }
 
+    public Company getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Company companyId) {
+        this.companyId = companyId;
+    }
+
     public ProductCategory getProductCategoryId() {
         return productCategoryId;
     }
@@ -177,12 +141,12 @@ public Product(Integer productId, String productCode, int reOrderLevel, boolean 
     }
 
     @XmlTransient
-    public Collection<ProductMaster> getProductMasterCollection() {
-        return productMasterCollection;
+    public Collection<ProductHasTax> getProductHasTaxCollection() {
+        return productHasTaxCollection;
     }
 
-    public void setProductMasterCollection(Collection<ProductMaster> productMasterCollection) {
-        this.productMasterCollection = productMasterCollection;
+    public void setProductHasTaxCollection(Collection<ProductHasTax> productHasTaxCollection) {
+        this.productHasTaxCollection = productHasTaxCollection;
     }
 
     @Override
@@ -211,74 +175,12 @@ public Product(Integer productId, String productCode, int reOrderLevel, boolean 
     }
 
     @XmlTransient
-    public Collection<PurchasingOrder> getPurchasingOrderCollection() {
-        return purchasingOrderCollection;
+    public Collection<ProductMaster> getProductMasterCollection() {
+        return productMasterCollection;
     }
 
-    public void setPurchasingOrderCollection(Collection<PurchasingOrder> purchasingOrderCollection) {
-        this.purchasingOrderCollection = purchasingOrderCollection;
+    public void setProductMasterCollection(Collection<ProductMaster> productMasterCollection) {
+        this.productMasterCollection = productMasterCollection;
     }
-
-    @XmlTransient
-    public Collection<Grn> getGrnCollection() {
-        return grnCollection;
-    }
-
-    public void setGrnCollection(Collection<Grn> grnCollection) {
-        this.grnCollection = grnCollection;
-    }
-
-    @XmlTransient
-    public Collection<BranchStock> getBranchStockCollection() {
-        return branchStockCollection;
-    }
-
-    public void setBranchStockCollection(Collection<BranchStock> branchStockCollection) {
-        this.branchStockCollection = branchStockCollection;
-    }
-
-    @XmlTransient
-    public Collection<PrnItem> getPrnItemCollection() {
-        return prnItemCollection;
-    }
-
-    public void setPrnItemCollection(Collection<PrnItem> prnItemCollection) {
-        this.prnItemCollection = prnItemCollection;
-    }
-
-    @XmlTransient
-    public Collection<Mrn> getMrnCollection() {
-        return mrnCollection;
-    }
-
-    public void setMrnCollection(Collection<Mrn> mrnCollection) {
-        this.mrnCollection = mrnCollection;
-    }
-
-    public Company getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Company companyId) {
-        this.companyId = companyId;
-    }
-
-    public Tax getTaxId() {
-        return taxId;
-    }
-
-    public void setTaxId(Tax taxId) {
-        this.taxId = taxId;
-    }
-
-    @XmlTransient
-    public Collection<ProductHasTax> getProductHasTaxCollection() {
-        return productHasTaxCollection;
-    }
-
-    public void setProductHasTaxCollection(Collection<ProductHasTax> productHasTaxCollection) {
-        this.productHasTaxCollection = productHasTaxCollection;
-    }
-
     
 }

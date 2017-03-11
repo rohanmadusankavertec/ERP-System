@@ -16,6 +16,7 @@ import com.vertec.hibe.model.InvoicePayment;
 import com.vertec.hibe.model.OutstandigInvoice;
 import com.vertec.hibe.model.Payment;
 import com.vertec.hibe.model.PaymentType;
+import com.vertec.hibe.model.ProductHasTax;
 import com.vertec.hibe.model.ProductMaster;
 import com.vertec.hibe.model.SysUser;
 import com.vertec.util.VertecConstants;
@@ -63,7 +64,7 @@ public class InvoiceController extends HttpServlet {
         RequestDispatcher requestDispatcher;
         boolean isValidated = true;
         String path = getServletContext().getInitParameter("pdftemp");
-        
+
         switch (action) {
             /**
              * This action is url for createInvoice.jsp
@@ -115,7 +116,7 @@ public class InvoiceController extends HttpServlet {
                 break;
             }
             /**
-             * 
+             *
              */
             case "ToWInvoice": {
                 String customer = request.getParameter("customerId");
@@ -165,10 +166,10 @@ public class InvoiceController extends HttpServlet {
                 }
                 int arr[] = {branchId, productId};
                 List<Object[]> bpmList = stockDAOImpl.loadBPMForInvoice(arr);
-                System.out.println(bpmList.size() + "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + branId + proId);
+                List<ProductHasTax> phtList = stockDAOImpl.loadProductHasTax(productId);
                 JSONObject jOB = new JSONObject();
                 JSONArray jar1 = new JSONArray();
-                JSONObject job1 = null;
+                JSONObject job1;
 
                 for (Object[] p : bpmList) {
                     job1 = new JSONObject();
@@ -179,7 +180,19 @@ public class InvoiceController extends HttpServlet {
                     job1.put("sprice", p[4].toString());
                     jar1.add(job1);
                 }
+
+                JSONArray jar2 = new JSONArray();
+                JSONObject job2;
+
+                for (ProductHasTax p : phtList) {
+                    job2 = new JSONObject();
+                    job2.put("taxid", p.getTaxId().getId());
+                    job2.put("percentage", p.getTaxId().getPercentage());
+                    jar2.add(job2);
+                }
+
                 jOB.put("jArr1", jar1);
+                jOB.put("taxarr", jar2);
                 response.getWriter().write(jOB.toString());
                 break;
             }
@@ -232,6 +245,7 @@ public class InvoiceController extends HttpServlet {
                 String totAmountAfterDiscount = jSONObject.get("totAmountAfterDiscount").toString();
                 String tax = jSONObject.get("tax").toString();
                 String gTot = jSONObject.get("gTot").toString();
+//                String taxval = jSONObject.get("taxval").toString();
 
                 String chequeNo = "";
                 if (jSONObject.get("chequeNo") != null) {
@@ -247,6 +261,21 @@ public class InvoiceController extends HttpServlet {
                 if (jSONObject.get("chequeDate") != null) {
                     chequeDate = jSONObject.get("chequeDate").toString();
                 }
+                int ccy = 0;
+                if (jSONObject.get("ccy") != null) {
+                    ccy = Integer.parseInt(jSONObject.get("ccy").toString());
+                }
+                int ccm = 0;
+                if (jSONObject.get("ccm") != null) {
+                    ccm = Integer.parseInt(jSONObject.get("ccm").toString());
+                }
+                
+                
+                String ccnum = "";
+                if (jSONObject.get("ccnum") != null) {
+                    ccnum = jSONObject.get("ccnum").toString();
+                }
+                
 
                 String payment = "0";
                 if (jSONObject.get("payment") != null) {
@@ -263,6 +292,10 @@ public class InvoiceController extends HttpServlet {
                     pt = jSONObject.get("pt").toString();
                     if (pt.equals("1")) {
                         paymentType = 1;
+                    }else if (pt.equals("2")) {
+                        paymentType = 2;
+                    }else if (pt.equals("3")) {
+                        paymentType = 3;
                     }
                 }
 
@@ -320,6 +353,7 @@ public class InvoiceController extends HttpServlet {
                 invoice.setCustomerId(customer);
                 invoice.setIsPending(true);
                 invoice.setCompanyId(company);
+                invoice.setTax(Double.parseDouble(tax));
 
                 JSONObject itemDetails = (JSONObject) jSONObject.get("item_details");
                 Collection<InvoiceItem> invoiceItemList = new ArrayList<>();
@@ -337,6 +371,7 @@ public class InvoiceController extends HttpServlet {
                     String totAmount = jSONObject1.get("totalAmount").toString();
                     String disc = jSONObject1.get("discount").toString();
                     String groAmount = jSONObject1.get("grossAmount").toString();
+                    String taxvalue2 = jSONObject1.get("taxvalue").toString();
 
                     int productId = 0;
                     if (product.isEmpty() || product.equals("")) {
@@ -344,6 +379,14 @@ public class InvoiceController extends HttpServlet {
                     } else {
                         productId = Integer.parseInt(product);
                     }
+
+                    Double taxvalue = 0.0;
+                    if (taxvalue2.isEmpty() || taxvalue2.equals("")) {
+
+                    } else {
+                        taxvalue = Double.parseDouble(taxvalue2);
+                    }
+
                     int bmpId = 0;
                     if (bmp.isEmpty() || bmp.equals("")) {
 
@@ -385,8 +428,18 @@ public class InvoiceController extends HttpServlet {
 
                     bpmList.add(new BranchProductmaster(bmpId, quantity, date, branch, pmId));
 
-                    InvoiceItem invoiceItem = new InvoiceItem(sellingPrice, quantity, totalAmount, discount, grossAmount, pmId, invoice);
-                    invoiceItemList.add(invoiceItem);
+//                    InvoiceItem invoiceItem = new InvoiceItem(sellingPrice, quantity, totalAmount, discount, grossAmount, pmId, invoice);
+                    InvoiceItem i = new InvoiceItem();
+                    i.setUnitPrice(sellingPrice);
+                    i.setQuantity(quantity);
+                    i.setTotAmount(totalAmount);
+                    i.setDiscount(discount);
+                    i.setTotAfterDis(grossAmount);
+                    i.setProductMasterId(pmId);
+                    i.setInvoiceId(invoice);
+                    i.setTax(taxvalue);
+
+                    invoiceItemList.add(i);
                 }
                 invoice.setInvoiceItemCollection(invoiceItemList);
                 Collection<OutstandigInvoice> outstandigInvoiceList = new ArrayList<>();
@@ -395,7 +448,7 @@ public class InvoiceController extends HttpServlet {
 
                 double CurrentOutAmount = 0;
 
-                if (paymentType == 1) {
+                if (paymentType == 1 ||paymentType == 3) {
                     CurrentOutAmount = Double.valueOf(gTot) - Double.valueOf(payment);
                 } else {
                     CurrentOutAmount = Double.valueOf(gTot);
@@ -445,10 +498,13 @@ public class InvoiceController extends HttpServlet {
                 p.setChequeDate(chequeDate);
                 p.setChequeNo(chequeNo);
                 p.setPaymentDate(date);
+                p.setCcNumber(ccnum);
                 PaymentType ptype = new PaymentType(paymentType);
                 p.setPaymentTypeId(ptype);
                 p.setSysUserSysuserId(user1);
-                if (paymentType == 1) {
+                p.setCcExpireYear(ccy);
+                p.setCcExpireMonth(ccm);
+                if (paymentType == 1 || paymentType == 3) {
                     p.setIsCleared(true);
                 } else {
                     p.setIsCleared(false);
@@ -486,13 +542,13 @@ public class InvoiceController extends HttpServlet {
 //                String from = request.getParameter("from");
 //                String to = request.getParameter("to");
 //                String type = request.getParameter("type");
-                
+
                 String customerId = request.getParameter("customer");
                 String branch = request.getParameter("branch");
                 String from = request.getParameter("from");
                 String to = request.getParameter("to");
                 String type = request.getParameter("type");
-                
+
                 Date date = new Date();
 //                List<Object[]> invoiceList = invoiceDAOImpl.invoiceForCustomers(cusId);
                 List<Object[]> invoiceList = invoiceDAOImpl.invoiceForAll(customerId, branch, type, from, to, company);
@@ -758,7 +814,7 @@ public class InvoiceController extends HttpServlet {
                 String toDate = request.getParameter("toDate");
                 String branch = request.getParameter("branch");
                 String[] neArr = {fromDate, toDate, branch};
-                List<Object[]> iiList = invoiceDAOImpl.invoiceAccordingToPeriod(neArr,company);
+                List<Object[]> iiList = invoiceDAOImpl.invoiceAccordingToPeriod(neArr, company);
                 request.setAttribute("iiList", iiList);
                 requestDispatcher = request.getRequestDispatcher("app/invoice/checkInvoices.jsp");
                 requestDispatcher.forward(request, response);
@@ -768,7 +824,7 @@ public class InvoiceController extends HttpServlet {
                 String branch = request.getParameter("branch");
                 System.out.println(branch);
 
-                List<Object[]> iiList = invoiceDAOImpl.invoiceAccordingToBranch(branch,company);
+                List<Object[]> iiList = invoiceDAOImpl.invoiceAccordingToBranch(branch, company);
 
                 request.setAttribute("iiList", iiList);
 
@@ -852,6 +908,32 @@ public class InvoiceController extends HttpServlet {
                 request.setAttribute("iiList", iiList);
 
                 requestDispatcher = request.getRequestDispatcher("app/invoice/checkInvoices.jsp");
+                requestDispatcher.forward(request, response);
+                break;
+            }
+            case "CheckCreditLimit": {
+                String cid = request.getParameter("customer").trim();
+                String outstanding = request.getParameter("outstanding").trim();
+                
+                System.out.println("GOT DATA - cid :"+cid+"  out : "+outstanding);
+                
+                int out=invoiceDAOImpl.CheckCreditLimit(Integer.parseInt(cid), Double.parseDouble(outstanding));
+                System.out.println("Returned Value : "+out);
+                response.getWriter().write(out+"");
+                break;
+            }
+            case "SearchCreditLimit": {
+                List<Customer> customerList = customerDAOImpl.getListofUsers(company);
+                request.setAttribute("clist", customerList);
+                requestDispatcher = request.getRequestDispatcher("app/report/SearchCreditLimit.jsp");
+                requestDispatcher.forward(request, response);
+                break;
+            }
+            case "creditlimitreport": {
+                String cid = request.getParameter("cusId").trim();
+                List<Object[]> customerList = invoiceDAOImpl.GetCreditLimit(Integer.parseInt(cid),company);
+                request.setAttribute("oblist", customerList);
+                requestDispatcher = request.getRequestDispatcher("app/report/CreditLimitReport.jsp");
                 requestDispatcher.forward(request, response);
                 break;
             }

@@ -58,6 +58,8 @@ public class CustomerController extends HttpServlet {
                 String contactPersonNo = request.getParameter("contactPersonNo").trim();
                 String contactPersonEmail = request.getParameter("contactPersonEmail").trim();
                 String rating = request.getParameter("rating").trim();
+                String creditLimit = request.getParameter("creditLimit").trim();
+                String creditPeriod = request.getParameter("creditPeriod").trim();
                 int rate = 0;
                 if (rating != null) {
                     rate = Integer.parseInt(rating);
@@ -79,6 +81,8 @@ public class CustomerController extends HttpServlet {
                 c.setOfficeNo(officeNo);
                 c.setRegisterdDate(date);
                 c.setRegisteredBy(user1);
+                c.setCreditLimit(Double.parseDouble(creditLimit));
+                c.setCreditPeriod(Integer.parseInt(creditPeriod));
 
                 String result = customerDAOImpl.saveCustomer(c);
 
@@ -143,6 +147,8 @@ public class CustomerController extends HttpServlet {
                 String contactPerson = request.getParameter("contactPerson").trim();
                 String contactPersonNo = request.getParameter("contactPersonNo").trim();
                 String contactPersonEmail = request.getParameter("contactPersonEmail").trim();
+                String creditLimit = request.getParameter("creditLimit").trim();
+                String creditPeriod = request.getParameter("creditPeriod").trim();
 
                 int cuId = 0;
                 if (customerId != null) {
@@ -160,6 +166,8 @@ public class CustomerController extends HttpServlet {
                 c.setFaxNo(faxNo);
                 c.setHotline(hotline);
                 c.setOfficeNo(officeNo);
+                c.setCreditLimit(Double.parseDouble(creditLimit));
+                c.setCreditPeriod(Integer.parseInt(creditPeriod));
 
                 String result = customerDAOImpl.updateCustomer(c);
 

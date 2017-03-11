@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Percentage<span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Percentage (%)<span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="Percentage" class="form-control col-md-7 col-xs-12"  data-validate-words="1" name="Percentage" placeholder="Enter persentage" required="required" type="number">
@@ -107,7 +107,7 @@
                                 <tr class="headings">
                                     <th>#</th>
                                     <th>Tax Name</th>
-                                    <th>Percentage</th>
+                                    <th>Percentage (%)</th>
                                     <th class=" no-link last"><span class="nobr">Update</span>
                                     </th>
                                 </tr>

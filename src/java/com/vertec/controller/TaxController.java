@@ -66,20 +66,15 @@ public class TaxController extends HttpServlet {
                     t.setCompanyId(company);
                     String result = taxDAOImpl.saveTax(t);
                     if(result.equals(VertecConstants.SUCCESS)){
-                        
                         request.getSession().removeAttribute("Success_Message");
-
                         request.getSession().setAttribute("Success_Message", "Successfully Added");
                         response.sendRedirect("Tax?action=loadTaxPage");
                     } else {
                         request.getSession().removeAttribute("Error_Message");
-
                         request.getSession().setAttribute("Error_Message", "Not Added,Please Try again");
                         response.sendRedirect("Tax?action=loadTaxPage");
                     }
-
                     break;
-                    
                 }
                 case "loadUpdateTax": {
                     String id = request.getParameter("taxId").trim();
