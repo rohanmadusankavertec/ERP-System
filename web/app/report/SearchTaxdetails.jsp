@@ -33,7 +33,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form action="TAX?action=creditlimitreport" method="post" validate>
+                    <form action="TAX?action=TaxDetailsReport" method="post" validate>
                         <div class="clearfix"></div>
                         <div style="padding-top: 10px;" id="branchwise">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">Select Customer <span class="required"></span>

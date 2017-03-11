@@ -120,6 +120,16 @@ public class TaxController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                case "TaxDetailsReport": {
+                    String fromDate= request.getParameter("fromDate");
+                    String toDate= request.getParameter("toDate");
+                    
+                    
+                    
+                    requestDispatcher = request.getRequestDispatcher("app/report/SearchTaxdetails.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
             }
             
             
