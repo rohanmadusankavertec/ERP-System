@@ -125,6 +125,7 @@ public class ProductController extends HttpServlet {
                 String reorderLevel = request.getParameter("reorderLevel").trim();
                 String productCategory = request.getParameter("productCategory").trim();
                 String tax = request.getParameter("tax").trim();
+                System.out.println(tax);
                 
                 int reO = 0;
                 int pcId = 0;
