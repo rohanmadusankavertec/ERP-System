@@ -96,16 +96,19 @@
             document.getElementById('bn').className = 'hidden';
             document.getElementById('cd').className = 'hidden';
             document.getElementById('ccn').className = 'hidden';
+            document.getElementById('ccym').className = 'hidden';
         } else if (cheque.checked){
             document.getElementById('cn').className = '';
             document.getElementById('bn').className = '';
             document.getElementById('cd').className = '';
             document.getElementById('ccn').className = 'hidden';
+            document.getElementById('ccym').className = 'hidden';
         }else if (cc.checked){
             document.getElementById('cn').className = 'hidden';
             document.getElementById('bn').className = 'hidden';
             document.getElementById('cd').className = 'hidden';
             document.getElementById('ccn').className = '';
+            document.getElementById('ccym').className = '';
         }
     }
 
@@ -143,6 +146,8 @@
         var chequeDate = document.getElementById('chequeDate').value;
         var payment = document.getElementById('payment').value;
         var ccnum = document.getElementById('ccnum').value;
+        var ccy = document.getElementById('ccyear').value;
+        var ccm = document.getElementById('ccmonth').value;
         var pt = 0;
         var cash = document.getElementById("cash");
         var cheque = document.getElementById("cheque");
@@ -158,6 +163,8 @@
         data["bankName"] = bankName;
         data["chequeDate"] = chequeDate;
         data["ccnum"] = ccnum;
+        data["ccy"] = ccy;
+        data["ccm"] = ccm;
         data["payment"] = payment;
         data["pt"] = pt;
         data["customerId"] = customerId;
@@ -613,6 +620,13 @@
                                                 <th>Credit/Debit Card No</th>
                                                 <td>
                                                     <input type="text" id="ccnum" placeholder="Credit/Debit Card Number" class="form-control" onkeyup="validateCreditCard()"/><span class="" id="cardlogo" style="font-size: 2em; color: gray;"></span>
+                                                </td>
+                                            </tr>
+                                            <tr class="hidden" id="ccym">
+                                                <th>Expire Year and Month</th>
+                                                <td>
+                                                    <input type="text" id="ccyear" placeholder="yyyy" class="form-control" style="width: 80px"/>
+                                                    <input type="text" id="ccmonth" placeholder="mm" class="form-control" style="width: 80px"/>
                                                 </td>
                                             </tr>
                                             <tr class="hidden" id="cn">

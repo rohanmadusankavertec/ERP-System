@@ -261,6 +261,14 @@ public class InvoiceController extends HttpServlet {
                 if (jSONObject.get("chequeDate") != null) {
                     chequeDate = jSONObject.get("chequeDate").toString();
                 }
+                int ccy = 0;
+                if (jSONObject.get("ccy") != null) {
+                    ccy = Integer.parseInt(jSONObject.get("ccy").toString());
+                }
+                int ccm = 0;
+                if (jSONObject.get("ccm") != null) {
+                    ccm = Integer.parseInt(jSONObject.get("ccm").toString());
+                }
                 
                 
                 String ccnum = "";
@@ -490,9 +498,12 @@ public class InvoiceController extends HttpServlet {
                 p.setChequeDate(chequeDate);
                 p.setChequeNo(chequeNo);
                 p.setPaymentDate(date);
+                p.setCcNumber(ccnum);
                 PaymentType ptype = new PaymentType(paymentType);
                 p.setPaymentTypeId(ptype);
                 p.setSysUserSysuserId(user1);
+                p.setCcExpireYear(ccy);
+                p.setCcExpireMonth(ccm);
                 if (paymentType == 1 || paymentType == 3) {
                     p.setIsCleared(true);
                 } else {

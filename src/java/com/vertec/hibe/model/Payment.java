@@ -44,6 +44,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Payment.findByChequeDate", query = "SELECT p FROM Payment p WHERE p.chequeDate = :chequeDate")})
 public class Payment implements Serializable {
 
+    @Column(name = "cc_expire_month")
+    private Integer ccExpireMonth;
+
     @Column(name = "cc_number")
     private String ccNumber;
     @Column(name = "cc_expire_year")
@@ -248,6 +251,14 @@ public Payment(Integer paymentId, Date paymentDate, double amount) {
 
     public void setCcExpireYear(Integer ccExpireYear) {
         this.ccExpireYear = ccExpireYear;
+    }
+
+    public Integer getCcExpireMonth() {
+        return ccExpireMonth;
+    }
+
+    public void setCcExpireMonth(Integer ccExpireMonth) {
+        this.ccExpireMonth = ccExpireMonth;
     }
 
 
