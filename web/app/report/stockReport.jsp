@@ -19,7 +19,9 @@
             </h3>
         </div>
     </div>
-    <%List<Branch> bList = (List<Branch>) request.getAttribute("bList");%>
+    <%List<Branch> bList = (List<Branch>) request.getAttribute("bList");
+     System.out.print("");
+    %>
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">

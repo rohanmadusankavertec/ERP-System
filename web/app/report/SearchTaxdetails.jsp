@@ -33,21 +33,19 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form action="Tax?action=taxreport" method="post" validate>
+                    <form action="TAX?action=creditlimitreport" method="post" validate>
                         <div class="clearfix"></div>
-
-                        <div class="item form-group">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">From Date <span class="required"></span>
+                        <div style="padding-top: 10px;" id="branchwise">
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">Select Customer <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="date" id="fromDate" name="fromDate" required="required" placeholder="From Date" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">To Date <span class="required"></span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="date" id="toDate" name="toDate" required="required" placeholder="From Date" class="form-control col-md-7 col-xs-12">
+                                <select class="form-control" name="cusId" id="cusId" required>
+                                    <option selected="true" disabled value="">Select Customer</option>
+                                    <option value="0">All</option>
+                                    <%for(Customer c: cList){%>
+                                    <option value="<%=c.getCustomerId() %>"><%=c.getCustomerName() %></option>
+                                    <%}%>
+                                </select>                              
                             </div>
                         </div>
                         <div class="clearfix"></div>
