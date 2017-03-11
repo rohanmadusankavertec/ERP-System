@@ -327,6 +327,8 @@
             };
             xmlHttp.open("POST", "Invoice?action=CheckCreditLimit&customer=" + customerId + "&outstanding=" + outstanding, true);
             xmlHttp.send();
+        }else{
+            submitInvoice();
         }
     }
 
