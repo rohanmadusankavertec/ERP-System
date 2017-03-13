@@ -35,6 +35,8 @@ import com.vertec.hibe.model.StaffLoan;
 import com.vertec.hibe.model.SysUser;
 import com.vertec.hibe.model.SystemData;
 import com.vertec.hibe.model.Transaction;
+import com.vertec.util.Save;
+import com.vertec.util.VertecConstants;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -688,23 +690,22 @@ public class ReportController extends HttpServlet {
                     break;
                 }
                 // Save Budget Plan 
-                case "saveBudgetPlan": {
-                    System.out.println("Calling here");
+                case "SaveBudgetPlan": {
+                    System.out.println("Calling Save here");
                     String acc = request.getParameter("account");
                     String year = request.getParameter("year");
-                    List<BudgetPlan> des = reportDAOImpl.getBudgetPlan(acc, year, company);
-                    JSONObject jOB = new JSONObject();
-                    JSONArray jar1 = new JSONArray();
-                    JSONObject job1 = null;
-                    for (BudgetPlan d : des) {
-                        System.out.println(d.getMonth() +"  "+d.getValue());
-                        job1 = new JSONObject();
-                        job1.put("month", d.getMonth());
-                        job1.put("value", d.getValue());
-                        jar1.add(job1);
-                    }
-                    jOB.put("bp", jar1);
-                    response.getWriter().write(jOB.toString());
+                    String month = request.getParameter("month");
+                    String value = request.getParameter("value");
+                    
+                    BudgetPlan b = new BudgetPlan();
+                    b.setAccountId(new Account(Integer.parseInt(acc)));
+                    b.setCompanyId(company);
+                    b.setMonth(month);
+                    b.setYear(year);
+                    b.setValue(Double.parseDouble(value));
+                    
+                    String s=new Save().Save(b);
+                    response.getWriter().write(s);
                     break;
                 }
             }

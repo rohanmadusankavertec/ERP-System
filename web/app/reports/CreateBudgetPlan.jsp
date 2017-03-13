@@ -33,7 +33,7 @@
                         var bool = true;
                         for (var f = 0; arr.length > f; f++) {
                             if (parseInt(arr[f].month) === parseInt(i)) {
-                                alert("Calling");
+
                                 document.getElementById("val" + i).value = arr[f].value;
                                 document.getElementById("save" + i).className = "hidden";
                                 document.getElementById("update" + i).className = "btn btn-warning";
@@ -58,27 +58,59 @@
 
         }
     }
-
+    function sm_warning(text) {
+        BootstrapDialog.show({
+            title: 'Warning',
+            type: BootstrapDialog.TYPE_WARNING,
+            message: text,
+            size: BootstrapDialog.SIZE_SMALL
+        });
+    }
     function save(id) {
-
         var xmlHttp = getAjaxObject();
         xmlHttp.onreadystatechange = function ()
         {
             if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
             {
                 var reply = xmlHttp.responseText;
-
+                alert(reply);
+                if (reply === "success") {
+                    fieldsVisibility();
+                } else {
+                    sm_warning("Something went wronge...");
+                }
             }
         };
         var acc = document.getElementById("account").value;
         var year = document.getElementById("year").value;
         var value = document.getElementById("val" + id).value;
-        xmlHttp.open("POST", "Report?action=SaveBudgetPlan&account=" + acc + "&year=" + year + "&value=" + value+ "&month=" + i, true);
+        xmlHttp.open("POST", "Report?action=SaveBudgetPlan&account=" + acc + "&year=" + year + "&value=" + value + "&month=" + id, true);
         xmlHttp.send();
 
     }
 
+    function update(id) {
+        var xmlHttp = getAjaxObject();
+        xmlHttp.onreadystatechange = function ()
+        {
+            if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+            {
+                var reply = xmlHttp.responseText;
+                alert(reply);
+                if (reply === "success") {
+                    fieldsVisibility();
+                } else {
+                    sm_warning("Something went wronge...");
+                }
+            }
+        };
+        var acc = document.getElementById("account").value;
+        var year = document.getElementById("year").value;
+        var value = document.getElementById("val" + id).value;
+        xmlHttp.open("POST", "Report?action=UpdateBudgetPlan&account=" + acc + "&year=" + year + "&value=" + value + "&month=" + id, true);
+        xmlHttp.send();
 
+    }
 
 
 </script>
@@ -170,8 +202,8 @@
                                 <input type="number" id="val1" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="save1" type="button" class="btn btn-success">Save</button>
-                                <button id="update1" type="button" class="btn btn-warning">Update</button>
+                                <button id="save1" type="button" class="btn btn-success" onclick="save('1')">Save</button>
+                                <button id="update1" type="button" class="btn btn-warning" onclick="update('1')">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -182,8 +214,8 @@
                                 <input type="number" id="val2" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="save2" type="button" class="btn btn-success">Save</button>
-                                <button id="update2" type="button" class="btn btn-warning">Update</button>
+                                <button id="save2" type="button" class="btn btn-success" onclick="save('2')">Save</button>
+                                <button id="update2" type="button" class="btn btn-warning" onclick="update('2')">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -194,8 +226,8 @@
                                 <input type="number" id="val3" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="save3" type="button" class="btn btn-success">Save</button>
-                                <button id="update3" type="button" class="btn btn-warning">Update</button>
+                                <button id="save3" type="button" class="btn btn-success" onclick="save('3')">Save</button>
+                                <button id="update3" type="button" class="btn btn-warning" onclick="update('3')">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -206,8 +238,8 @@
                                 <input type="number" id="val4" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="save4" type="button" class="btn btn-success">Save</button>
-                                <button id="update4" type="button" class="btn btn-warning">Update</button>
+                                <button id="save4" type="button" class="btn btn-success" onclick="save('4')">Save</button>
+                                <button id="update4" type="button" class="btn btn-warning" onclick="update('4')">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -218,8 +250,8 @@
                                 <input type="number" id="val5" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="save5" type="button" class="btn btn-success">Save</button>
-                                <button id="update5" type="button" class="btn btn-warning">Update</button>
+                                <button id="save5" type="button" class="btn btn-success" onclick="save('5')">Save</button>
+                                <button id="update5" type="button" class="btn btn-warning" onclick="update('5')">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -230,8 +262,8 @@
                                 <input type="number" id="val6" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="save6" type="button" class="btn btn-success">Save</button>
-                                <button id="update6" type="button" class="btn btn-warning">Update</button>
+                                <button id="save6" type="button" class="btn btn-success" onclick="save('6')">Save</button>
+                                <button id="update6" type="button" class="btn btn-warning" onclick="update('6')">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -242,8 +274,8 @@
                                 <input type="number" id="val7" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="save7" type="button" class="btn btn-success">Save</button>
-                                <button id="update7" type="button" class="btn btn-warning">Update</button>
+                                <button id="save7" type="button" class="btn btn-success" onclick="save('7')">Save</button>
+                                <button id="update7" type="button" class="btn btn-warning" onclick="update('7')">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -254,8 +286,8 @@
                                 <input type="number" id="val8" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="save8" type="button" class="btn btn-success">Save</button>
-                                <button id="update8" type="button" class="btn btn-warning">Update</button>
+                                <button id="save8" type="button" class="btn btn-success" onclick="save('8')">Save</button>
+                                <button id="update8" type="button" class="btn btn-warning" onclick="update('8')">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -266,8 +298,8 @@
                                 <input type="number" id="val9" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="save9" type="button" class="btn btn-success">Save</button>
-                                <button id="update9" type="button" class="btn btn-warning">Update</button>
+                                <button id="save9" type="button" class="btn btn-success" onclick="save('9')">Save</button>
+                                <button id="update9" type="button" class="btn btn-warning" onclick="update('9')">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -278,8 +310,8 @@
                                 <input type="number" id="val10" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="save10" type="button" class="btn btn-success">Save</button>
-                                <button id="update10" type="button" class="btn btn-warning">Update</button>
+                                <button id="save10" type="button" class="btn btn-success" onclick="save('10')">Save</button>
+                                <button id="update10" type="button" class="btn btn-warning" onclick="update('10')">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -290,8 +322,8 @@
                                 <input type="number" id="val11" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="save11" type="button" class="btn btn-success">Save</button>
-                                <button id="update11" type="button" class="btn btn-warning">Update</button>
+                                <button id="save11" type="button" class="btn btn-success" onclick="save('11')">Save</button>
+                                <button id="update11" type="button" class="btn btn-warning" onclick="update('11')">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -302,8 +334,8 @@
                                 <input type="number" id="val12" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="save12" type="button" class="btn btn-success">Save</button>
-                                <button id="update12" type="button" class="btn btn-warning">Update</button>
+                                <button id="save12" type="button" class="btn btn-success" onclick="save('12')">Save</button>
+                                <button id="update12" type="button" class="btn btn-warning" onclick="update('12')">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
