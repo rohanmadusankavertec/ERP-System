@@ -39,7 +39,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <div class="item form-group" style="padding-top: 50px;" id="supl">
+                    <div class="item form-group">
                         <label class="control-label col-md-4 col-sm-12 col-xs-12" for="name">Select Account </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select class="form-control" name="account" id="account"  required="required">
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="item form-group" style="padding-top: 50px;" id="supl">
+                    <div class="item form-group" style="padding-top: 10px; padding-bottom: 50px;">
                         <label class="control-label col-md-4 col-sm-12 col-xs-12" for="name">Select Year </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select class="form-control" name="year" id="year"  required="required">
@@ -68,13 +68,8 @@
                         </div>
                     </div>
 
-                    <div class="ln_solid"></div>        
-                    <div class="form-group">
-                        <div class="col-md-6 col-md-offset-3">
-                            <button id="submit" type="button" class="btn btn-success">Submit</button>
-                        </div>
-                    </div>
-                    <div class="ln_solid"></div>
+                    <div class="ln_solid" ></div>        
+                    
 
 
 
@@ -96,7 +91,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="item form-group" style="padding-top: 50px;">
+                        <div class="item form-group" style="padding-top: 10px;">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">February <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -107,7 +102,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="item form-group" style="padding-top: 50px;">
+                        <div class="item form-group" style="padding-top: 10px;">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">March <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -118,7 +113,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="item form-group" style="padding-top: 50px;">
+                        <div class="item form-group" style="padding-top: 10px;">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">April <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -129,7 +124,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="item form-group" style="padding-top: 50px;">
+                        <div class="item form-group" style="padding-top: 10px;">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">May <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -140,7 +135,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="item form-group" style="padding-top: 50px;">
+                        <div class="item form-group" style="padding-top: 10px;">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">June <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -151,7 +146,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="item form-group" style="padding-top: 50px;">
+                        <div class="item form-group" style="padding-top: 10px;">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">July <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -162,7 +157,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="item form-group" style="padding-top: 50px;">
+                        <div class="item form-group" style="padding-top: 10px;">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">August <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -172,7 +167,8 @@
                                 <button id="submit" type="button" class="btn btn-success">Save</button>
                             </div>
                         </div>
-                        <div class="clearfix"></div><div class="item form-group" style="padding-top: 50px;">
+                        <div class="clearfix"></div>
+                        <div class="item form-group" style="padding-top: 10px;">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">September <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -183,7 +179,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="item form-group" style="padding-top: 50px;">
+                        <div class="item form-group" style="padding-top: 10px;">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">October <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -194,7 +190,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="item form-group" style="padding-top: 50px;">
+                        <div class="item form-group" style="padding-top: 10px;">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">November <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -205,7 +201,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="item form-group" style="padding-top: 50px;">
+                        <div class="item form-group" style="padding-top: 10px;">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">December <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">

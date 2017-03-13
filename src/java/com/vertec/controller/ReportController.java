@@ -629,7 +629,7 @@ public class ReportController extends HttpServlet {
                 case "CreateBudgetPlan": {
                     List<Account> a = accountDAOImpl.viewAllOfAccount();
                     request.setAttribute("account", a);
-                    requestDispatcher = request.getRequestDispatcher("app/report/PaySlip.jsp");
+                    requestDispatcher = request.getRequestDispatcher("app/reports/CreateBudgetPlan.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
