@@ -27,6 +27,7 @@ import com.vertec.hibe.model.Employee;
 import com.vertec.hibe.model.HollyDay;
 import com.vertec.hibe.model.Leaves;
 import com.vertec.hibe.model.Loan;
+import com.vertec.hibe.model.Payment;
 import com.vertec.hibe.model.Salary;
 import com.vertec.hibe.model.SalaryPayment;
 import com.vertec.hibe.model.StaffLoan;
@@ -634,6 +635,24 @@ public class ReportController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
+                case "LoadCCPRpage": {
+                    
+                    requestDispatcher = request.getRequestDispatcher("app/reports/CreditCardPayment.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+//                case "CCPReport": {
+//                    String fdate = request.getParameter("fromDay").trim();
+//                    String tdate = request.getParameter("toDay").trim();
+//                    
+//                    List<Payment> pList = reportdao.getCreditCardPayment(fdate, tdate);
+//                    request.setAttribute("plist", pList);
+//                    request.setAttribute("fdate", fdate);
+//                    request.setAttribute("tdate", tdate);
+//                    requestDispatcher = request.getRequestDispatcher("app/reports/CreditCardReport.jsp");
+//                    requestDispatcher.forward(request, response);
+//                    break;
+//                }
                 
             }
         }
