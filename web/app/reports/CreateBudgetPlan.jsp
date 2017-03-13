@@ -33,6 +33,9 @@ function fieldsVisibility(){
 
 
 
+
+
+
 <%
     List<Account> e = (List<Account>) request.getAttribute("account");
 %>
@@ -105,134 +108,146 @@ function fieldsVisibility(){
                     <div class="hidden" id="monthsFields">
 
                         <div class="item form-group" style="padding-top: 50px;">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">January <span class="required"></span>
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">January
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-6">
                                 <input type="number" id="january" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <button id="submit" type="button" class="btn btn-success">Save</button>
+                                <button id="submit" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="item form-group" style="padding-top: 10px;">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">February <span class="required"></span>
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">February
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-6">
                                 <input type="number" id="february" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <button id="submit" type="button" class="btn btn-success">Save</button>
+                                <button id="submit" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="item form-group" style="padding-top: 10px;">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">March <span class="required"></span>
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">March 
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-6">
                                 <input type="number" id="march" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <button id="submit" type="button" class="btn btn-success">Save</button>
+                                <button id="submit" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="item form-group" style="padding-top: 10px;">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">April <span class="required"></span>
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">April
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-6">
                                 <input type="number" id="april" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <button id="submit" type="button" class="btn btn-success">Save</button>
+                                <button id="submit" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="item form-group" style="padding-top: 10px;">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">May <span class="required"></span>
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">May
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-6">
                                 <input type="number" id="may" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <button id="submit" type="button" class="btn btn-success">Save</button>
+                                <button id="submit" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="item form-group" style="padding-top: 10px;">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">June <span class="required"></span>
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">June 
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-6">
                                 <input type="number" id="june" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <button id="submit" type="button" class="btn btn-success">Save</button>
+                                <button id="submit" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="item form-group" style="padding-top: 10px;">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">July <span class="required"></span>
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">July
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-6">
                                 <input type="number" id="july" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <button id="submit" type="button" class="btn btn-success">Save</button>
+                                <button id="submit" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="item form-group" style="padding-top: 10px;">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">August <span class="required"></span>
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">August 
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-6">
                                 <input type="number" id="august" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <button id="submit" type="button" class="btn btn-success">Save</button>
+                                <button id="submit" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="item form-group" style="padding-top: 10px;">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">September <span class="required"></span>
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">September
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-6">
                                 <input type="number" id="september" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <button id="submit" type="button" class="btn btn-success">Save</button>
+                                <button id="submit" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="item form-group" style="padding-top: 10px;">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">October <span class="required"></span>
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">October 
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-6">
                                 <input type="number" id="october" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <button id="submit" type="button" class="btn btn-success">Save</button>
+                                <button id="submit" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="item form-group" style="padding-top: 10px;">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">November <span class="required"></span>
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">November 
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-6">
                                 <input type="number" id="november" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <button id="submit" type="button" class="btn btn-success">Save</button>
+                                <button id="submit" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="item form-group" style="padding-top: 10px;">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">December <span class="required"></span>
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">December 
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-6">
                                 <input type="number" id="december" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <button id="submit" type="button" class="btn btn-success">Save</button>
+                                <button id="submit" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
