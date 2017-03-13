@@ -16,7 +16,7 @@ function fieldsVisibility(){
     var acc = document.getElementById("account").value;
     var year = document.getElementById("year").value;
     var fields = document.getElementById("monthsFields");
-    if(acc==="" && year===""){
+    if(acc==="" || year===""){
         fields.className="hidden";
     }else{
         fields.className="";
