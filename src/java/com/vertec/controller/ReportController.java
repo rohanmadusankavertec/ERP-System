@@ -641,18 +641,27 @@ public class ReportController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
-//                case "CCPReport": {
-//                    String fdate = request.getParameter("fromDay").trim();
-//                    String tdate = request.getParameter("toDay").trim();
-//                    
-//                    List<Payment> pList = reportdao.getCreditCardPayment(fdate, tdate);
-//                    request.setAttribute("plist", pList);
-//                    request.setAttribute("fdate", fdate);
-//                    request.setAttribute("tdate", tdate);
-//                    requestDispatcher = request.getRequestDispatcher("app/reports/CreditCardReport.jsp");
-//                    requestDispatcher.forward(request, response);
-//                    break;
-//                }
+                case "CCPReport": {
+                    String fdate = request.getParameter("fromDay").trim();
+                    String tdate = request.getParameter("toDay").trim();
+                    Date fd = null;
+                    Date td = null;
+                    try {
+                        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+                        fd = sd.parse(fdate);
+                        td = sd.parse(tdate);
+                        
+                    } catch (Exception e) {
+                    }
+                    
+                    List<Payment> pList = reportdao.getCreditCardPayment(fd, td);
+                    request.setAttribute("plist", pList);
+                    request.setAttribute("fdate", fdate);
+                    request.setAttribute("tdate", tdate);
+                    requestDispatcher = request.getRequestDispatcher("app/reports/CreditCardReport.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
                 
             }
         }

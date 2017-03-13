@@ -18,6 +18,7 @@ import com.vertec.hibe.model.Gin;
 import com.vertec.hibe.model.Grn;
 import com.vertec.hibe.model.Gtn;
 import com.vertec.hibe.model.InvoiceItem;
+import com.vertec.hibe.model.Payment;
 import com.vertec.hibe.model.ReturnByCustomer;
 import com.vertec.hibe.model.ReturnBySupplier;
 import com.vertec.hibe.model.ReturnToCustomer;
@@ -1089,6 +1090,25 @@ public class ReportDAOImpl {
                 Query query = session.createQuery("SELECT r FROM ReturnBySupplier r WHERE r.productMasterId=:pmid");
                 query.setParameter("pmid", bpm.getProductMasterId());
                 List<ReturnBySupplier> inList = (List<ReturnBySupplier>) query.list();
+                return inList;
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
+        }
+        return null;
+    }
+    
+    public List<Payment> getCreditCardPayment(Date fd,Date td) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        if (session != null) {
+            try {
+                Query query = session.createQuery("SELECT p FROM Payment p WHERE p.paymentTypeId.ptId=:type");
+                query.setParameter("type",3);
+                List<Payment> inList = (List<Payment>) query.list();
                 return inList;
             } catch (Exception e) {
                 e.printStackTrace();

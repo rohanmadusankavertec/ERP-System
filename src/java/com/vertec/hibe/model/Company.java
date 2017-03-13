@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Company implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    private Collection<SystemData> systemDataCollection;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
     private Collection<BudgetPlan> budgetPlanCollection;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
@@ -506,6 +509,15 @@ public class Company implements Serializable {
 
     public void setBudgetPlanCollection(Collection<BudgetPlan> budgetPlanCollection) {
         this.budgetPlanCollection = budgetPlanCollection;
+    }
+
+    @XmlTransient
+    public Collection<SystemData> getSystemDataCollection() {
+        return systemDataCollection;
+    }
+
+    public void setSystemDataCollection(Collection<SystemData> systemDataCollection) {
+        this.systemDataCollection = systemDataCollection;
     }
     
 }
