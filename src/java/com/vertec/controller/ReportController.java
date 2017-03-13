@@ -75,7 +75,7 @@ public class ReportController extends HttpServlet {
     private final ReportDAOImpl reportDAOImpl = new ReportDAOImpl();
     private final DashboardDAOImpl dashboarddao = new DashboardDAOImpl();
     private final StockDAOImpl stockDAOImpl = new StockDAOImpl();
-    
+
     private final AttendanceDAOImpl AttendanceDAOImpl = new AttendanceDAOImpl();
     private final EmployeeDAOImpl EmployeeDAOImpl = new EmployeeDAOImpl();
     private final BankDAOImpl bankDAOImpl = new BankDAOImpl();
@@ -98,9 +98,9 @@ public class ReportController extends HttpServlet {
             String path = getServletContext().getRealPath(path1) + "\\";
 
             switch (action) {
-               /**
-                * Load Asset Page
-                */
+                /**
+                 * Load Asset Page
+                 */
                 case "ViewAssets": {
                     requestDispatcher = request.getRequestDispatcher("/app/reports/toAssets.jsp");
                     requestDispatcher.forward(request, response);
@@ -323,7 +323,7 @@ public class ReportController extends HttpServlet {
                     break;
                 }
                 /**
-                 * Print Ledger account 
+                 * Print Ledger account
                  */
                 case "PrintLedgerAccounts": {
                     String acc = request.getParameter("acc");
@@ -384,33 +384,24 @@ public class ReportController extends HttpServlet {
                  */
                 case "ToViewBIN": {
                     System.out.println("Creating...");
-                    
-                    String pmid= request.getParameter("bpmId");
-                    
-                     System.out.println("Branch Product master is..."+pmid);
-                   
-                     BranchProductmaster bpm  = stockDAOImpl.viewBranchPM(Integer.parseInt(pmid));
-                    
-                     System.out.println("Product "+bpm.getProductMasterId().getProductId().getProductName());
-                     
-                     
-                     List<Bin> binList=reportDAOImpl.GetBin(bpm, user1.getBranchBranchId());
-                     
+
+                    String pmid = request.getParameter("bpmId");
+
+                    System.out.println("Branch Product master is..." + pmid);
+
+                    BranchProductmaster bpm = stockDAOImpl.viewBranchPM(Integer.parseInt(pmid));
+
+                    System.out.println("Product " + bpm.getProductMasterId().getProductId().getProductName());
+
+                    List<Bin> binList = reportDAOImpl.GetBin(bpm, user1.getBranchBranchId());
+
                     request.setAttribute("bpmid", bpm);
                     request.setAttribute("binList", binList);
                     requestDispatcher = request.getRequestDispatcher("/app/report/BinCard.jsp");
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                
-                
-                
-                
-                
-                
-                
-                
-                
+
                 //Open Search employee Page
                 case "SearchEmployee": {
                     System.out.println("Calling");
@@ -425,8 +416,8 @@ public class ReportController extends HttpServlet {
                     String id = request.getParameter("employee");
                     Employee e = EmployeeDAOImpl.getEmployee(Integer.parseInt(id));
                     System.out.println(e.getImage());
-                     String Imagepath = getServletContext().getRealPath(e.getImage());
-                     System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>?"+Imagepath);
+                    String Imagepath = getServletContext().getRealPath(e.getImage());
+                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>?" + Imagepath);
                     request.setAttribute("employee", e);
                     requestDispatcher = request.getRequestDispatcher("app/report/EmployeeProfile.jsp");
                     requestDispatcher.forward(request, response);
@@ -622,7 +613,7 @@ public class ReportController extends HttpServlet {
                     break;
                 }
                 //View payslip Report
-                
+
                 case "Viewpayslip": {
                     String salary = request.getParameter("salary");
                     Salary s = salaryDAOImpl.getSalaryByID(Integer.parseInt(salary));
@@ -640,7 +631,7 @@ public class ReportController extends HttpServlet {
                     break;
                 }
                 case "LoadCCPRpage": {
-                    
+
                     requestDispatcher = request.getRequestDispatcher("app/reports/CreditCardPayment.jsp");
                     requestDispatcher.forward(request, response);
                     break;
@@ -654,10 +645,10 @@ public class ReportController extends HttpServlet {
                         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
                         fd = sd.parse(fdate);
                         td = sd.parse(tdate);
-                        
+
                     } catch (Exception e) {
                     }
-                    
+
                     List<Payment> pList = reportdao.getCreditCardPayment(fd, td);
                     SystemData sysData = reportdao.getCreditCardRate();
                     request.setAttribute("plist", pList);
@@ -668,7 +659,7 @@ public class ReportController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                
+
                 // Get Budget Plan Json Object
                 case "getBudgetPlan": {
                     System.out.println("Calling here");
@@ -679,7 +670,7 @@ public class ReportController extends HttpServlet {
                     JSONArray jar1 = new JSONArray();
                     JSONObject job1 = null;
                     for (BudgetPlan d : des) {
-                        System.out.println(d.getMonth() +"  "+d.getValue());
+                        System.out.println(d.getMonth() + "  " + d.getValue());
                         job1 = new JSONObject();
                         job1.put("month", d.getMonth());
                         job1.put("value", d.getValue());
@@ -696,15 +687,33 @@ public class ReportController extends HttpServlet {
                     String year = request.getParameter("year");
                     String month = request.getParameter("month");
                     String value = request.getParameter("value");
-                    
+
                     BudgetPlan b = new BudgetPlan();
                     b.setAccountId(new Account(Integer.parseInt(acc)));
                     b.setCompanyId(company);
                     b.setMonth(month);
                     b.setYear(year);
                     b.setValue(Double.parseDouble(value));
-                    
-                    String s=new Save().Save(b);
+
+                    String s = new Save().Save(b);
+                    response.getWriter().write(s);
+                    break;
+                }
+                case "UpdateBudgetPlan": {
+                    System.out.println("Calling Update here");
+                    String acc = request.getParameter("account");
+                    String year = request.getParameter("year");
+                    String month = request.getParameter("month");
+                    String value = request.getParameter("value");
+
+                    BudgetPlan b = new BudgetPlan();
+                    b.setAccountId(new Account(Integer.parseInt(acc)));
+                    b.setCompanyId(company);
+                    b.setMonth(month);
+                    b.setYear(year);
+                    b.setValue(Double.parseDouble(value));
+
+                    String s = new Save().Save(b);
                     response.getWriter().write(s);
                     break;
                 }
