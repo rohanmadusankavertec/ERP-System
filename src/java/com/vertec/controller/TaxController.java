@@ -125,7 +125,6 @@ public class TaxController extends HttpServlet {
                     String toDate= request.getParameter("toDate");
                     
                     
-                    
                     requestDispatcher = request.getRequestDispatcher("app/report/SearchTaxdetails.jsp");
                     requestDispatcher.forward(request, response);
                     break;
