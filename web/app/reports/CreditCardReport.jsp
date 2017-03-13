@@ -21,7 +21,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Account Management System </title>
+        <title></title>
         <link href="resources/css/bootstrap.min.css" rel="stylesheet">
         <style type="text/css">
             table {

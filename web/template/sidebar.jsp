@@ -468,6 +468,7 @@
                                 <%if (ca.checkUserAuth("BALANCE_SHEET", group) != null) {%>
                             <li><a href="${context}/Report?action=ViewCreateBalanceSheet">Balance Sheet</a></li>
                                 <%}%>
+                            <li><a href="${context}/Report?action=LoadCCPRpage">Credit Card Payment Report</a></li>
                         </ul>
                     </li>
                     <%}%>
