@@ -7,10 +7,12 @@ package com.vertec.daoimpl;
 
 import com.vertec.hibe.model.Account;
 import com.vertec.hibe.model.Company;
+import com.vertec.hibe.model.Invoice;
 import com.vertec.hibe.model.Supplier;
 import com.vertec.hibe.model.Tax;
 import com.vertec.util.NewHibernateUtil;
 import com.vertec.util.VertecConstants;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -119,6 +121,30 @@ public class TaxDAOImpl {
             }
         }
 
+        return null;
+    }
+    
+    public List<Invoice> invoiceForDateRange(Date from,Date to) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+
+        if (session != null) {
+            try {
+
+                Query query = session.createQuery("SELECT i FROM Invoice i where i.invoicedDate BETWEEN :From AND :To");
+                query.setParameter("From", from);
+                query.setParameter("To", to);
+                List<Invoice> inList = query.list();
+                return inList;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            } finally {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
+        }
         return null;
     }
     
