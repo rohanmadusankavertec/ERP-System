@@ -19,6 +19,7 @@
     <mapping class="com.vertec.hibe.model.Branch"/>
     <mapping class="com.vertec.hibe.model.BranchProductmaster"/>
     <mapping class="com.vertec.hibe.model.BranchStock"/>
+    <mapping class="com.vertec.hibe.model.BudgetPlan"/>
     <mapping class="com.vertec.hibe.model.Cheque"/>
     <mapping class="com.vertec.hibe.model.Company"/>
     <mapping class="com.vertec.hibe.model.CompanyGroup"/>

@@ -5,6 +5,7 @@
  */
 package com.vertec.controller;
 
+import com.vertec.daoimpl.AccountDAOImpl;
 import com.vertec.daoimpl.AttendanceDAOImpl;
 import com.vertec.daoimpl.BankDAOImpl;
 import com.vertec.daoimpl.DashboardDAOImpl;
@@ -74,6 +75,7 @@ public class ReportController extends HttpServlet {
     private final EmployeeDAOImpl EmployeeDAOImpl = new EmployeeDAOImpl();
     private final BankDAOImpl bankDAOImpl = new BankDAOImpl();
     private final SalaryDAOImpl salaryDAOImpl = new SalaryDAOImpl();
+    private final AccountDAOImpl accountDAOImpl = new AccountDAOImpl();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -619,6 +621,14 @@ public class ReportController extends HttpServlet {
                     String salary = request.getParameter("salary");
                     Salary s = salaryDAOImpl.getSalaryByID(Integer.parseInt(salary));
                     request.setAttribute("salary", s);
+                    requestDispatcher = request.getRequestDispatcher("app/report/PaySlip.jsp");
+                    requestDispatcher.forward(request, response);
+                    break;
+                }
+                //View payslip Report
+                case "CreateBudgetPlan": {
+                    List<Account> a = accountDAOImpl.viewAllOfAccount();
+                    request.setAttribute("account", a);
                     requestDispatcher = request.getRequestDispatcher("app/report/PaySlip.jsp");
                     requestDispatcher.forward(request, response);
                     break;

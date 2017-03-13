@@ -439,6 +439,13 @@
                     </li>
 
 
+                    <li><a><i class="fa fa-check"></i>Budget Plan<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display: none">
+                            <li><a href="${context}/Report?action=CreateBudgetPlan">Create Budget Plan</a></li>
+                            <li><a href="${context}/Tax?action=SearchTaxDetails">View Tax</a></li>
+                        </ul>
+                    </li>
+                    
                     <li><a><i class="fa fa-check"></i>Reports<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
                             <%if (ca.checkUserAuth("GENERAL_JOURNAL", group) != null) {%>
