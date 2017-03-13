@@ -617,6 +617,7 @@ public class ReportController extends HttpServlet {
                     break;
                 }
                 //View payslip Report
+                
                 case "Viewpayslip": {
                     String salary = request.getParameter("salary");
                     Salary s = salaryDAOImpl.getSalaryByID(Integer.parseInt(salary));
@@ -625,7 +626,7 @@ public class ReportController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                     break;
                 }
-                //View payslip Report
+                //Load create budget plan page
                 case "CreateBudgetPlan": {
                     List<Account> a = accountDAOImpl.viewAllOfAccount();
                     request.setAttribute("account", a);
