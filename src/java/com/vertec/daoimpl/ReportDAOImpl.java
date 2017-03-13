@@ -24,6 +24,7 @@ import com.vertec.hibe.model.ReturnBySupplier;
 import com.vertec.hibe.model.ReturnToCustomer;
 import com.vertec.hibe.model.ReturnToSupplier;
 import com.vertec.hibe.model.StockReturn;
+import com.vertec.hibe.model.SystemData;
 import com.vertec.hibe.model.Transaction;
 import com.vertec.util.NewHibernateUtil;
 import com.vertec.util.test;
@@ -1106,9 +1107,31 @@ public class ReportDAOImpl {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         if (session != null) {
             try {
-                Query query = session.createQuery("SELECT p FROM Payment p WHERE p.paymentTypeId.ptId=:type");
+                Query query = session.createQuery("SELECT p FROM Payment p WHERE p.paymentTypeId.ptId=:type AND p.paymentDate BETWEEN :fdate AND :tdate");
+//                Query query1 = session.createQuery("SELECT p FROM InvoicePayment p WHERE p.paymentId.paymentId:type");
                 query.setParameter("type",3);
+                query.setParameter("fdate",fd);
+                query.setParameter("tdate",td);
                 List<Payment> inList = (List<Payment>) query.list();
+                return inList;
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
+        }
+        return null;
+    }
+    public SystemData getCreditCardRate() {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        if (session != null) {
+            try {
+                Query query = session.createQuery("SELECT s FROM SystemData s WHERE s.id =1");
+//                query.setParameter("sid",id);
+                
+                SystemData inList = (SystemData) query.uniqueResult();
                 return inList;
             } catch (Exception e) {
                 e.printStackTrace();

@@ -32,6 +32,7 @@ import com.vertec.hibe.model.Salary;
 import com.vertec.hibe.model.SalaryPayment;
 import com.vertec.hibe.model.StaffLoan;
 import com.vertec.hibe.model.SysUser;
+import com.vertec.hibe.model.SystemData;
 import com.vertec.hibe.model.Transaction;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -642,8 +643,8 @@ public class ReportController extends HttpServlet {
                     break;
                 }
                 case "CCPReport": {
-                    String fdate = request.getParameter("fromDay").trim();
-                    String tdate = request.getParameter("toDay").trim();
+                    String fdate = request.getParameter("from").trim();
+                    String tdate = request.getParameter("to").trim();
                     Date fd = null;
                     Date td = null;
                     try {
@@ -655,9 +656,11 @@ public class ReportController extends HttpServlet {
                     }
                     
                     List<Payment> pList = reportdao.getCreditCardPayment(fd, td);
+                    SystemData sysData = reportdao.getCreditCardRate();
                     request.setAttribute("plist", pList);
-                    request.setAttribute("fdate", fdate);
-                    request.setAttribute("tdate", tdate);
+                    request.setAttribute("fd", fd);
+                    request.setAttribute("td", td);
+                    request.setAttribute("sysData", sysData);
                     requestDispatcher = request.getRequestDispatcher("app/reports/CreditCardReport.jsp");
                     requestDispatcher.forward(request, response);
                     break;

@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.vertec.hibe.model.Tax</class>
     <class>com.vertec.hibe.model.ProductHasTax</class>
+    <class>com.vertec.hibe.model.SystemData</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/vertec_erp?zeroDateTimeBehavior=convertToNull"/>

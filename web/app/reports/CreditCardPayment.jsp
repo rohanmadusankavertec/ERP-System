@@ -38,7 +38,7 @@
                 </div>
                 <div class="x_content">
 
-                    <form id="invisible_form" action="Report?action=PrintTrialBalanceReport" target="_blank" method="post" class="form-horizontal form-label-left" novalidate>
+                    <form id="invisible_form" action="Report?action=CCPReport" target="_blank" method="post" class="form-horizontal form-label-left" novalidate>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">From Date</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
