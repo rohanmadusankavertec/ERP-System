@@ -9,6 +9,30 @@
 <%@include file="../../template/header.jsp"%>
 <%@include file="../../template/sidebar.jsp"%>
 
+
+<script type="text/javascript">
+
+function fieldsVisibility(){
+    var acc = document.getElementById("account").value;
+    var year = document.getElementById("year").value;
+    var fields = document.getElementById("monthsFields");
+    if(acc==="" && year===""){
+        fields.className="hidden";
+    }else{
+        fields.className="";
+    }
+}
+
+
+
+</script>
+
+
+
+
+
+
+
 <%
     List<Account> e = (List<Account>) request.getAttribute("account");
 %>
@@ -42,8 +66,8 @@
                     <div class="item form-group">
                         <label class="control-label col-md-4 col-sm-12 col-xs-12" for="name">Select Account </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="form-control" name="account" id="account"  required="required">
-                                <option selected="true" disabled value="">Select Account</option>
+                            <select class="form-control" name="account" id="account" onchange="fieldsVisibility()" required="required">
+                                <option selected="true" value="">Select Account</option>
                                 <% for (Account a : e) {%>
                                 <option value="<%=a.getId()%>"><%=a.getName()%></option>
                                 <%}%>
@@ -54,8 +78,8 @@
                     <div class="item form-group" style="padding-top: 10px; padding-bottom: 50px;">
                         <label class="control-label col-md-4 col-sm-12 col-xs-12" for="name">Select Year </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="form-control" name="year" id="year"  required="required">
-                                <option selected="true" disabled value="">Select Year</option>
+                            <select class="form-control" name="year" id="year" onchange="fieldsVisibility()" required="required">
+                                <option selected="true" value="">Select Year</option>
                                 <option value="2015">2015</option>
                                 <option value="2016">2016</option>
                                 <option value="2017">2017</option>
@@ -69,7 +93,6 @@
                     </div>
 
                     <div class="ln_solid" ></div>        
-                    
 
 
 
@@ -78,7 +101,8 @@
 
 
 
-                    <div class="hidden">
+
+                    <div class="hidden" id="monthsFields">
 
                         <div class="item form-group" style="padding-top: 50px;">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">January <span class="required"></span>
