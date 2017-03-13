@@ -38,6 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Account.findByIsValid", query = "SELECT a FROM Account a WHERE a.isValid = :isValid")})
 public class Account implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountId")
+    private Collection<BudgetPlan> budgetPlanCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "credit")
     private Collection<Depreciation> depreciationCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "debit")
@@ -193,6 +196,15 @@ public class Account implements Serializable {
 
     public void setTransactionCollection1(Collection<Transaction> transactionCollection1) {
         this.transactionCollection1 = transactionCollection1;
+    }
+
+    @XmlTransient
+    public Collection<BudgetPlan> getBudgetPlanCollection() {
+        return budgetPlanCollection;
+    }
+
+    public void setBudgetPlanCollection(Collection<BudgetPlan> budgetPlanCollection) {
+        this.budgetPlanCollection = budgetPlanCollection;
     }
     
 }
