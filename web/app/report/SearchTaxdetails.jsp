@@ -38,15 +38,20 @@
                         <div style="padding-top: 10px;" id="branchwise">
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">Select Customer <span class="required"></span>
                             </label>
+                            <div class="hidden" style="padding-top: 50px;" id="fromdate">
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" id="fd">From Date <span class="required"></span>
+                            </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="cusId" id="cusId" required>
-                                    <option selected="true" disabled value="">Select Customer</option>
-                                    <option value="0">All</option>
-                                    <%for(Customer c: cList){%>
-                                    <option value="<%=c.getCustomerId() %>"><%=c.getCustomerName() %></option>
-                                    <%}%>
-                                </select>                              
+                                <input type="date" id="fromDate" name="fromDate" required="required" placeholder="From Date Ex: yyyy-mm-dd" class="form-control col-md-7 col-xs-12">
                             </div>
+                        </div>
+                        <div class="hidden" style="padding-top: 50px;" id="todate">
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">To Date <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="date" id="toDate" name="toDate" required="required" placeholder="To Date Ex: yyyy-mm-dd" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="form-group" style="padding-top: 10px;">
