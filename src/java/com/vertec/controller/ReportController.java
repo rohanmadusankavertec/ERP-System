@@ -21,6 +21,7 @@ import com.vertec.hibe.model.BalanceSheetData;
 import com.vertec.hibe.model.BankAccounts;
 import com.vertec.hibe.model.Bin;
 import com.vertec.hibe.model.BranchProductmaster;
+import com.vertec.hibe.model.BudgetPlan;
 import com.vertec.hibe.model.Company;
 import com.vertec.hibe.model.DepreciationData;
 import com.vertec.hibe.model.Employee;
@@ -666,6 +667,46 @@ public class ReportController extends HttpServlet {
                     break;
                 }
                 
+                // Get Budget Plan Json Object
+                case "getBudgetPlan": {
+                    System.out.println("Calling here");
+                    String acc = request.getParameter("account");
+                    String year = request.getParameter("year");
+                    List<BudgetPlan> des = reportDAOImpl.getBudgetPlan(acc, year, company);
+                    JSONObject jOB = new JSONObject();
+                    JSONArray jar1 = new JSONArray();
+                    JSONObject job1 = null;
+                    for (BudgetPlan d : des) {
+                        System.out.println(d.getMonth() +"  "+d.getValue());
+                        job1 = new JSONObject();
+                        job1.put("month", d.getMonth());
+                        job1.put("value", d.getValue());
+                        jar1.add(job1);
+                    }
+                    jOB.put("bp", jar1);
+                    response.getWriter().write(jOB.toString());
+                    break;
+                }
+                // Save Budget Plan 
+                case "saveBudgetPlan": {
+                    System.out.println("Calling here");
+                    String acc = request.getParameter("account");
+                    String year = request.getParameter("year");
+                    List<BudgetPlan> des = reportDAOImpl.getBudgetPlan(acc, year, company);
+                    JSONObject jOB = new JSONObject();
+                    JSONArray jar1 = new JSONArray();
+                    JSONObject job1 = null;
+                    for (BudgetPlan d : des) {
+                        System.out.println(d.getMonth() +"  "+d.getValue());
+                        job1 = new JSONObject();
+                        job1.put("month", d.getMonth());
+                        job1.put("value", d.getValue());
+                        jar1.add(job1);
+                    }
+                    jOB.put("bp", jar1);
+                    response.getWriter().write(jOB.toString());
+                    break;
+                }
             }
         }
     }

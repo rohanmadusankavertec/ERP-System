@@ -6,22 +6,19 @@
 package com.vertec.hibe.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vertec-r
+ * @author Rohan Madusanka @Contact 071 - 9085504 @E-mail
+ * rohanmadusanka72@gmail.com
  */
 @Entity
 @Table(name = "currency_type")
@@ -31,9 +28,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CurrencyType.findById", query = "SELECT c FROM CurrencyType c WHERE c.id = :id"),
     @NamedQuery(name = "CurrencyType.findByType", query = "SELECT c FROM CurrencyType c WHERE c.type = :type")})
 public class CurrencyType implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "currencyTypeId")
-    private Collection<Company> companyCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -89,15 +83,6 @@ public class CurrencyType implements Serializable {
     @Override
     public String toString() {
         return "com.vertec.hibe.model.CurrencyType[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Company> getCompanyCollection() {
-        return companyCollection;
-    }
-
-    public void setCompanyCollection(Collection<Company> companyCollection) {
-        this.companyCollection = companyCollection;
     }
     
 }

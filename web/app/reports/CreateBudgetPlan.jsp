@@ -12,16 +12,72 @@
 
 <script type="text/javascript">
 
-function fieldsVisibility(){
-    var acc = document.getElementById("account").value;
-    var year = document.getElementById("year").value;
-    var fields = document.getElementById("monthsFields");
-    if(acc==="" || year===""){
-        fields.className="hidden";
-    }else{
-        fields.className="";
+    function fieldsVisibility() {
+
+        var acc = document.getElementById("account").value;
+        var year = document.getElementById("year").value;
+        var fields = document.getElementById("monthsFields");
+        if (acc === "" || year === "") {
+            fields.className = "hidden";
+        } else {
+
+            var xmlHttp = getAjaxObject();
+            xmlHttp.onreadystatechange = function ()
+            {
+                if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+                {
+                    var reply = eval('(' + xmlHttp.responseText + ')');
+                    var arr = reply.bp;
+
+                    for (var i = 1; i < 13; i++) {
+                        var bool = true;
+                        for (var f = 0; arr.length > f; f++) {
+                            if (parseInt(arr[f].month) === parseInt(i)) {
+                                alert("Calling");
+                                document.getElementById("val" + i).value = arr[f].value;
+                                document.getElementById("save" + i).className = "hidden";
+                                document.getElementById("update" + i).className = "btn btn-warning";
+                                bool = false;
+                            }
+                        }
+
+                        if (bool) {
+                            document.getElementById("save" + i).className = "btn btn-success";
+                            document.getElementById("update" + i).className = "hidden";
+
+                        }
+                    }
+                    fields.className = "";
+                }
+            };
+            xmlHttp.open("POST", "Report?action=getBudgetPlan&account=" + acc + "&year=" + year, true);
+            xmlHttp.send();
+
+
+
+
+        }
     }
-}
+
+    function save(id) {
+
+        var xmlHttp = getAjaxObject();
+        xmlHttp.onreadystatechange = function ()
+        {
+            if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+            {
+                var reply = xmlHttp.responseText;
+
+            }
+        };
+        var acc = document.getElementById("account").value;
+        var year = document.getElementById("year").value;
+        var value = document.getElementById("val" + id).value;
+        xmlHttp.open("POST", "Report?action=SaveBudgetPlan&account=" + acc + "&year=" + year + "&value=" + value+ "&month=" + i, true);
+        xmlHttp.send();
+
+    }
+
 
 
 
@@ -111,11 +167,11 @@ function fieldsVisibility(){
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">January
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-6">
-                                <input type="number" id="january" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="val1" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="submit" type="button" class="btn btn-success">Save</button>
-                                <button id="submit" type="button" class="btn btn-warning">Update</button>
+                                <button id="save1" type="button" class="btn btn-success">Save</button>
+                                <button id="update1" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -123,11 +179,11 @@ function fieldsVisibility(){
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">February
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-6">
-                                <input type="number" id="february" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="val2" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="submit" type="button" class="btn btn-success">Save</button>
-                                <button id="submit" type="button" class="btn btn-warning">Update</button>
+                                <button id="save2" type="button" class="btn btn-success">Save</button>
+                                <button id="update2" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -135,11 +191,11 @@ function fieldsVisibility(){
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">March 
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-6">
-                                <input type="number" id="march" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="val3" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="submit" type="button" class="btn btn-success">Save</button>
-                                <button id="submit" type="button" class="btn btn-warning">Update</button>
+                                <button id="save3" type="button" class="btn btn-success">Save</button>
+                                <button id="update3" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -147,11 +203,11 @@ function fieldsVisibility(){
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">April
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-6">
-                                <input type="number" id="april" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="val4" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="submit" type="button" class="btn btn-success">Save</button>
-                                <button id="submit" type="button" class="btn btn-warning">Update</button>
+                                <button id="save4" type="button" class="btn btn-success">Save</button>
+                                <button id="update4" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -159,11 +215,11 @@ function fieldsVisibility(){
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">May
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-6">
-                                <input type="number" id="may" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="val5" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="submit" type="button" class="btn btn-success">Save</button>
-                                <button id="submit" type="button" class="btn btn-warning">Update</button>
+                                <button id="save5" type="button" class="btn btn-success">Save</button>
+                                <button id="update5" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -171,11 +227,11 @@ function fieldsVisibility(){
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">June 
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-6">
-                                <input type="number" id="june" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="val6" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="submit" type="button" class="btn btn-success">Save</button>
-                                <button id="submit" type="button" class="btn btn-warning">Update</button>
+                                <button id="save6" type="button" class="btn btn-success">Save</button>
+                                <button id="update6" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -183,11 +239,11 @@ function fieldsVisibility(){
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">July
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-6">
-                                <input type="number" id="july" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="val7" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="submit" type="button" class="btn btn-success">Save</button>
-                                <button id="submit" type="button" class="btn btn-warning">Update</button>
+                                <button id="save7" type="button" class="btn btn-success">Save</button>
+                                <button id="update7" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -195,11 +251,11 @@ function fieldsVisibility(){
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">August 
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-6">
-                                <input type="number" id="august" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="val8" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="submit" type="button" class="btn btn-success">Save</button>
-                                <button id="submit" type="button" class="btn btn-warning">Update</button>
+                                <button id="save8" type="button" class="btn btn-success">Save</button>
+                                <button id="update8" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -207,11 +263,11 @@ function fieldsVisibility(){
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">September
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-6">
-                                <input type="number" id="september" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="val9" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="submit" type="button" class="btn btn-success">Save</button>
-                                <button id="submit" type="button" class="btn btn-warning">Update</button>
+                                <button id="save9" type="button" class="btn btn-success">Save</button>
+                                <button id="update9" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -219,11 +275,11 @@ function fieldsVisibility(){
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">October 
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-6">
-                                <input type="number" id="october" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="val10" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="submit" type="button" class="btn btn-success">Save</button>
-                                <button id="submit" type="button" class="btn btn-warning">Update</button>
+                                <button id="save10" type="button" class="btn btn-success">Save</button>
+                                <button id="update10" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -231,11 +287,11 @@ function fieldsVisibility(){
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">November 
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-6">
-                                <input type="number" id="november" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="val11" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="submit" type="button" class="btn btn-success">Save</button>
-                                <button id="submit" type="button" class="btn btn-warning">Update</button>
+                                <button id="save11" type="button" class="btn btn-success">Save</button>
+                                <button id="update11" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -243,11 +299,11 @@ function fieldsVisibility(){
                             <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name" style="text-align: right;">December 
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-6">
-                                <input type="number" id="december" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="val12" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                             <div class="col-md-5">
-                                <button id="submit" type="button" class="btn btn-success">Save</button>
-                                <button id="submit" type="button" class="btn btn-warning">Update</button>
+                                <button id="save12" type="button" class="btn btn-success">Save</button>
+                                <button id="update12" type="button" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>

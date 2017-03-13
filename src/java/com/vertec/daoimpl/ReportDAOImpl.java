@@ -10,6 +10,7 @@ import com.vertec.hibe.model.BalanceSheetData;
 import com.vertec.hibe.model.Bin;
 import com.vertec.hibe.model.Branch;
 import com.vertec.hibe.model.BranchProductmaster;
+import com.vertec.hibe.model.BudgetPlan;
 import com.vertec.hibe.model.Company;
 import com.vertec.hibe.model.Depreciation;
 import com.vertec.hibe.model.DepreciationData;
@@ -1113,6 +1114,26 @@ public class ReportDAOImpl {
                 query.setParameter("fdate",fd);
                 query.setParameter("tdate",td);
                 List<Payment> inList = (List<Payment>) query.list();
+                return inList;
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
+        }
+        return null;
+    }
+    public List<BudgetPlan> getBudgetPlan(String acc,String year,Company com) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        if (session != null) {
+            try {
+                Query query = session.createQuery("SELECT b FROM BudgetPlan b WHERE b.accountId.id=:acc AND b.year=:year AND b.companyId=:com");
+                query.setParameter("acc",Integer.parseInt(acc));
+                query.setParameter("year",year);
+                query.setParameter("com",com);
+                List<BudgetPlan> inList = (List<BudgetPlan>) query.list();
                 return inList;
             } catch (Exception e) {
                 e.printStackTrace();
