@@ -124,15 +124,16 @@ public class TaxDAOImpl {
         return null;
     }
     
-    public List<Invoice> invoiceForDateRange(Date from,Date to) {
+    public List<Invoice> invoiceForDateRange(Date from,Date to,Company com) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
 
         if (session != null) {
             try {
 
-                Query query = session.createQuery("SELECT i FROM Invoice i where i.invoicedDate BETWEEN :From AND :To");
+                Query query = session.createQuery("SELECT i FROM Invoice i where i.companyId=:com AND i.invoicedDate BETWEEN :From AND :To");
                 query.setParameter("From", from);
                 query.setParameter("To", to);
+                query.setParameter("com", com);
                 List<Invoice> inList = query.list();
                 return inList;
 

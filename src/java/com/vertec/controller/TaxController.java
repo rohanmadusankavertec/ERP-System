@@ -138,7 +138,7 @@ public class TaxController extends HttpServlet {
                     } catch (ParseException ex) {
                         Logger.getLogger(TaxController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    List<Invoice> i = taxDAOImpl.invoiceForDateRange(from, to);
+                    List<Invoice> i = taxDAOImpl.invoiceForDateRange(from, to,company);
                     request.setAttribute("invoices", i);
                     requestDispatcher = request.getRequestDispatcher("app/report/TaxDetailsReport.jsp");
                     requestDispatcher.forward(request, response);

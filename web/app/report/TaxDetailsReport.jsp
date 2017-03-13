@@ -9,7 +9,7 @@
 <%@include file="../../template/sidebar.jsp"%>
 
 <%
-    List<Object[]> bpm = (List<Object[]>) request.getAttribute("oblist");
+    List<Invoice> invoice = (List<Invoice>) request.getAttribute("invoices");
 %>
 
 
@@ -50,39 +50,17 @@
                                         <th>Customer </th>
                                         <th>Invoiced Date</th>
                                         <th>Invoice Total</th>
-                                        <th>Paid</th>
-                                        <th>Outstanding</th>
-                                        <th>Credit Limit</th>
-                                        <th>Credit Period</th>
-                                        <th>Period End Date</th>
+                                        <th>Tax</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <%
-                                        for (Object[] b : bpm) {
-                                            Invoice i = (Invoice) b[0];
-                                            Double outs = (Double) b[1];
-
-                                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                                            Calendar c = Calendar.getInstance();
-                                            c.setTime(i.getInvoicedDate());
-                                            c.add(Calendar.DATE, i.getCustomerId().getCreditPeriod());
-                                            String output = sdf.format(c.getTime());
-                                            Date date1 = sdf.parse(output);
-                                            if (date1.before(new Date())) {
+                                        for (Invoice i : invoice) {
                                     %>
-                                    <tr style="background-color: #fce3ef;">
-                                        <%} else {%>
-                                    <tr>
-                                        <%}%>
                                         <td><%=i.getCustomerId().getCustomerName()%></td>
                                         <td><%=i.getInvoicedDate()%></td>
                                         <td><%=i.getTotAfterDiscount()%></td>
-                                        <td><%=(i.getTotAfterDiscount() - outs)%></td>
-                                        <td><%=outs%></td>
-                                        <td><%= i.getCustomerId().getCreditLimit()%></td>
-                                        <td><%=i.getCustomerId().getCreditPeriod()%></td>
-                                        <td><%=output%></td>
+                                        <td><%=i.getTax() %></td>
                                     </tr>
                                     <%}%>
                                 </tbody>
