@@ -63,7 +63,7 @@
             
 
             <div style="width: 80%;">
-                <h3><span style="float: left;">Debit</span></h3>
+<!--                <h3><span style="float: left;">Debit</span></h3>-->
                 <table style="width: 100%;border: 1px solid black;" >
                     <thead>
                         <tr>
@@ -77,14 +77,14 @@
                     </thead>
                     <tbody>
                         <%
-                            System.out.println("call me.......99999999");
+                            
                             for (Payment p: payment) {
-                                System.out.println(p.getPaymentId());
+//                                System.out.println(p.getPaymentId());
                                 Query query = ses.createQuery("SELECT i FROM InvoicePayment i WHERE i.paymentId.paymentId =:pid AND i.invoiceId.companyId=:com ");
                                 query.setParameter("pid", p.getPaymentId());
                                 query.setParameter("com", com);
                                 List<InvoicePayment> inp = (List<InvoicePayment>)query.list();
-                                System.out.println(inp);
+//                                System.out.println(inp);
                                         
                                 if(!inp.isEmpty()){
                                 InvoicePayment ip = (InvoicePayment)query.uniqueResult();
