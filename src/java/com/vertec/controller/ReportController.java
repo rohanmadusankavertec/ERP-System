@@ -725,6 +725,23 @@ public class ReportController extends HttpServlet {
                     response.getWriter().write(s);
                     break;
                 }
+                case "loadBPR": {
+                    List<Account> account = reportdao.getAccountsByCompany(company);
+                    request.setAttribute("account", account);
+                    requestDispatcher = request.getRequestDispatcher("app/reports/toBudgetPlan.jsp");
+                    requestDispatcher.forward(request, response);
+                }
+                case "BudgetPlanReport": {
+                    String acc = request.getParameter("accountId").trim();
+                    System.out.println("....."+acc);
+                    String[] arr = acc.split("-");
+                    String name = arr[1];
+                    System.out.println("account name.."+name);
+//                    List<Account> account = reportdao.getAccountsByCompany(company);
+                    request.setAttribute("name", name);
+                    requestDispatcher = request.getRequestDispatcher("app/reports/BudgetPlanReport.jsp");
+                    requestDispatcher.forward(request, response);
+                }
             }
         }
     }

@@ -469,6 +469,7 @@
                             <li><a href="${context}/Report?action=ViewCreateBalanceSheet">Balance Sheet</a></li>
                                 <%}%>
                             <li><a href="${context}/Report?action=LoadCCPRpage">Credit Card Payment Report</a></li>
+                            <li><a href="${context}/Report?action=loadBPR">Budget Plan Report</a></li>
                         </ul>
                     </li>
                     <%}%>
