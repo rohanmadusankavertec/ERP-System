@@ -6,6 +6,7 @@
 package com.vertec.daoimpl;
 
 
+import com.vertec.hibe.model.BudgetPlan;
 import com.vertec.hibe.model.Company;
 import com.vertec.hibe.model.CompanyGroup;
 import com.vertec.hibe.model.GtnInfo;
@@ -47,6 +48,40 @@ public class CompanyDAOImpl {
         }
         return null;
     }
+    
+    
+    
+    public String updateBudgetPlan(BudgetPlan bp,Company com) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        if (session != null) {
+            try {
+
+                Query query = session.createQuery("UPDATE BudgetPlan as b set b.value=:val WHERE b.companyId=:com AND b.month=:month AND b.year=:year");
+
+                query.setParameter("com", com);
+                query.setParameter("month", bp.getMonth());
+                query.setParameter("year", bp.getYear());
+                query.setParameter("val", bp.getValue());
+                query.executeUpdate();
+                transaction.commit();
+                return VertecConstants.SUCCESS;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return VertecConstants.ERROR;
+            } finally {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
+        }
+        return null;
+    }
+    
+    
+    
+    
     public CompanyGroup viewCompanyGroup(int id){
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
