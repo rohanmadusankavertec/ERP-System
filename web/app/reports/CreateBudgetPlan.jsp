@@ -13,7 +13,7 @@
 <script type="text/javascript">
 
     function fieldsVisibility() {
-
+        clearFields();
         var acc = document.getElementById("account").value;
         var year = document.getElementById("year").value;
         var fields = document.getElementById("monthsFields");
@@ -28,7 +28,6 @@
                 {
                     var reply = eval('(' + xmlHttp.responseText + ')');
                     var arr = reply.bp;
-
                     for (var i = 1; i < 13; i++) {
                         var bool = true;
                         for (var f = 0; arr.length > f; f++) {
@@ -40,11 +39,9 @@
                                 bool = false;
                             }
                         }
-
                         if (bool) {
                             document.getElementById("save" + i).className = "btn btn-success";
                             document.getElementById("update" + i).className = "hidden";
-
                         }
                     }
                     fields.className = "";
@@ -112,6 +109,13 @@
 
     }
 
+    function clearFields() {
+        for (var i = 1; i < 13; i++) {
+            document.getElementById("val" + i).value = "";
+
+        }
+
+    }
 
 </script>
 
