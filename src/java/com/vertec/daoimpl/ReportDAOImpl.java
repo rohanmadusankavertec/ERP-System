@@ -1109,7 +1109,7 @@ public class ReportDAOImpl {
         if (session != null) {
             try {
                 Query query = session.createQuery("SELECT p FROM Payment p WHERE p.paymentTypeId.ptId=:type AND p.paymentDate BETWEEN :fdate AND :tdate");
-//                Query query1 = session.createQuery("SELECT p FROM InvoicePayment p WHERE p.paymentId.paymentId:type");
+//                Query query1 = session.createQuery("SELECT p FROM InvoicePayment p WHERE p.paymentId.paymentId:type AND p.invoiceId.companyId=:");
                 query.setParameter("type",3);
                 query.setParameter("fdate",fd);
                 query.setParameter("tdate",td);
