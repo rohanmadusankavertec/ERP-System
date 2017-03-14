@@ -4,6 +4,7 @@
     Author     : vertec-r
 --%>
 
+<%@page import="com.vertec.hibe.model.Company"%>
 <%@page import="com.vertec.hibe.model.SystemData"%>
 <%@page import="com.vertec.hibe.model.InvoicePayment"%>
 <%@page import="com.vertec.hibe.model.Payment"%>
@@ -36,13 +37,17 @@
     </head>
     <body onload="window.print();">
     <center>
-        <h1>Ledger Accounts</h1>
+        <h1>Credit Card Payment Report</h1>
         <%
             Session ses = NewHibernateUtil.getSessionFactory().openSession();
-            List<Payment> payment = (List<Payment>) request.getAttribute("account");
-            Date from = (Date) request.getAttribute("from");
-            Date to = (Date) request.getAttribute("to");
+            List<Payment> payment = (List<Payment>) request.getAttribute("plist");
+            Date from = (Date) request.getAttribute("fd");
+            Date to = (Date) request.getAttribute("td");
             SystemData sd = (SystemData)request.getAttribute("sysData");
+            Company com = (Company)request.getAttribute("company");
+            System.out.println("call me1......."+from);
+            System.out.println("call me1......."+to);
+            
         %>
 
         <h5>(Calculated Date <%=new Date()%>)</h5>
@@ -57,7 +62,7 @@
 
             
 
-            <div style="width: 50%; float: left;">
+            <div style="width: 80%;">
                 <h3><span style="float: left;">Debit</span></h3>
                 <table style="width: 100%;border: 1px solid black;" >
                     <thead>
@@ -72,11 +77,19 @@
                     </thead>
                     <tbody>
                         <%
-                            for (Payment p : payment) {
-                                Query query = ses.createQuery("SELECT i FROM InvoicePayment i WHERE i.paymentId.paymentId =:pid");
+                            System.out.println("call me.......99999999");
+                            for (Payment p: payment) {
+                                System.out.println(p.getPaymentId());
+                                Query query = ses.createQuery("SELECT i FROM InvoicePayment i WHERE i.paymentId.paymentId =:pid AND i.invoiceId.companyId=:com ");
                                 query.setParameter("pid", p.getPaymentId());
+                                query.setParameter("com", com);
+                                List<InvoicePayment> inp = (List<InvoicePayment>)query.list();
+                                System.out.println(inp);
+                                        
+                                if(!inp.isEmpty()){
                                 InvoicePayment ip = (InvoicePayment)query.uniqueResult();
-                        
+                                
+                                
                         
                         %>
                         <tr style="font-size: 12px;">
@@ -88,7 +101,7 @@
                             <td><%=p.getAmount()*(sd.getValue()/100) %></td>
                             
                         </tr>
-                        <%}%>
+                        <%}}%>
                         
                     </tbody>
                 </table>

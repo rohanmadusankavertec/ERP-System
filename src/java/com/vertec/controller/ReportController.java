@@ -639,24 +639,32 @@ public class ReportController extends HttpServlet {
                 case "CCPReport": {
                     String fdate = request.getParameter("from").trim();
                     String tdate = request.getParameter("to").trim();
-                    Date fd = null;
-                    Date td = null;
+                    System.out.println("........."+fdate);
+                    System.out.println("........."+tdate);
+//                    Date fd = null;
+//                    Date td = null;
                     try {
                         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-                        fd = sd.parse(fdate);
-                        td = sd.parse(tdate);
+                        Date fd = sd.parse(fdate);
+                        Date td = sd.parse(tdate);
 
-                    } catch (Exception e) {
-                    }
+
+                    
 
                     List<Payment> pList = reportdao.getCreditCardPayment(fd, td);
                     SystemData sysData = reportdao.getCreditCardRate();
                     request.setAttribute("plist", pList);
+                    System.out.println(".........date...."+fd);
                     request.setAttribute("fd", fd);
+                    System.out.println(".........date...."+td);
                     request.setAttribute("td", td);
                     request.setAttribute("sysData", sysData);
+                    request.setAttribute("company", company);
                     requestDispatcher = request.getRequestDispatcher("app/reports/CreditCardReport.jsp");
                     requestDispatcher.forward(request, response);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
                 }
 
