@@ -721,7 +721,7 @@ public class ReportController extends HttpServlet {
                     b.setYear(year);
                     b.setValue(Double.parseDouble(value));
 
-                    String s = new Save().Save(b);
+                    String s = reportDAOImpl.updateBudgetPlan(b, company);
                     response.getWriter().write(s);
                     break;
                 }
