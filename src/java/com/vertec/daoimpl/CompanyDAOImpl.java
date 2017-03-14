@@ -6,6 +6,7 @@
 package com.vertec.daoimpl;
 
 
+import com.vertec.hibe.model.BudgetPlan;
 import com.vertec.hibe.model.Company;
 import com.vertec.hibe.model.CompanyGroup;
 import com.vertec.hibe.model.GtnInfo;
@@ -47,6 +48,14 @@ public class CompanyDAOImpl {
         }
         return null;
     }
+    
+    
+    
+    
+    
+    
+    
+    
     public CompanyGroup viewCompanyGroup(int id){
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();

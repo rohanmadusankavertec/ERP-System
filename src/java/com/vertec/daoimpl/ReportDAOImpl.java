@@ -28,6 +28,7 @@ import com.vertec.hibe.model.StockReturn;
 import com.vertec.hibe.model.SystemData;
 import com.vertec.hibe.model.Transaction;
 import com.vertec.util.NewHibernateUtil;
+import com.vertec.util.VertecConstants;
 import com.vertec.util.test;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -1164,7 +1165,33 @@ public class ReportDAOImpl {
         }
         return null;
     }
-    
+    public String updateBudgetPlan(BudgetPlan bp,Company com) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        org.hibernate.Transaction transaction = session.beginTransaction();
+        if (session != null) {
+            try {
+
+                Query query = session.createQuery("UPDATE BudgetPlan as b set b.value=:val WHERE b.companyId=:com AND b.month=:month AND b.year=:year");
+
+                query.setParameter("com", com);
+                query.setParameter("month", bp.getMonth());
+                query.setParameter("year", bp.getYear());
+                query.setParameter("val", bp.getValue());
+                query.executeUpdate();
+                transaction.commit();
+                return VertecConstants.SUCCESS;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return VertecConstants.ERROR;
+            } finally {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
+        }
+        return null;
+    }
     
 
     public List<Bin> GetBin(BranchProductmaster bpm, Branch branch) {
@@ -1301,4 +1328,5 @@ class CompDate implements Comparator<Bin> {
     public int compare(Bin arg0, Bin arg1) {
         return mod * arg0.getDate().compareTo(arg1.getDate());
     }
+    
 }
