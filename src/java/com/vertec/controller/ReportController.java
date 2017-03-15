@@ -41,6 +41,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -732,13 +733,35 @@ public class ReportController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                 }
                 case "BudgetPlanReport": {
+                    int year = Year.now().getValue();
+                    int year1 = year-1;
+                    int year2 = year-2;
+                    String y1 = Integer.toString(year);
+                    String y2 = Integer.toString(year1);
+                    String y3 = Integer.toString(year2);
                     String acc = request.getParameter("accountId").trim();
-                    System.out.println("....."+acc);
                     String[] arr = acc.split("-");
                     String name = arr[1];
-                    System.out.println("account name.."+name);
-//                    List<Account> account = reportdao.getAccountsByCompany(company);
+                    String accid = arr[0];
                     request.setAttribute("name", name);
+                    request.setAttribute("accid", accid);
+                    request.setAttribute("company", company);
+//                    List<Object> valueList = reportdao.getBudgetOfYear(company, Integer.parseInt(accid));
+//                    for (Object list : valueList) {
+//                        System.out.println(list[0].toString());
+//                    }
+//                    for(int i=0; i<valueList.size();i++){
+//                        System.out.println("val....."+valueList.get(i));
+//                    }
+                    double tot1 = reportdao.getBudgetOfYear(company, Integer.parseInt(accid),y1);
+                    double tot2 = reportdao.getBudgetOfYear(company, Integer.parseInt(accid), y2);
+                    double tot3 = reportdao.getBudgetOfYear(company, Integer.parseInt(accid), y3);
+                    System.out.println("year  :"+year+"total value-------:"+tot1);
+                    System.out.println("year  :"+year1+"total value-------:"+tot2);
+                    System.out.println("year  :"+year2+"total value-------:"+tot3);
+                    request.setAttribute("tot1", tot1);
+                    request.setAttribute("tot2", tot2);
+                    request.setAttribute("tot3", tot3);
                     requestDispatcher = request.getRequestDispatcher("app/reports/BudgetPlanReport.jsp");
                     requestDispatcher.forward(request, response);
                 }

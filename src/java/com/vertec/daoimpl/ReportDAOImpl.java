@@ -1146,6 +1146,32 @@ public class ReportDAOImpl {
         }
         return null;
     }
+    
+    public double getBudgetOfYear(Company com,int accid,String year){
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        if(session != null){
+            try {
+                Query query = session.createQuery("SELECT SUM(s.value)FROM BudgetPlan s WHERE s.accountId.id=:accId AND s.companyId=:com AND s.year=:year");
+//                Query query = session.createQuery("SELECT SUM(s.value),s.year FROM BudgetPlan s WHERE s.accountId.id=:accId AND s.companyId=:com GROUP BY s.year");
+                query.setParameter("com", com);
+                query.setParameter("accId", accid);
+                query.setParameter("year", year);
+                double value =(double) query.uniqueResult();
+                System.out.println("/////////"+value);
+                return value;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
+                if(session != null && session.isOpen()){
+                    session.close();
+                }
+            }
+        }
+        
+        return 0.0;
+    }
+    
     public SystemData getCreditCardRate() {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         if (session != null) {
