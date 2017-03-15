@@ -748,7 +748,7 @@ public class ReportController extends HttpServlet {
                     request.setAttribute("company", company);
                     List<Object[]> valueList = reportdao.getBudgetOfYear1(company, Integer.parseInt(accid));
                     for (Object[] list : valueList) {
-                        System.out.println(list[0].toString()+"...."+list[1].toString());
+//                        System.out.println(list[0].toString()+"...."+list[1].toString());
                         int k = Integer.parseInt(list[1].toString());
                         if(year == k){
                             request.setAttribute("yy",list[0].toString() );

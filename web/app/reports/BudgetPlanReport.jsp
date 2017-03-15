@@ -52,8 +52,8 @@
             
             String name = (String)request.getAttribute("name");
             String id = (String)request.getAttribute("accid");
-            System.out.println("account id........"+name);
-            System.out.println("account id........"+id);
+//            System.out.println("account id........"+name);
+//            System.out.println("account id........"+id);
 //            List<Object> valuelist = (List<Object>) request.getAttribute("valueList");
             Company com = (Company)request.getAttribute("company");
 //            double tot1 = (double)request.getAttribute("tot1");
@@ -115,7 +115,7 @@
                                 if(!paln1.isEmpty()){
                                     
                                     BudgetPlan bu=(BudgetPlan)query.uniqueResult();
-                                    System.out.println(".....current Year : "+bu.getYear()+"month : "+bu.getMonth()+" value : "+bu.getValue() );
+//                                    System.out.println(".....current Year : "+bu.getYear()+"month : "+bu.getMonth()+" value : "+bu.getValue() );
                                     out.write(Double.toString(bu.getValue()));
                                 }
                                 
