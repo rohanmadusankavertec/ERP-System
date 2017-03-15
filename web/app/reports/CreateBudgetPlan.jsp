@@ -70,8 +70,8 @@
             if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
             {
                 var reply = xmlHttp.responseText;
-                alert(reply);
-                if (reply === "success") {
+//                alert(reply);
+                if (reply === "Success") {
                     fieldsVisibility();
                 } else {
                     sm_warning("Something went wronge...");
@@ -93,8 +93,8 @@
             if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
             {
                 var reply = xmlHttp.responseText;
-                alert(reply);
-                if (reply === "success") {
+//                alert(reply);
+                if (reply === "Success") {
                     fieldsVisibility();
                 } else {
                     sm_warning("Something went wronge...");
