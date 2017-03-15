@@ -56,9 +56,12 @@
             System.out.println("account id........"+id);
 //            List<Object> valuelist = (List<Object>) request.getAttribute("valueList");
             Company com = (Company)request.getAttribute("company");
-            double tot1 = (double)request.getAttribute("tot1");
-            double tot2 = (double)request.getAttribute("tot2");
-            double tot3 = (double)request.getAttribute("tot3");
+//            double tot1 = (double)request.getAttribute("tot1");
+//            double tot2 = (double)request.getAttribute("tot2");
+//            double tot3 = (double)request.getAttribute("tot3");
+            String tot1 = (String)request.getAttribute("yy");
+            String tot2 = (String)request.getAttribute("yyy");
+            String tot3 = (String)request.getAttribute("yyyy");
         %>
 
         <h5>(Calculated Date <%=new Date()%>)</h5>

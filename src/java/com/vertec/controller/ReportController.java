@@ -746,22 +746,30 @@ public class ReportController extends HttpServlet {
                     request.setAttribute("name", name);
                     request.setAttribute("accid", accid);
                     request.setAttribute("company", company);
-//                    List<Object> valueList = reportdao.getBudgetOfYear(company, Integer.parseInt(accid));
-//                    for (Object list : valueList) {
-//                        System.out.println(list[0].toString());
-//                    }
+                    List<Object[]> valueList = reportdao.getBudgetOfYear1(company, Integer.parseInt(accid));
+                    for (Object[] list : valueList) {
+                        System.out.println(list[0].toString()+"...."+list[1].toString());
+                        int k = Integer.parseInt(list[1].toString());
+                        if(year == k){
+                            request.setAttribute("yy",list[0].toString() );
+                        }else if(year1 == k){
+                            request.setAttribute("yyy",list[0].toString() );
+                        }else if(year2 == k){
+                            request.setAttribute("yyyy",list[0].toString() );
+                        }
+                    }
 //                    for(int i=0; i<valueList.size();i++){
 //                        System.out.println("val....."+valueList.get(i));
 //                    }
-                    double tot1 = reportdao.getBudgetOfYear(company, Integer.parseInt(accid),y1);
-                    double tot2 = reportdao.getBudgetOfYear(company, Integer.parseInt(accid), y2);
-                    double tot3 = reportdao.getBudgetOfYear(company, Integer.parseInt(accid), y3);
-                    System.out.println("year  :"+year+"total value-------:"+tot1);
-                    System.out.println("year  :"+year1+"total value-------:"+tot2);
-                    System.out.println("year  :"+year2+"total value-------:"+tot3);
-                    request.setAttribute("tot1", tot1);
-                    request.setAttribute("tot2", tot2);
-                    request.setAttribute("tot3", tot3);
+//                    double tot1 = reportdao.getBudgetOfYear(company, Integer.parseInt(accid),y1);
+//                    double tot2 = reportdao.getBudgetOfYear(company, Integer.parseInt(accid), y2);
+//                    double tot3 = reportdao.getBudgetOfYear(company, Integer.parseInt(accid), y3);
+//                    System.out.println("year  :"+year+"total value-------:"+tot1);
+//                    System.out.println("year  :"+year1+"total value-------:"+tot2);
+//                    System.out.println("year  :"+year2+"total value-------:"+tot3);
+//                    request.setAttribute("tot1", tot1);
+//                    request.setAttribute("tot2", tot2);
+//                    request.setAttribute("tot3", tot3);
                     requestDispatcher = request.getRequestDispatcher("app/reports/BudgetPlanReport.jsp");
                     requestDispatcher.forward(request, response);
                 }
