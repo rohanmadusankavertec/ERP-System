@@ -81,10 +81,10 @@
                 <table style="width: 100%;border: 1px solid black;" >
                     <thead>
                         <tr>
-                            <td>Month</td>
-                            <td><%=year%></td>
-                            <td><%=year1%></td>
-                            <td><%=year2%></td>
+                            <td><strong>Month</strong></td>
+                            <td><strong><%=year%></strong></td>
+                            <td><strong><%=year1%></strong></td>
+                            <td><strong><%=year2%></strong></td>
                             
                             
                         </tr>
